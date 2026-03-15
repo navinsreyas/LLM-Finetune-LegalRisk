@@ -1,0 +1,1097 @@
+{
+  "metadata": {
+    "phase": "3C",
+    "description": "Statistical comparison of 4 LLM training methods",
+    "methods": [
+      "qlora",
+      "dora",
+      "ia3",
+      "rag"
+    ],
+    "n_examples_per_method": {
+      "qlora": 107,
+      "dora": 107,
+      "ia3": 107,
+      "rag": 107
+    },
+    "n_predictions_per_method": {
+      "qlora": 107,
+      "dora": 107,
+      "ia3": 107,
+      "rag": 107
+    }
+  },
+  "descriptive_stats": {
+    "qlora": {
+      "overall": {
+        "n": 107,
+        "mean": 6.6743,
+        "std": 1.2575,
+        "min": 3.65,
+        "q25": 5.95,
+        "median": 6.45,
+        "q75": 7.675,
+        "max": 8.9
+      },
+      "accuracy": {
+        "n": 107,
+        "mean": 6.2991,
+        "std": 2.703,
+        "min": 2.0,
+        "q25": 4.0,
+        "median": 6.0,
+        "q75": 9.0,
+        "max": 10.0
+      },
+      "completeness": {
+        "n": 107,
+        "mean": 6.0,
+        "std": 1.6368,
+        "min": 1.0,
+        "q25": 6.0,
+        "median": 6.0,
+        "q75": 7.0,
+        "max": 10.0
+      },
+      "legal_reasoning": {
+        "n": 107,
+        "mean": 6.6822,
+        "std": 1.2559,
+        "min": 3.0,
+        "q25": 6.0,
+        "median": 7.0,
+        "q75": 7.5,
+        "max": 9.0
+      },
+      "clarity": {
+        "n": 107,
+        "mean": 8.0374,
+        "std": 0.5482,
+        "min": 7.0,
+        "q25": 8.0,
+        "median": 8.0,
+        "q75": 8.0,
+        "max": 9.0
+      },
+      "actionability": {
+        "n": 107,
+        "mean": 6.8224,
+        "std": 0.9887,
+        "min": 4.0,
+        "q25": 6.0,
+        "median": 7.0,
+        "q75": 7.0,
+        "max": 9.0
+      }
+    },
+    "dora": {
+      "overall": {
+        "n": 107,
+        "mean": 6.6888,
+        "std": 1.3011,
+        "min": 3.9,
+        "q25": 5.95,
+        "median": 6.45,
+        "q75": 7.675,
+        "max": 9.1
+      },
+      "accuracy": {
+        "n": 107,
+        "mean": 6.2617,
+        "std": 2.7415,
+        "min": 2.0,
+        "q25": 4.0,
+        "median": 6.0,
+        "q75": 9.0,
+        "max": 10.0
+      },
+      "completeness": {
+        "n": 107,
+        "mean": 6.0467,
+        "std": 1.6505,
+        "min": 2.0,
+        "q25": 6.0,
+        "median": 6.0,
+        "q75": 7.0,
+        "max": 10.0
+      },
+      "legal_reasoning": {
+        "n": 107,
+        "mean": 6.7009,
+        "std": 1.3119,
+        "min": 3.0,
+        "q25": 6.0,
+        "median": 7.0,
+        "q75": 8.0,
+        "max": 9.0
+      },
+      "clarity": {
+        "n": 107,
+        "mean": 8.0935,
+        "std": 0.6071,
+        "min": 7.0,
+        "q25": 8.0,
+        "median": 8.0,
+        "q75": 8.0,
+        "max": 9.0
+      },
+      "actionability": {
+        "n": 107,
+        "mean": 6.8318,
+        "std": 1.0046,
+        "min": 4.0,
+        "q25": 6.0,
+        "median": 7.0,
+        "q75": 7.5,
+        "max": 9.0
+      }
+    },
+    "ia3": {
+      "overall": {
+        "n": 107,
+        "mean": 6.4467,
+        "std": 1.4651,
+        "min": 1.0,
+        "q25": 5.4,
+        "median": 6.4,
+        "q75": 7.575,
+        "max": 9.3
+      },
+      "accuracy": {
+        "n": 107,
+        "mean": 6.3832,
+        "std": 2.7563,
+        "min": 1.0,
+        "q25": 4.0,
+        "median": 6.0,
+        "q75": 9.0,
+        "max": 10.0
+      },
+      "completeness": {
+        "n": 107,
+        "mean": 5.6542,
+        "std": 1.7162,
+        "min": 1.0,
+        "q25": 4.0,
+        "median": 6.0,
+        "q75": 7.0,
+        "max": 10.0
+      },
+      "legal_reasoning": {
+        "n": 107,
+        "mean": 6.2336,
+        "std": 1.5332,
+        "min": 1.0,
+        "q25": 5.0,
+        "median": 7.0,
+        "q75": 7.0,
+        "max": 9.0
+      },
+      "clarity": {
+        "n": 107,
+        "mean": 7.8411,
+        "std": 0.9432,
+        "min": 1.0,
+        "q25": 7.0,
+        "median": 8.0,
+        "q75": 8.0,
+        "max": 9.0
+      },
+      "actionability": {
+        "n": 107,
+        "mean": 6.5701,
+        "std": 1.1583,
+        "min": 1.0,
+        "q25": 6.0,
+        "median": 7.0,
+        "q75": 7.0,
+        "max": 9.0
+      }
+    },
+    "rag": {
+      "overall": {
+        "n": 107,
+        "mean": 6.4888,
+        "std": 1.8718,
+        "min": 1.0,
+        "q25": 5.675,
+        "median": 6.8,
+        "q75": 7.8,
+        "max": 9.25
+      },
+      "accuracy": {
+        "n": 107,
+        "mean": 6.5047,
+        "std": 2.7313,
+        "min": 1.0,
+        "q25": 4.0,
+        "median": 7.0,
+        "q75": 9.0,
+        "max": 10.0
+      },
+      "completeness": {
+        "n": 107,
+        "mean": 5.9159,
+        "std": 2.0287,
+        "min": 1.0,
+        "q25": 4.0,
+        "median": 6.0,
+        "q75": 7.0,
+        "max": 9.0
+      },
+      "legal_reasoning": {
+        "n": 107,
+        "mean": 6.3458,
+        "std": 1.8889,
+        "min": 1.0,
+        "q25": 5.0,
+        "median": 7.0,
+        "q75": 8.0,
+        "max": 9.0
+      },
+      "clarity": {
+        "n": 107,
+        "mean": 7.4486,
+        "std": 1.8235,
+        "min": 1.0,
+        "q25": 7.0,
+        "median": 8.0,
+        "q75": 8.0,
+        "max": 9.0
+      },
+      "actionability": {
+        "n": 107,
+        "mean": 6.5047,
+        "std": 1.819,
+        "min": 1.0,
+        "q25": 6.0,
+        "median": 7.0,
+        "q75": 8.0,
+        "max": 9.0
+      }
+    }
+  },
+  "normality_tests": {
+    "qlora": {
+      "statistic": 0.973,
+      "p_value": 0.028038,
+      "is_normal": false,
+      "interpretation": "NOT normally distributed (p <= 0.05) — use non-parametric tests"
+    },
+    "dora": {
+      "statistic": 0.968,
+      "p_value": 0.010972,
+      "is_normal": false,
+      "interpretation": "NOT normally distributed (p <= 0.05) — use non-parametric tests"
+    },
+    "ia3": {
+      "statistic": 0.9647,
+      "p_value": 0.006023,
+      "is_normal": false,
+      "interpretation": "NOT normally distributed (p <= 0.05) — use non-parametric tests"
+    },
+    "rag": {
+      "statistic": 0.8864,
+      "p_value": 0.0,
+      "is_normal": false,
+      "interpretation": "NOT normally distributed (p <= 0.05) — use non-parametric tests"
+    }
+  },
+  "kruskal_wallis": {
+    "overall": {
+      "statistic": 1.7715,
+      "p_value": 0.621163,
+      "significant": false,
+      "eta_squared": -0.0029,
+      "interpretation": "No significant difference detected (p >= 0.05)"
+    },
+    "per_dimension": {
+      "accuracy": {
+        "statistic": 0.4763,
+        "p_value": 0.924061,
+        "significant": false
+      },
+      "completeness": {
+        "statistic": 4.3183,
+        "p_value": 0.22908,
+        "significant": false
+      },
+      "legal_reasoning": {
+        "statistic": 4.8133,
+        "p_value": 0.185992,
+        "significant": false
+      },
+      "clarity": {
+        "statistic": 10.4734,
+        "p_value": 0.014943,
+        "significant": true
+      },
+      "actionability": {
+        "statistic": 2.7811,
+        "p_value": 0.426622,
+        "significant": false
+      }
+    }
+  },
+  "pairwise_mann_whitney": {
+    "qlora_vs_dora": {
+      "u_statistic": 5737.0,
+      "p_value_raw": 0.978852,
+      "p_value_bonferroni": 1.0,
+      "significant_raw": false,
+      "significant_bonferroni": false,
+      "effect_size_r": -0.0022,
+      "effect_size_label": "negligible",
+      "winner": "dora",
+      "mean_diff": -0.0145
+    },
+    "qlora_vs_ia3": {
+      "u_statistic": 6225.5,
+      "p_value_raw": 0.268952,
+      "p_value_bonferroni": 1.0,
+      "significant_raw": false,
+      "significant_bonferroni": false,
+      "effect_size_r": -0.0875,
+      "effect_size_label": "negligible",
+      "winner": "qlora",
+      "mean_diff": 0.2276
+    },
+    "qlora_vs_rag": {
+      "u_statistic": 5629.0,
+      "p_value_raw": 0.833831,
+      "p_value_bonferroni": 1.0,
+      "significant_raw": false,
+      "significant_bonferroni": false,
+      "effect_size_r": 0.0167,
+      "effect_size_label": "negligible",
+      "winner": "qlora",
+      "mean_diff": 0.1855
+    },
+    "dora_vs_ia3": {
+      "u_statistic": 6236.5,
+      "p_value_raw": 0.258434,
+      "p_value_bonferroni": 1.0,
+      "significant_raw": false,
+      "significant_bonferroni": false,
+      "effect_size_r": -0.0894,
+      "effect_size_label": "negligible",
+      "winner": "dora",
+      "mean_diff": 0.2421
+    },
+    "dora_vs_rag": {
+      "u_statistic": 5662.0,
+      "p_value_raw": 0.891082,
+      "p_value_bonferroni": 1.0,
+      "significant_raw": false,
+      "significant_bonferroni": false,
+      "effect_size_r": 0.0109,
+      "effect_size_label": "negligible",
+      "winner": "dora",
+      "mean_diff": 0.2
+    },
+    "ia3_vs_rag": {
+      "u_statistic": 5269.0,
+      "p_value_raw": 0.314843,
+      "p_value_bonferroni": 1.0,
+      "significant_raw": false,
+      "significant_bonferroni": false,
+      "effect_size_r": 0.0796,
+      "effect_size_label": "negligible",
+      "winner": "rag",
+      "mean_diff": -0.0421
+    }
+  },
+  "json_parse_analysis": {
+    "per_method": {
+      "qlora": {
+        "n_total": 107,
+        "n_success": 107,
+        "n_failure": 0,
+        "success_rate": 1.0
+      },
+      "dora": {
+        "n_total": 107,
+        "n_success": 107,
+        "n_failure": 0,
+        "success_rate": 1.0
+      },
+      "ia3": {
+        "n_total": 107,
+        "n_success": 106,
+        "n_failure": 1,
+        "success_rate": 0.9907
+      },
+      "rag": {
+        "n_total": 107,
+        "n_success": 101,
+        "n_failure": 6,
+        "success_rate": 0.9439
+      }
+    },
+    "chi_square_test": {
+      "statistic": 14.378,
+      "p_value": 0.002433,
+      "dof": 3,
+      "significant": true,
+      "interpretation": "Parse success rates are significantly different (p < 0.05)"
+    }
+  },
+  "risk_level_accuracy": {
+    "qlora": {
+      "n_evaluated": 107,
+      "exact_match_rate": 0.4579,
+      "off_by_one_rate": 0.9252,
+      "off_by_two_rate": 0.972,
+      "top_confusions": {
+        "medium→low": 26,
+        "medium→medium": 22,
+        "low→low": 16,
+        "medium→high": 11,
+        "high→high": 10,
+        "high→medium": 9,
+        "high→low": 5,
+        "critical→high": 3
+      }
+    },
+    "dora": {
+      "n_evaluated": 107,
+      "exact_match_rate": 0.4486,
+      "off_by_one_rate": 0.9346,
+      "off_by_two_rate": 0.9813,
+      "top_confusions": {
+        "medium→low": 26,
+        "medium→medium": 20,
+        "low→low": 16,
+        "medium→high": 13,
+        "high→high": 10,
+        "high→medium": 9,
+        "high→low": 5,
+        "critical→high": 3
+      }
+    },
+    "ia3": {
+      "n_evaluated": 106,
+      "exact_match_rate": 0.4811,
+      "off_by_one_rate": 0.9434,
+      "off_by_two_rate": 0.9811,
+      "top_confusions": {
+        "medium→medium": 31,
+        "high→medium": 18,
+        "medium→low": 15,
+        "low→low": 14,
+        "medium→high": 10,
+        "high→high": 5,
+        "critical→high": 3,
+        "low→medium": 2
+      }
+    },
+    "rag": {
+      "n_evaluated": 101,
+      "exact_match_rate": 0.5545,
+      "off_by_one_rate": 0.9604,
+      "off_by_two_rate": 1.0,
+      "top_confusions": {
+        "medium→medium": 29,
+        "medium→high": 17,
+        "low→low": 13,
+        "high→high": 13,
+        "medium→low": 9,
+        "high→medium": 7,
+        "critical→high": 5,
+        "low→medium": 3
+      }
+    }
+  },
+  "latency_analysis": {
+    "qlora": {
+      "n": 107,
+      "mean": 15.8911,
+      "std": 4.1722,
+      "min": 11.0644,
+      "q25": 13.7663,
+      "median": 15.1097,
+      "q75": 16.4135,
+      "max": 34.9184,
+      "total_seconds": 1700.3,
+      "unit": "seconds"
+    },
+    "dora": {
+      "n": 107,
+      "mean": 83.8312,
+      "std": 9.1622,
+      "min": 63.8652,
+      "q25": 77.6798,
+      "median": 82.821,
+      "q75": 90.1946,
+      "max": 108.2625,
+      "total_seconds": 8969.9,
+      "unit": "seconds"
+    },
+    "ia3": {
+      "n": 107,
+      "mean": 21.8076,
+      "std": 9.8916,
+      "min": 5.5712,
+      "q25": 12.8149,
+      "median": 23.3502,
+      "q75": 28.8348,
+      "max": 42.1675,
+      "total_seconds": 2333.4,
+      "unit": "seconds"
+    },
+    "rag": {
+      "n": 107,
+      "mean": 11.1306,
+      "std": 4.7219,
+      "min": 5.7094,
+      "q25": 7.7088,
+      "median": 9.3282,
+      "q75": 14.5004,
+      "max": 37.339,
+      "total_seconds": 1191.0,
+      "unit": "seconds"
+    },
+    "kruskal_wallis": {
+      "statistic": 285.7299,
+      "p_value": 0.0,
+      "significant": true
+    }
+  },
+  "per_category_stats": {
+    "per_method": {
+      "qlora": {
+        "confidentiality": {
+          "n": 6,
+          "mean": 7.3417,
+          "std": 1.3036,
+          "min": 5.9,
+          "q25": 6.35,
+          "median": 7.125,
+          "q75": 8.4625,
+          "max": 8.9
+        },
+        "governing_law": {
+          "n": 20,
+          "mean": 6.6875,
+          "std": 1.4092,
+          "min": 3.65,
+          "q25": 6.05,
+          "median": 6.325,
+          "q75": 7.7875,
+          "max": 8.9
+        },
+        "indemnification": {
+          "n": 4,
+          "mean": 7.0,
+          "std": 2.1381,
+          "min": 3.85,
+          "q25": 6.5875,
+          "median": 7.85,
+          "q75": 8.2625,
+          "max": 8.45
+        },
+        "ip": {
+          "n": 19,
+          "mean": 6.6395,
+          "std": 0.8964,
+          "min": 5.25,
+          "q25": 5.85,
+          "median": 7.05,
+          "q75": 7.275,
+          "max": 8.0
+        },
+        "liability": {
+          "n": 20,
+          "mean": 6.0125,
+          "std": 1.2661,
+          "min": 3.9,
+          "q25": 5.25,
+          "median": 6.0,
+          "q75": 6.8,
+          "max": 8.75
+        },
+        "non_compete": {
+          "n": 20,
+          "mean": 7.0325,
+          "std": 1.268,
+          "min": 3.85,
+          "q25": 6.3125,
+          "median": 7.225,
+          "q75": 8.0125,
+          "max": 8.9
+        },
+        "termination": {
+          "n": 18,
+          "mean": 6.7389,
+          "std": 1.0202,
+          "min": 4.8,
+          "q25": 6.2,
+          "median": 6.7,
+          "q75": 7.4125,
+          "max": 8.45
+        }
+      },
+      "dora": {
+        "confidentiality": {
+          "n": 6,
+          "mean": 7.175,
+          "std": 1.202,
+          "min": 5.9,
+          "q25": 6.35,
+          "median": 6.775,
+          "q75": 8.175,
+          "max": 8.75
+        },
+        "governing_law": {
+          "n": 20,
+          "mean": 6.78,
+          "std": 1.5276,
+          "min": 3.9,
+          "q25": 6.0,
+          "median": 6.35,
+          "q75": 8.3625,
+          "max": 8.9
+        },
+        "indemnification": {
+          "n": 4,
+          "mean": 8.25,
+          "std": 0.1871,
+          "min": 8.05,
+          "q25": 8.1625,
+          "median": 8.225,
+          "q75": 8.3125,
+          "max": 8.5
+        },
+        "ip": {
+          "n": 19,
+          "mean": 6.8263,
+          "std": 1.1764,
+          "min": 4.1,
+          "q25": 6.2,
+          "median": 7.05,
+          "q75": 7.275,
+          "max": 8.9
+        },
+        "liability": {
+          "n": 20,
+          "mean": 6.115,
+          "std": 1.2867,
+          "min": 4.4,
+          "q25": 5.3875,
+          "median": 6.0,
+          "q75": 6.5375,
+          "max": 9.1
+        },
+        "non_compete": {
+          "n": 20,
+          "mean": 6.67,
+          "std": 1.3206,
+          "min": 4.6,
+          "q25": 5.9375,
+          "median": 6.725,
+          "q75": 7.5875,
+          "max": 8.9
+        },
+        "termination": {
+          "n": 18,
+          "mean": 6.5917,
+          "std": 1.0801,
+          "min": 4.25,
+          "q25": 5.9,
+          "median": 6.575,
+          "q75": 7.3,
+          "max": 8.45
+        }
+      },
+      "ia3": {
+        "confidentiality": {
+          "n": 6,
+          "mean": 7.2833,
+          "std": 1.7716,
+          "min": 4.95,
+          "q25": 6.025,
+          "median": 7.35,
+          "q75": 8.7125,
+          "max": 9.3
+        },
+        "governing_law": {
+          "n": 20,
+          "mean": 6.85,
+          "std": 1.562,
+          "min": 4.1,
+          "q25": 5.925,
+          "median": 7.375,
+          "q75": 8.25,
+          "max": 8.5
+        },
+        "indemnification": {
+          "n": 4,
+          "mean": 7.7375,
+          "std": 0.7653,
+          "min": 6.8,
+          "q25": 7.2875,
+          "median": 7.825,
+          "q75": 8.275,
+          "max": 8.5
+        },
+        "ip": {
+          "n": 19,
+          "mean": 6.4684,
+          "std": 1.1452,
+          "min": 4.4,
+          "q25": 5.6,
+          "median": 6.45,
+          "q75": 7.325,
+          "max": 8.45
+        },
+        "liability": {
+          "n": 20,
+          "mean": 5.6075,
+          "std": 1.4888,
+          "min": 1.0,
+          "q25": 4.8625,
+          "median": 5.65,
+          "q75": 6.4875,
+          "max": 7.95
+        },
+        "non_compete": {
+          "n": 20,
+          "mean": 6.7,
+          "std": 1.3187,
+          "min": 3.55,
+          "q25": 6.0,
+          "median": 7.2,
+          "q75": 7.2375,
+          "max": 8.45
+        },
+        "termination": {
+          "n": 18,
+          "mean": 6.0611,
+          "std": 1.3891,
+          "min": 3.55,
+          "q25": 5.025,
+          "median": 5.95,
+          "q75": 7.1375,
+          "max": 8.45
+        }
+      },
+      "rag": {
+        "confidentiality": {
+          "n": 6,
+          "mean": 7.4167,
+          "std": 1.9382,
+          "min": 4.45,
+          "q25": 6.375,
+          "median": 7.75,
+          "q75": 8.975,
+          "max": 9.25
+        },
+        "governing_law": {
+          "n": 20,
+          "mean": 6.63,
+          "std": 1.3881,
+          "min": 3.65,
+          "q25": 6.0125,
+          "median": 6.6,
+          "q75": 7.6125,
+          "max": 8.85
+        },
+        "indemnification": {
+          "n": 4,
+          "mean": 8.45,
+          "std": 0.3291,
+          "min": 8.1,
+          "q25": 8.2125,
+          "median": 8.45,
+          "q75": 8.6875,
+          "max": 8.8
+        },
+        "ip": {
+          "n": 19,
+          "mean": 5.3947,
+          "std": 2.5873,
+          "min": 1.0,
+          "q25": 4.55,
+          "median": 6.1,
+          "q75": 7.325,
+          "max": 8.8
+        },
+        "liability": {
+          "n": 20,
+          "mean": 6.6425,
+          "std": 1.6257,
+          "min": 1.0,
+          "q25": 6.1125,
+          "median": 7.05,
+          "q75": 7.6125,
+          "max": 8.3
+        },
+        "non_compete": {
+          "n": 20,
+          "mean": 6.5175,
+          "std": 1.8723,
+          "min": 1.0,
+          "q25": 6.225,
+          "median": 6.8,
+          "q75": 7.8625,
+          "max": 8.65
+        },
+        "termination": {
+          "n": 18,
+          "mean": 6.5389,
+          "std": 1.4165,
+          "min": 3.75,
+          "q25": 5.5,
+          "median": 6.65,
+          "q75": 7.575,
+          "max": 9.05
+        }
+      }
+    },
+    "cross_method": {
+      "confidentiality": {
+        "qlora": {
+          "mean": 7.3417,
+          "n": 6
+        },
+        "dora": {
+          "mean": 7.175,
+          "n": 6
+        },
+        "ia3": {
+          "mean": 7.2833,
+          "n": 6
+        },
+        "rag": {
+          "mean": 7.4167,
+          "n": 6
+        }
+      },
+      "governing_law": {
+        "qlora": {
+          "mean": 6.6875,
+          "n": 20
+        },
+        "dora": {
+          "mean": 6.78,
+          "n": 20
+        },
+        "ia3": {
+          "mean": 6.85,
+          "n": 20
+        },
+        "rag": {
+          "mean": 6.63,
+          "n": 20
+        }
+      },
+      "indemnification": {
+        "qlora": {
+          "mean": 7.0,
+          "n": 4
+        },
+        "dora": {
+          "mean": 8.25,
+          "n": 4
+        },
+        "ia3": {
+          "mean": 7.7375,
+          "n": 4
+        },
+        "rag": {
+          "mean": 8.45,
+          "n": 4
+        }
+      },
+      "ip": {
+        "qlora": {
+          "mean": 6.6395,
+          "n": 19
+        },
+        "dora": {
+          "mean": 6.8263,
+          "n": 19
+        },
+        "ia3": {
+          "mean": 6.4684,
+          "n": 19
+        },
+        "rag": {
+          "mean": 5.3947,
+          "n": 19
+        }
+      },
+      "liability": {
+        "qlora": {
+          "mean": 6.0125,
+          "n": 20
+        },
+        "dora": {
+          "mean": 6.115,
+          "n": 20
+        },
+        "ia3": {
+          "mean": 5.6075,
+          "n": 20
+        },
+        "rag": {
+          "mean": 6.6425,
+          "n": 20
+        }
+      },
+      "non_compete": {
+        "qlora": {
+          "mean": 7.0325,
+          "n": 20
+        },
+        "dora": {
+          "mean": 6.67,
+          "n": 20
+        },
+        "ia3": {
+          "mean": 6.7,
+          "n": 20
+        },
+        "rag": {
+          "mean": 6.5175,
+          "n": 20
+        }
+      },
+      "termination": {
+        "qlora": {
+          "mean": 6.7389,
+          "n": 18
+        },
+        "dora": {
+          "mean": 6.5917,
+          "n": 18
+        },
+        "ia3": {
+          "mean": 6.0611,
+          "n": 18
+        },
+        "rag": {
+          "mean": 6.5389,
+          "n": 18
+        }
+      }
+    }
+  },
+  "rankings": {
+    "by_dimension": {
+      "overall": {
+        "dora": {
+          "rank": 1,
+          "mean": 6.6888
+        },
+        "qlora": {
+          "rank": 2,
+          "mean": 6.6743
+        },
+        "rag": {
+          "rank": 3,
+          "mean": 6.4888
+        },
+        "ia3": {
+          "rank": 4,
+          "mean": 6.4467
+        }
+      },
+      "accuracy": {
+        "rag": {
+          "rank": 1,
+          "mean": 6.5047
+        },
+        "ia3": {
+          "rank": 2,
+          "mean": 6.3832
+        },
+        "qlora": {
+          "rank": 3,
+          "mean": 6.2991
+        },
+        "dora": {
+          "rank": 4,
+          "mean": 6.2617
+        }
+      },
+      "completeness": {
+        "dora": {
+          "rank": 1,
+          "mean": 6.0467
+        },
+        "qlora": {
+          "rank": 2,
+          "mean": 6.0
+        },
+        "rag": {
+          "rank": 3,
+          "mean": 5.9159
+        },
+        "ia3": {
+          "rank": 4,
+          "mean": 5.6542
+        }
+      },
+      "legal_reasoning": {
+        "dora": {
+          "rank": 1,
+          "mean": 6.7009
+        },
+        "qlora": {
+          "rank": 2,
+          "mean": 6.6822
+        },
+        "rag": {
+          "rank": 3,
+          "mean": 6.3458
+        },
+        "ia3": {
+          "rank": 4,
+          "mean": 6.2336
+        }
+      },
+      "clarity": {
+        "dora": {
+          "rank": 1,
+          "mean": 8.0935
+        },
+        "qlora": {
+          "rank": 2,
+          "mean": 8.0374
+        },
+        "ia3": {
+          "rank": 3,
+          "mean": 7.8411
+        },
+        "rag": {
+          "rank": 4,
+          "mean": 7.4486
+        }
+      },
+      "actionability": {
+        "dora": {
+          "rank": 1,
+          "mean": 6.8318
+        },
+        "qlora": {
+          "rank": 2,
+          "mean": 6.8224
+        },
+        "ia3": {
+          "rank": 3,
+          "mean": 6.5701
+        },
+        "rag": {
+          "rank": 4,
+          "mean": 6.5047
+        }
+      }
+    },
+    "first_place_counts": {
+      "dora": 5,
+      "rag": 1
+    },
+    "overall_winner": "dora"
+  }
+}

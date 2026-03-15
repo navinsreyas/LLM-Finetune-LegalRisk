@@ -1,0 +1,98 @@
+# IA³ Training Configuration - LegalRisk-LLM
+# Base Model: Llama-3.2-3B-Instruct
+# Hardware: RTX 4060 (8GB VRAM), 32GB RAM, Windows
+# Method: IA³ (Infused Adapter by Inhibiting and Amplifying Inner Activations)
+#
+# IA³ KEY DIFFERENCES from QLoRA/DoRA:
+# 1. NO quantization (full fp16) - IA³ learns scaling vectors, quantization interferes
+# 2. Fewer target modules (only k/v_proj, down_proj vs 7 for LoRA)
+# 3. Higher learning rate (3e-3 vs 2e-4) - scaling factors need aggressive updates
+# 4. Lower gradient accumulation (4 vs 8) - full precision uses more VRAM
+# 5. ~100× fewer trainable parameters (~3M vs ~24M)
+
+method: "ia3"
+
+model:
+  name: "unsloth/Llama-3.2-3B-Instruct"
+  load_in_4bit: false                      # IA³ uses full precision
+  torch_dtype: "float16"                   # fp16 instead of 4-bit
+  attn_implementation: "sdpa"
+  trust_remote_code: false
+  device_map: "auto"
+
+peft:
+  method: "ia3"
+  target_modules:                          # Only attention + feedforward
+    - "k_proj"
+    - "v_proj"
+    - "down_proj"
+  feedforward_modules:                     # Treat down_proj as feedforward
+    - "down_proj"
+  task_type: "CAUSAL_LM"
+
+training:
+  num_train_epochs: 3                      # Same as LoRA methods
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 4          # Lower than LoRA (full fp16 uses more VRAM)
+  learning_rate: 3.0e-3                    # Higher than LoRA (fewer params need bigger steps)
+  weight_decay: 0.0                        # IA³ paper uses no weight decay
+  max_grad_norm: 1.0
+  warmup_ratio: 0.03
+  lr_scheduler_type: "constant_with_warmup"  # IA³ works well with constant LR
+
+  # Memory optimization
+  gradient_checkpointing: true             # Still needed despite no quantization
+  fp16: false                              # Temporarily disabled fp16 due to BFloat16 compatibility issue
+  bf16: false
+  optim: "adamw_torch"                     # Standard Adam optimizer (changed from paged_adamw_8bit for compatibility)
+
+  # Data handling
+  max_seq_length: 1024
+  packing: false
+  group_by_length: true
+
+  # Checkpointing
+  save_strategy: "steps"
+  save_steps: 100
+  save_total_limit: 3
+  load_best_model_at_end: true
+  metric_for_best_model: "eval_loss"
+  greater_is_better: false
+
+  # Logging and evaluation
+  logging_steps: 10
+  evaluation_strategy: "steps"
+  eval_steps: 50
+  logging_first_step: true
+  report_to: "wandb"
+
+data:
+  train_path: "data/synthetic/train.jsonl"
+  val_path: "data/synthetic/val.jsonl"
+  test_path: "data/synthetic/test.jsonl"
+
+wandb:
+  project: "legalrisk-llm"
+  entity: null
+  tags:
+    - "ia3"
+    - "llama-3.2-3b"
+    - "legal-risk"
+    - "phase-2a"
+
+output:
+  dir: "./models/ia3"
+  adapter_name: "legalrisk-ia3-adapter"
+  push_to_hub: false
+
+# VRAM estimate for IA³:
+# - Base model (fp16): ~6GB
+# - Activations + gradients: ~1.5GB
+# - Peak VRAM: ~7.5GB (tight fit on 8GB, may need max_seq_length=512 if OOM)
+#
+# IA³ trade-offs:
+# - PRO: Fastest training (~1.8 hrs vs 2.5 hrs for QLoRA)
+# - PRO: Smallest adapter (~12MB vs 80MB)
+# - PRO: 100× fewer parameters (~3M vs ~24M)
+# - CON: Potentially higher eval loss (less expressive)
+# - CON: Uses more VRAM than QLoRA (no quantization)
