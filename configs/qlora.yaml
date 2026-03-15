@@ -1,0 +1,97 @@
+# QLoRA Training Configuration - LegalRisk-LLM
+# Base Model: Llama-3.2-3B-Instruct
+# Hardware: RTX 4060 (8GB VRAM), 32GB RAM, Windows
+# Method: QLoRA (LoRA + 4-bit NF4 quantization)
+
+method: "qlora"
+
+model:
+  name: "unsloth/Llama-3.2-3B-Instruct"
+  load_in_4bit: true
+  bnb_4bit_quant_type: "nf4"                # Normal Float 4-bit
+  bnb_4bit_compute_dtype: "float16"        # NOT bf16 (RTX 4060 lacks bfloat16)
+  bnb_4bit_use_double_quant: true          # Nested quantization for extra memory savings
+  attn_implementation: "sdpa"              # Scaled Dot Product Attention for speed
+  trust_remote_code: false
+
+peft:
+  method: "lora"
+  r: 16                                    # LoRA rank (8-32 recommended for 3B models)
+  lora_alpha: 32                           # Scaling factor (alpha/r = 2.0 standard)
+  lora_dropout: 0.05                       # Dropout to prevent overfitting
+  bias: "none"                             # Don't train bias terms
+  task_type: "CAUSAL_LM"
+  target_modules:                          # Apply LoRA to all attention + MLP layers
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+    - "gate_proj"
+    - "up_proj"
+    - "down_proj"
+  use_dora: false                          # QLoRA doesn't use DoRA
+  use_rslora: false
+
+training:
+  num_train_epochs: 3                      # With 860 examples, 3 epochs = 2,580 steps
+  per_device_train_batch_size: 1          # Max for 8GB VRAM with gradient checkpointing
+  gradient_accumulation_steps: 8          # Effective batch size = 1 × 8 = 8
+  learning_rate: 2.0e-4                    # Standard for QLoRA (1e-4 to 3e-4 range)
+  weight_decay: 0.01
+  max_grad_norm: 1.0                       # Gradient clipping
+  warmup_ratio: 0.03                       # 3% warmup steps
+  lr_scheduler_type: "cosine"              # Cosine decay with warmup
+
+  # Memory optimization (CRITICAL for 8GB VRAM)
+  gradient_checkpointing: true             # Saves 40% VRAM at cost of 20% speed
+  fp16: false                              # Temporarily disabled fp16 due to BFloat16 compatibility issue
+  bf16: false
+  optim: "adamw_torch"                     # Standard Adam optimizer (changed from paged_adamw_8bit for compatibility)
+
+  # Data handling
+  max_seq_length: 1024                     # Legal clauses can be long
+  packing: false                           # CRITICAL: Don't pack (clauses vary 50-500 tokens)
+  group_by_length: true                    # Batch similar lengths for efficiency
+
+  # Checkpointing
+  save_strategy: "steps"
+  save_steps: 100
+  save_total_limit: 3                      # Keep only last 3 checkpoints
+  load_best_model_at_end: true             # Load best checkpoint after training
+  metric_for_best_model: "eval_loss"
+  greater_is_better: false
+
+  # Logging and evaluation
+  logging_steps: 10
+  eval_strategy: "steps"
+  eval_steps: 50
+  logging_first_step: true
+  report_to: "wandb"                       # Log to Weights & Biases
+
+data:
+  train_path: "data/synthetic/train.jsonl"
+  val_path: "data/synthetic/val.jsonl"
+  test_path: "data/synthetic/test.jsonl"
+
+wandb:
+  project: "legalrisk-llm"
+  entity: null                             # Set to your W&B username if needed
+  tags:
+    - "qlora"
+    - "llama-3.2-3b"
+    - "legal-risk"
+    - "phase-2a"
+
+output:
+  dir: "./models/qlora"
+  adapter_name: "legalrisk-qlora-adapter"
+  push_to_hub: false
+
+# Hyperparameter rationale:
+# - r=16: Balances expressiveness vs overfitting on 860 examples
+# - alpha=32: Standard 2.0 scaling (alpha/r)
+# - batch_size=1: Only way to fit 8GB VRAM with gradient checkpointing
+# - grad_accum=8: Effective batch size = 8 (legal models benefit from larger context)
+# - lr=2e-4: Middle of recommended QLoRA range (1e-4 to 3e-4)
+# - epochs=3: More risks overfitting on limited data
+# - packing=False: Legal clauses vary too much in length to pack efficiently

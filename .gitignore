@@ -1,0 +1,99 @@
+# ============================================================
+# LegalRisk-LLM .gitignore
+# ============================================================
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.eggs/
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Environments
+.env
+.env.local
+.venv
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# ML model weights (large files -- do not commit)
+models/
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.gguf
+*.ggml
+
+# Data files (large -- do not commit CUAD raw data)
+data/CUAD_v1.json
+data/raw_clauses.jsonl
+data/synthetic/
+*.jsonl
+
+# Experiment tracking
+wandb/
+mlruns/
+.wandb/
+
+# Vector store data (ChromaDB)
+chromadb/
+chroma/
+
+# Personal reference (not for public repo)
+for_me.md
+
+# Logs
+*.log
+logs/
+
+# Misc
+*.csv
+.ipynb_checkpoints/
+tmp/
+.tmp
+
+# Study and personal documents (private, do not publish)
+study/
+
+# API key files (sensitive -- never commit)
+*.txt
+!requirements.txt
+!dashboard/requirements.txt
+* api key*.txt
+llama api key.txt
+weights and biases api key.txt
+
+# ChromaDB vector store (data/rag/)
+data/rag/
+chroma_db/
+
+# Other generated/temp artifacts
+README_test*.md
+0.46.1
+organize_project.sh
+organize_repo.sh
+.claude/
+settings.local.json

@@ -1,0 +1,1159 @@
+{
+  "judge_model": "claude-sonnet-4-20250514",
+  "method_summary": {
+    "qlora": {
+      "accuracy": 6.3,
+      "completeness": 6.0,
+      "legal_reasoning": 6.68,
+      "clarity": 8.04,
+      "actionability": 6.82,
+      "overall": 6.67,
+      "n_evaluated": 107,
+      "n_failed": 0
+    },
+    "dora": {
+      "accuracy": 6.26,
+      "completeness": 6.05,
+      "legal_reasoning": 6.7,
+      "clarity": 8.09,
+      "actionability": 6.83,
+      "overall": 6.69,
+      "n_evaluated": 107,
+      "n_failed": 0
+    },
+    "ia3": {
+      "accuracy": 6.38,
+      "completeness": 5.65,
+      "legal_reasoning": 6.23,
+      "clarity": 7.84,
+      "actionability": 6.57,
+      "overall": 6.45,
+      "n_evaluated": 107,
+      "n_failed": 0
+    },
+    "rag": {
+      "accuracy": 6.5,
+      "completeness": 5.92,
+      "legal_reasoning": 6.35,
+      "clarity": 7.45,
+      "actionability": 6.5,
+      "overall": 6.49,
+      "n_evaluated": 107,
+      "n_failed": 0
+    }
+  },
+  "category_breakdown": {
+    "qlora": {
+      "ip": {
+        "accuracy": 6.16,
+        "completeness": 5.89,
+        "legal_reasoning": 6.84,
+        "clarity": 7.89,
+        "actionability": 6.84,
+        "overall": 6.64,
+        "n": 19
+      },
+      "governing_law": {
+        "accuracy": 7.1,
+        "completeness": 5.75,
+        "legal_reasoning": 6.5,
+        "clarity": 8.05,
+        "actionability": 6.2,
+        "overall": 6.69,
+        "n": 20
+      },
+      "termination": {
+        "accuracy": 6.28,
+        "completeness": 6.06,
+        "legal_reasoning": 6.67,
+        "clarity": 8.06,
+        "actionability": 7.22,
+        "overall": 6.74,
+        "n": 18
+      },
+      "liability": {
+        "accuracy": 5.1,
+        "completeness": 5.25,
+        "legal_reasoning": 6.2,
+        "clarity": 7.85,
+        "actionability": 6.4,
+        "overall": 6.01,
+        "n": 20
+      },
+      "non_compete": {
+        "accuracy": 6.7,
+        "completeness": 6.35,
+        "legal_reasoning": 7.05,
+        "clarity": 8.2,
+        "actionability": 7.3,
+        "overall": 7.03,
+        "n": 20
+      },
+      "indemnification": {
+        "accuracy": 7.5,
+        "completeness": 6.25,
+        "legal_reasoning": 6.5,
+        "clarity": 8.0,
+        "actionability": 7.0,
+        "overall": 7.0,
+        "n": 4
+      },
+      "confidentiality": {
+        "accuracy": 6.0,
+        "completeness": 8.17,
+        "legal_reasoning": 7.33,
+        "clarity": 8.5,
+        "actionability": 7.33,
+        "overall": 7.34,
+        "n": 6
+      }
+    },
+    "dora": {
+      "ip": {
+        "accuracy": 6.32,
+        "completeness": 6.11,
+        "legal_reasoning": 6.95,
+        "clarity": 8.11,
+        "actionability": 7.16,
+        "overall": 6.83,
+        "n": 19
+      },
+      "governing_law": {
+        "accuracy": 7.05,
+        "completeness": 6.0,
+        "legal_reasoning": 6.45,
+        "clarity": 8.15,
+        "actionability": 6.55,
+        "overall": 6.78,
+        "n": 20
+      },
+      "termination": {
+        "accuracy": 5.89,
+        "completeness": 5.94,
+        "legal_reasoning": 6.72,
+        "clarity": 8.0,
+        "actionability": 7.0,
+        "overall": 6.59,
+        "n": 18
+      },
+      "liability": {
+        "accuracy": 5.05,
+        "completeness": 5.6,
+        "legal_reasoning": 6.35,
+        "clarity": 7.9,
+        "actionability": 6.4,
+        "overall": 6.12,
+        "n": 20
+      },
+      "non_compete": {
+        "accuracy": 6.45,
+        "completeness": 5.75,
+        "legal_reasoning": 6.6,
+        "clarity": 8.05,
+        "actionability": 7.0,
+        "overall": 6.67,
+        "n": 20
+      },
+      "indemnification": {
+        "accuracy": 9.25,
+        "completeness": 7.5,
+        "legal_reasoning": 8.0,
+        "clarity": 9.0,
+        "actionability": 7.25,
+        "overall": 8.25,
+        "n": 4
+      },
+      "confidentiality": {
+        "accuracy": 6.0,
+        "completeness": 7.83,
+        "legal_reasoning": 7.33,
+        "clarity": 8.33,
+        "actionability": 6.83,
+        "overall": 7.18,
+        "n": 6
+      }
+    },
+    "ia3": {
+      "ip": {
+        "accuracy": 6.16,
+        "completeness": 5.68,
+        "legal_reasoning": 6.42,
+        "clarity": 7.95,
+        "actionability": 6.63,
+        "overall": 6.47,
+        "n": 19
+      },
+      "governing_law": {
+        "accuracy": 7.75,
+        "completeness": 5.85,
+        "legal_reasoning": 6.15,
+        "clarity": 7.95,
+        "actionability": 6.75,
+        "overall": 6.85,
+        "n": 20
+      },
+      "termination": {
+        "accuracy": 5.5,
+        "completeness": 5.33,
+        "legal_reasoning": 5.94,
+        "clarity": 7.72,
+        "actionability": 6.5,
+        "overall": 6.06,
+        "n": 18
+      },
+      "liability": {
+        "accuracy": 4.75,
+        "completeness": 4.9,
+        "legal_reasoning": 5.75,
+        "clarity": 7.3,
+        "actionability": 6.05,
+        "overall": 5.61,
+        "n": 20
+      },
+      "non_compete": {
+        "accuracy": 7.25,
+        "completeness": 5.6,
+        "legal_reasoning": 6.4,
+        "clarity": 7.9,
+        "actionability": 6.55,
+        "overall": 6.7,
+        "n": 20
+      },
+      "indemnification": {
+        "accuracy": 8.75,
+        "completeness": 6.75,
+        "legal_reasoning": 7.5,
+        "clarity": 8.5,
+        "actionability": 7.0,
+        "overall": 7.74,
+        "n": 4
+      },
+      "confidentiality": {
+        "accuracy": 6.17,
+        "completeness": 7.83,
+        "legal_reasoning": 7.0,
+        "clarity": 8.67,
+        "actionability": 7.5,
+        "overall": 7.28,
+        "n": 6
+      }
+    },
+    "rag": {
+      "ip": {
+        "accuracy": 5.47,
+        "completeness": 4.74,
+        "legal_reasoning": 5.37,
+        "clarity": 6.26,
+        "actionability": 5.32,
+        "overall": 5.39,
+        "n": 19
+      },
+      "governing_law": {
+        "accuracy": 6.45,
+        "completeness": 6.2,
+        "legal_reasoning": 6.5,
+        "clarity": 7.8,
+        "actionability": 6.55,
+        "overall": 6.63,
+        "n": 20
+      },
+      "termination": {
+        "accuracy": 7.11,
+        "completeness": 5.67,
+        "legal_reasoning": 6.11,
+        "clarity": 7.5,
+        "actionability": 6.5,
+        "overall": 6.54,
+        "n": 18
+      },
+      "liability": {
+        "accuracy": 6.2,
+        "completeness": 6.1,
+        "legal_reasoning": 6.7,
+        "clarity": 7.7,
+        "actionability": 6.95,
+        "overall": 6.64,
+        "n": 20
+      },
+      "non_compete": {
+        "accuracy": 6.5,
+        "completeness": 6.05,
+        "legal_reasoning": 6.3,
+        "clarity": 7.55,
+        "actionability": 6.5,
+        "overall": 6.52,
+        "n": 20
+      },
+      "indemnification": {
+        "accuracy": 9.5,
+        "completeness": 8.0,
+        "legal_reasoning": 8.0,
+        "clarity": 8.25,
+        "actionability": 8.25,
+        "overall": 8.45,
+        "n": 4
+      },
+      "confidentiality": {
+        "accuracy": 7.17,
+        "completeness": 7.0,
+        "legal_reasoning": 7.5,
+        "clarity": 8.17,
+        "actionability": 7.5,
+        "overall": 7.42,
+        "n": 6
+      }
+    }
+  },
+  "dimension_comparison": {
+    "accuracy": {
+      "qlora": 6.3,
+      "dora": 6.26,
+      "ia3": 6.38,
+      "rag": 6.5
+    },
+    "completeness": {
+      "qlora": 6.0,
+      "dora": 6.05,
+      "ia3": 5.65,
+      "rag": 5.92
+    },
+    "legal_reasoning": {
+      "qlora": 6.68,
+      "dora": 6.7,
+      "ia3": 6.23,
+      "rag": 6.35
+    },
+    "clarity": {
+      "qlora": 8.04,
+      "dora": 8.09,
+      "ia3": 7.84,
+      "rag": 7.45
+    },
+    "actionability": {
+      "qlora": 6.82,
+      "dora": 6.83,
+      "ia3": 6.57,
+      "rag": 6.5
+    },
+    "overall": {
+      "qlora": 6.67,
+      "dora": 6.69,
+      "ia3": 6.45,
+      "rag": 6.49
+    }
+  },
+  "head_to_head": {
+    "qlora_vs_dora": {
+      "qlora_wins": 39,
+      "dora_wins": 45,
+      "ties": 23,
+      "total": 107
+    },
+    "qlora_vs_ia3": {
+      "qlora_wins": 54,
+      "ia3_wins": 49,
+      "ties": 4,
+      "total": 107
+    },
+    "qlora_vs_rag": {
+      "qlora_wins": 54,
+      "rag_wins": 51,
+      "ties": 2,
+      "total": 107
+    },
+    "dora_vs_ia3": {
+      "dora_wins": 60,
+      "ia3_wins": 35,
+      "ties": 12,
+      "total": 107
+    },
+    "dora_vs_rag": {
+      "dora_wins": 59,
+      "rag_wins": 46,
+      "ties": 2,
+      "total": 107
+    },
+    "ia3_vs_rag": {
+      "ia3_wins": 49,
+      "rag_wins": 56,
+      "ties": 2,
+      "total": 107
+    }
+  },
+  "qlora_worst_5": [
+    {
+      "test_index": 65,
+      "method": "qlora",
+      "clause_type": "governing_law",
+      "ground_truth_risk_level": "high",
+      "predicted_risk_level": "low",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 2,
+        "completeness": 1,
+        "legal_reasoning": 4,
+        "clarity": 8,
+        "actionability": 5
+      },
+      "overall": 3.65,
+      "justification": "The model completely missed the critical jurisdictional conflict and grammatical error that create high risk, instead identifying minor theoretical concerns and assigning low risk. While the reasoning shows some legal understanding, it fails to address the actual problems in the clause.",
+      "eval_failed": false,
+      "latency_ms": 14792.344093322754
+    },
+    {
+      "test_index": 57,
+      "method": "qlora",
+      "clause_type": "indemnification",
+      "ground_truth_risk_level": "critical",
+      "predicted_risk_level": "low",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 2,
+        "completeness": 4,
+        "legal_reasoning": 3,
+        "clarity": 7,
+        "actionability": 5
+      },
+      "overall": 3.85,
+      "justification": "The model severely underassessed the risk level (low vs critical) and risk score (0.25 vs 0.85), missing the extreme one-sided nature and workers' compensation waiver. While it identified some concerns and provided reasonable recommendations, it failed to grasp the critical severity of unlimited liability exposure.",
+      "eval_failed": false,
+      "latency_ms": 13771.352052688599
+    },
+    {
+      "test_index": 83,
+      "method": "qlora",
+      "clause_type": "non_compete",
+      "ground_truth_risk_level": "high",
+      "predicted_risk_level": "low",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 2,
+        "completeness": 4,
+        "legal_reasoning": 3,
+        "clarity": 7,
+        "actionability": 5
+      },
+      "overall": 3.85,
+      "justification": "The model completely misses the core issue - this is a global restriction outside the designated area, not just vague boundaries. The risk level assessment is dramatically wrong (low vs high), and the legal reasoning fails to recognize the asymmetrical and potentially perpetual nature of the restriction.",
+      "eval_failed": false,
+      "latency_ms": 13799.68285560608
+    },
+    {
+      "test_index": 84,
+      "method": "qlora",
+      "clause_type": "liability",
+      "ground_truth_risk_level": "high",
+      "predicted_risk_level": "low",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 2,
+        "completeness": 3,
+        "legal_reasoning": 4,
+        "clarity": 7,
+        "actionability": 5
+      },
+      "overall": 3.9,
+      "justification": "The model completely misidentified the risk level (low vs high) and fundamentally misunderstood whose interests are at stake - focusing on Airspan's exposure when the clause actually protects Airspan at the Distributor's expense. While the legal reasoning shows some sophistication regarding enforceability, it missed the core asymmetry issue that makes this high-risk for the Distributor.",
+      "eval_failed": false,
+      "latency_ms": 15490.264177322388
+    },
+    {
+      "test_index": 63,
+      "method": "qlora",
+      "clause_type": "governing_law",
+      "ground_truth_risk_level": "medium",
+      "predicted_risk_level": "low",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 3,
+        "completeness": 2,
+        "legal_reasoning": 4,
+        "clarity": 7,
+        "actionability": 5
+      },
+      "overall": 3.95,
+      "justification": "The model significantly underestimated the risk level (low vs medium) and missed the key issue that jurisdiction language exists but lacks exclusivity. The model incorrectly stated there was no jurisdiction clause when one clearly exists in the original text.",
+      "eval_failed": false,
+      "latency_ms": 11761.590719223022
+    }
+  ],
+  "qlora_best_5": [
+    {
+      "test_index": 35,
+      "method": "qlora",
+      "clause_type": "confidentiality",
+      "ground_truth_risk_level": "low",
+      "predicted_risk_level": "low",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 10,
+        "completeness": 10,
+        "legal_reasoning": 8,
+        "clarity": 9,
+        "actionability": 7
+      },
+      "overall": 8.9,
+      "justification": "The model perfectly matches the expert's risk assessment and identifies all key concerns with solid legal reasoning. However, the recommendation could be more specific about standard exceptions language and actionable negotiation points.",
+      "eval_failed": false,
+      "latency_ms": 12877.662420272827
+    },
+    {
+      "test_index": 60,
+      "method": "qlora",
+      "clause_type": "non_compete",
+      "ground_truth_risk_level": "high",
+      "predicted_risk_level": "high",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 10,
+        "completeness": 8,
+        "legal_reasoning": 9,
+        "clarity": 9,
+        "actionability": 8
+      },
+      "overall": 8.9,
+      "justification": "The model correctly identifies the risk level and score, demonstrates strong legal reasoning by recognizing enforceability issues and vague language problems. While it misses the specific concern about 'any person' coverage, it adds valuable insights about consideration requirements and ambiguous 'induce' language.",
+      "eval_failed": false,
+      "latency_ms": 14192.133903503418
+    },
+    {
+      "test_index": 105,
+      "method": "qlora",
+      "clause_type": "governing_law",
+      "ground_truth_risk_level": "low",
+      "predicted_risk_level": "low",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 10,
+        "completeness": 8,
+        "legal_reasoning": 9,
+        "clarity": 9,
+        "actionability": 8
+      },
+      "overall": 8.9,
+      "justification": "The model perfectly matches the risk level and score, demonstrates strong legal reasoning with valid concerns about federal law conflicts and venue clarity, and provides actionable recommendations for adding jurisdiction clauses and considering federal law carve-outs.",
+      "eval_failed": false,
+      "latency_ms": 20323.22907447815
+    },
+    {
+      "test_index": 59,
+      "method": "qlora",
+      "clause_type": "governing_law",
+      "ground_truth_risk_level": "low",
+      "predicted_risk_level": "low",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 10,
+        "completeness": 8,
+        "legal_reasoning": 9,
+        "clarity": 9,
+        "actionability": 7
+      },
+      "overall": 8.75,
+      "justification": "The model perfectly matches the expert's risk level and score, identifies key concerns with sophisticated legal reasoning, and provides clear analysis. However, it misses the important venue/jurisdiction concern while adding a valid but less critical federal law point, and its recommendations could be more specific about negotiation tactics.",
+      "eval_failed": false,
+      "latency_ms": 14555.058479309082
+    },
+    {
+      "test_index": 87,
+      "method": "qlora",
+      "clause_type": "liability",
+      "ground_truth_risk_level": "high",
+      "predicted_risk_level": "high",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 10,
+        "completeness": 8,
+        "legal_reasoning": 9,
+        "clarity": 9,
+        "actionability": 7
+      },
+      "overall": 8.75,
+      "justification": "The model perfectly matches the expert's risk level and score, identifies key concerns about redacted amounts and incomplete clause structure, and demonstrates strong legal reasoning about liability limitations. However, it misses the specific third-party indemnification issue while adding valid but different concerns about carve-outs.",
+      "eval_failed": false,
+      "latency_ms": 17304.394483566284
+    }
+  ],
+  "dora_worst_5": [
+    {
+      "test_index": 65,
+      "method": "dora",
+      "clause_type": "governing_law",
+      "ground_truth_risk_level": "high",
+      "predicted_risk_level": "low",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 2,
+        "completeness": 3,
+        "legal_reasoning": 4,
+        "clarity": 7,
+        "actionability": 5
+      },
+      "overall": 3.9,
+      "justification": "The model completely missed the critical grammatical error and jurisdictional conflict identified by the expert, instead providing a low-risk assessment when the reference shows high risk. While the model's concerns about forum shopping and federal law carve-outs show some legal reasoning, they miss the actual problems present in the clause.",
+      "eval_failed": false,
+      "latency_ms": 85870.03183364868
+    },
+    {
+      "test_index": 63,
+      "method": "dora",
+      "clause_type": "governing_law",
+      "ground_truth_risk_level": "medium",
+      "predicted_risk_level": "low",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 3,
+        "completeness": 2,
+        "legal_reasoning": 4,
+        "clarity": 7,
+        "actionability": 5
+      },
+      "overall": 3.95,
+      "justification": "The model significantly underestimated the risk level (low vs medium) and missed the critical issue that the jurisdiction clause exists but lacks exclusivity language. While the model provided clear output, it failed to identify the key concerns about forum shopping and non-exclusive jurisdiction that the expert highlighted.",
+      "eval_failed": false,
+      "latency_ms": 67642.28129386902
+    },
+    {
+      "test_index": 49,
+      "method": "dora",
+      "clause_type": "ip",
+      "ground_truth_risk_level": "high",
+      "predicted_risk_level": "medium",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 3,
+        "completeness": 2,
+        "legal_reasoning": 4,
+        "clarity": 7,
+        "actionability": 6
+      },
+      "overall": 4.1,
+      "justification": "The model significantly underestimated the risk level and missed the critical sublicensing concern that makes this a high-risk clause. While the model's concerns are valid, they are relatively minor compared to the expert's identification of the dangerous sublicensing provision.",
+      "eval_failed": false,
+      "latency_ms": 76201.03693008423
+    },
+    {
+      "test_index": 9,
+      "method": "dora",
+      "clause_type": "termination",
+      "ground_truth_risk_level": "medium",
+      "predicted_risk_level": "high",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 3,
+        "completeness": 2,
+        "legal_reasoning": 4,
+        "clarity": 8,
+        "actionability": 6
+      },
+      "overall": 4.25,
+      "justification": "The model completely misidentified the key issue - it focused on the clause being incomplete rather than recognizing the undefined 'Hosting Service Ready Date' problem that creates uncertainty about term commencement. While the model's concerns about incomplete clauses are legally valid, they miss the actual critical risk identified in the expert analysis.",
+      "eval_failed": false,
+      "latency_ms": 73313.60030174255
+    },
+    {
+      "test_index": 39,
+      "method": "dora",
+      "clause_type": "liability",
+      "ground_truth_risk_level": "high",
+      "predicted_risk_level": "medium",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 4,
+        "completeness": 3,
+        "legal_reasoning": 4,
+        "clarity": 7,
+        "actionability": 5
+      },
+      "overall": 4.4,
+      "justification": "The model significantly underestimated the risk level (medium vs high) and missed the core issue of unlimited indemnification liability remaining intact despite insurance coverage. While the analysis is clear, it focuses on coverage gaps rather than the fundamental problem of stacked obligations and one-sided liability exposure.",
+      "eval_failed": false,
+      "latency_ms": 74231.62174224854
+    }
+  ],
+  "dora_best_5": [
+    {
+      "test_index": 96,
+      "method": "dora",
+      "clause_type": "liability",
+      "ground_truth_risk_level": "high",
+      "predicted_risk_level": "high",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 10,
+        "completeness": 9,
+        "legal_reasoning": 9,
+        "clarity": 9,
+        "actionability": 8
+      },
+      "overall": 9.1,
+      "justification": "The model perfectly matched the risk level and score, identified all key concerns including the incomplete clause issue and problematic fraud inclusion, and demonstrated strong legal reasoning about commercial limitation periods and standard carve-outs.",
+      "eval_failed": false,
+      "latency_ms": 93763.78989219666
+    },
+    {
+      "test_index": 51,
+      "method": "dora",
+      "clause_type": "ip",
+      "ground_truth_risk_level": "high",
+      "predicted_risk_level": "high",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 10,
+        "completeness": 8,
+        "legal_reasoning": 9,
+        "clarity": 9,
+        "actionability": 8
+      },
+      "overall": 8.9,
+      "justification": "The model perfectly matches the expert's risk level and score, demonstrates strong legal reasoning by identifying overly broad scope and pre-existing IP issues, and provides actionable recommendations. Minor gaps include missing the state law consideration requirement and automatic assignment concerns.",
+      "eval_failed": false,
+      "latency_ms": 104467.92793273926
+    },
+    {
+      "test_index": 59,
+      "method": "dora",
+      "clause_type": "governing_law",
+      "ground_truth_risk_level": "low",
+      "predicted_risk_level": "low",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 10,
+        "completeness": 8,
+        "legal_reasoning": 9,
+        "clarity": 9,
+        "actionability": 8
+      },
+      "overall": 8.9,
+      "justification": "The model perfectly matches the expert's risk level and score, identifies the critical missing jurisdiction clause, and provides sophisticated legal reasoning including federal preemption concerns. Minor deduction for not explicitly mentioning conflict of laws principles exclusion, but adds valuable insight about federal law conflicts.",
+      "eval_failed": false,
+      "latency_ms": 81291.55111312866
+    },
+    {
+      "test_index": 60,
+      "method": "dora",
+      "clause_type": "non_compete",
+      "ground_truth_risk_level": "high",
+      "predicted_risk_level": "high",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 10,
+        "completeness": 8,
+        "legal_reasoning": 9,
+        "clarity": 9,
+        "actionability": 8
+      },
+      "overall": 8.9,
+      "justification": "The model perfectly matches the expert's risk level and score, demonstrates sophisticated legal reasoning by identifying nuanced issues like consideration and vague 'induce' language, and provides actionable recommendations with specific timeframes and requirements.",
+      "eval_failed": false,
+      "latency_ms": 84556.32829666138
+    },
+    {
+      "test_index": 103,
+      "method": "dora",
+      "clause_type": "governing_law",
+      "ground_truth_risk_level": "low",
+      "predicted_risk_level": "low",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 10,
+        "completeness": 8,
+        "legal_reasoning": 9,
+        "clarity": 9,
+        "actionability": 8
+      },
+      "overall": 8.9,
+      "justification": "The model perfectly matched the risk level and score, identified all major concerns with valid additional considerations like federal law conflicts, and provided clear, actionable recommendations. Minor deduction for not addressing choice of law principles exclusion specifically.",
+      "eval_failed": false,
+      "latency_ms": 77251.75309181213
+    }
+  ],
+  "ia3_worst_5": [
+    {
+      "test_index": 8,
+      "method": "ia3",
+      "clause_type": "liability",
+      "ground_truth_risk_level": "medium",
+      "predicted_risk_level": "FAILED",
+      "json_parse_success": false,
+      "scores": {
+        "accuracy": 1,
+        "completeness": 1,
+        "legal_reasoning": 1,
+        "clarity": 1,
+        "actionability": 1
+      },
+      "overall": 1.0,
+      "justification": "The model completely failed to produce any valid JSON output or legal analysis, making it impossible to assess any dimension of legal risk evaluation performance.",
+      "eval_failed": false,
+      "latency_ms": 27534.723043441772
+    },
+    {
+      "test_index": 21,
+      "method": "ia3",
+      "clause_type": "non_compete",
+      "ground_truth_risk_level": "high",
+      "predicted_risk_level": "medium",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 3,
+        "completeness": 2,
+        "legal_reasoning": 3,
+        "clarity": 7,
+        "actionability": 4
+      },
+      "overall": 3.55,
+      "justification": "The model completely misunderstood the clause, thinking it only restricts Florida when it actually creates a nationwide restriction except for Florida. It missed the critical antitrust and overly broad territorial monopoly concerns that make this high-risk.",
+      "eval_failed": false,
+      "latency_ms": 31328.15146446228
+    },
+    {
+      "test_index": 58,
+      "method": "ia3",
+      "clause_type": "termination",
+      "ground_truth_risk_level": "medium",
+      "predicted_risk_level": "low",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 3,
+        "completeness": 2,
+        "legal_reasoning": 3,
+        "clarity": 7,
+        "actionability": 4
+      },
+      "overall": 3.55,
+      "justification": "The model significantly misassessed the risk level (low vs medium) and failed to identify the key concerns about opportunistic termination and inadequate notice periods. The model's concerns about cure periods are irrelevant since this is a no-cause termination clause.",
+      "eval_failed": false,
+      "latency_ms": 20875.02932548523
+    },
+    {
+      "test_index": 9,
+      "method": "ia3",
+      "clause_type": "termination",
+      "ground_truth_risk_level": "medium",
+      "predicted_risk_level": "critical",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 2,
+        "completeness": 3,
+        "legal_reasoning": 4,
+        "clarity": 7,
+        "actionability": 6
+      },
+      "overall": 4.05,
+      "justification": "The model significantly overestimated the risk level (critical vs medium) and score (0.9 vs 0.35), missing the key issue about the undefined 'Hosting Service Ready Date' that creates the actual uncertainty. While the model's concerns about termination provisions are legally valid, they don't address the specific problem in this incomplete clause.",
+      "eval_failed": false,
+      "latency_ms": 20299.81541633606
+    },
+    {
+      "test_index": 1,
+      "method": "ia3",
+      "clause_type": "governing_law",
+      "ground_truth_risk_level": "low",
+      "predicted_risk_level": "medium",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 3,
+        "completeness": 2,
+        "legal_reasoning": 4,
+        "clarity": 7,
+        "actionability": 6
+      },
+      "overall": 4.1,
+      "justification": "The model significantly overestimated the risk level (medium vs low) and missed the actual drafting errors in the clause, instead focusing on generic concerns about Delaware law choice. While the reasoning shows some legal understanding, it completely overlooked the specific grammatical and drafting issues that create the actual risk.",
+      "eval_failed": false,
+      "latency_ms": 6368.8154220581055
+    }
+  ],
+  "ia3_best_5": [
+    {
+      "test_index": 35,
+      "method": "ia3",
+      "clause_type": "confidentiality",
+      "ground_truth_risk_level": "low",
+      "predicted_risk_level": "low",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 10,
+        "completeness": 10,
+        "legal_reasoning": 9,
+        "clarity": 9,
+        "actionability": 8
+      },
+      "overall": 9.3,
+      "justification": "The model perfectly matches the expert's risk assessment and identifies all key concerns with sophisticated legal understanding. The recommendations are specific and actionable, though slightly less focused than the expert's analysis.",
+      "eval_failed": false,
+      "latency_ms": 12349.05481338501
+    },
+    {
+      "test_index": 72,
+      "method": "ia3",
+      "clause_type": "confidentiality",
+      "ground_truth_risk_level": "low",
+      "predicted_risk_level": "low",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 10,
+        "completeness": 9,
+        "legal_reasoning": 8,
+        "clarity": 9,
+        "actionability": 8
+      },
+      "overall": 8.85,
+      "justification": "The model perfectly matched the risk level and score, identified most key concerns including the critical missing definition and survival period issues, and provided actionable recommendations. It added valuable insight about data handling requirements while maintaining strong legal reasoning throughout.",
+      "eval_failed": false,
+      "latency_ms": 26200.026512145996
+    },
+    {
+      "test_index": 26,
+      "method": "ia3",
+      "clause_type": "indemnification",
+      "ground_truth_risk_level": "low",
+      "predicted_risk_level": "low",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 10,
+        "completeness": 8,
+        "legal_reasoning": 8,
+        "clarity": 9,
+        "actionability": 7
+      },
+      "overall": 8.5,
+      "justification": "The model perfectly matches the expert's risk assessment (low/0.25) and identifies the key structural issue of mutual indemnification. While it misses the specific IP carve-out recommendation, it provides valid alternative concerns about broad scope and settlement limitations with reasonable actionable suggestions.",
+      "eval_failed": false,
+      "latency_ms": 39965.1780128479
+    },
+    {
+      "test_index": 68,
+      "method": "ia3",
+      "clause_type": "governing_law",
+      "ground_truth_risk_level": "medium",
+      "predicted_risk_level": "medium",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 10,
+        "completeness": 8,
+        "legal_reasoning": 8,
+        "clarity": 9,
+        "actionability": 7
+      },
+      "overall": 8.5,
+      "justification": "The model perfectly matched the risk level and score, identified most key concerns including jurisdiction and unfamiliarity issues, and provided solid legal reasoning. However, it missed the specific arbitration inconsistency concern and could have provided more specific actionable recommendations.",
+      "eval_failed": false,
+      "latency_ms": 25168.849229812622
+    },
+    {
+      "test_index": 90,
+      "method": "ia3",
+      "clause_type": "governing_law",
+      "ground_truth_risk_level": "medium",
+      "predicted_risk_level": "medium",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 10,
+        "completeness": 8,
+        "legal_reasoning": 8,
+        "clarity": 9,
+        "actionability": 7
+      },
+      "overall": 8.5,
+      "justification": "The model correctly identifies the risk level and score, captures the core legal concerns about split governing law, and demonstrates solid understanding of jurisdictional complexities. The recommendation could be more specific about conflict resolution mechanisms.",
+      "eval_failed": false,
+      "latency_ms": 28796.64635658264
+    }
+  ],
+  "rag_worst_5": [
+    {
+      "test_index": 18,
+      "method": "rag",
+      "clause_type": "ip",
+      "ground_truth_risk_level": "medium",
+      "predicted_risk_level": "FAILED",
+      "json_parse_success": false,
+      "scores": {
+        "accuracy": 1,
+        "completeness": 1,
+        "legal_reasoning": 1,
+        "clarity": 1,
+        "actionability": 1
+      },
+      "overall": 1.0,
+      "justification": "The model completely failed to produce any valid JSON output or legal analysis, making it impossible to assess any dimension of legal risk evaluation competency.",
+      "eval_failed": false,
+      "latency_ms": 14910.212516784668
+    },
+    {
+      "test_index": 30,
+      "method": "rag",
+      "clause_type": "non_compete",
+      "ground_truth_risk_level": "medium",
+      "predicted_risk_level": "FAILED",
+      "json_parse_success": false,
+      "scores": {
+        "accuracy": 1,
+        "completeness": 1,
+        "legal_reasoning": 1,
+        "clarity": 1,
+        "actionability": 1
+      },
+      "overall": 1.0,
+      "justification": "The model completely failed to produce any valid JSON output, making it impossible to assess any aspect of legal analysis. This represents a total system failure.",
+      "eval_failed": false,
+      "latency_ms": 8403.239727020264
+    },
+    {
+      "test_index": 49,
+      "method": "rag",
+      "clause_type": "ip",
+      "ground_truth_risk_level": "high",
+      "predicted_risk_level": "FAILED",
+      "json_parse_success": false,
+      "scores": {
+        "accuracy": 1,
+        "completeness": 1,
+        "legal_reasoning": 1,
+        "clarity": 1,
+        "actionability": 1
+      },
+      "overall": 1.0,
+      "justification": "The model completely failed to produce any valid JSON output or legal analysis. This represents a complete system failure that provides no value to users seeking legal risk assessment.",
+      "eval_failed": false,
+      "latency_ms": 9951.381206512451
+    },
+    {
+      "test_index": 53,
+      "method": "rag",
+      "clause_type": "ip",
+      "ground_truth_risk_level": "high",
+      "predicted_risk_level": "FAILED",
+      "json_parse_success": false,
+      "scores": {
+        "accuracy": 1,
+        "completeness": 1,
+        "legal_reasoning": 1,
+        "clarity": 1,
+        "actionability": 1
+      },
+      "overall": 1.0,
+      "justification": "The model completely failed to produce any valid JSON output, making it impossible to evaluate any aspect of legal risk assessment. This represents a total system failure.",
+      "eval_failed": false,
+      "latency_ms": 11657.249689102173
+    },
+    {
+      "test_index": 66,
+      "method": "rag",
+      "clause_type": "liability",
+      "ground_truth_risk_level": "medium",
+      "predicted_risk_level": "FAILED",
+      "json_parse_success": false,
+      "scores": {
+        "accuracy": 1,
+        "completeness": 1,
+        "legal_reasoning": 1,
+        "clarity": 1,
+        "actionability": 1
+      },
+      "overall": 1.0,
+      "justification": "The model completely failed to produce any valid JSON output or legal analysis whatsoever. Since no assessment was provided, all scoring dimensions receive the minimum score of 1.",
+      "eval_failed": false,
+      "latency_ms": 9163.485288619995
+    }
+  ],
+  "rag_best_5": [
+    {
+      "test_index": 35,
+      "method": "rag",
+      "clause_type": "confidentiality",
+      "ground_truth_risk_level": "low",
+      "predicted_risk_level": "low",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 10,
+        "completeness": 9,
+        "legal_reasoning": 9,
+        "clarity": 9,
+        "actionability": 9
+      },
+      "overall": 9.25,
+      "justification": "The model perfectly matches the expert's risk level and score, identifies nearly all key concerns with strong legal reasoning, and provides specific, actionable recommendations. Only minor difference is missing the 'publicly available information' exception in concerns, but it's covered in recommendations.",
+      "eval_failed": false,
+      "latency_ms": 7425.25053024292
+    },
+    {
+      "test_index": 24,
+      "method": "rag",
+      "clause_type": "termination",
+      "ground_truth_risk_level": "medium",
+      "predicted_risk_level": "medium",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 10,
+        "completeness": 8,
+        "legal_reasoning": 9,
+        "clarity": 9,
+        "actionability": 9
+      },
+      "overall": 9.05,
+      "justification": "The model perfectly matches the risk level and score, identifies all major concerns with additional valid insights about enforceability, and provides highly specific actionable recommendations including concrete timeframes and penalty provisions.",
+      "eval_failed": false,
+      "latency_ms": 9328.157663345337
+    },
+    {
+      "test_index": 94,
+      "method": "rag",
+      "clause_type": "confidentiality",
+      "ground_truth_risk_level": "high",
+      "predicted_risk_level": "high",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 9,
+        "completeness": 9,
+        "legal_reasoning": 9,
+        "clarity": 9,
+        "actionability": 9
+      },
+      "overall": 9.0,
+      "justification": "The model's prediction is highly accurate with matching risk level and very close risk score (0.85 vs 0.8). It identifies all key concerns from the reference plus additional valid points, demonstrates strong legal reasoning, and provides specific actionable recommendations.",
+      "eval_failed": false,
+      "latency_ms": 6104.644536972046
+    },
+    {
+      "test_index": 72,
+      "method": "rag",
+      "clause_type": "confidentiality",
+      "ground_truth_risk_level": "low",
+      "predicted_risk_level": "low",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 10,
+        "completeness": 8,
+        "legal_reasoning": 9,
+        "clarity": 9,
+        "actionability": 8
+      },
+      "overall": 8.9,
+      "justification": "The model perfectly matched the risk level and score, demonstrated strong legal reasoning by identifying nuanced concerns about definition gaps, and provided actionable recommendations. While it missed the expert's concern about breach remedies, it identified equally valid issues with the standard exceptions.",
+      "eval_failed": false,
+      "latency_ms": 13064.000129699707
+    },
+    {
+      "test_index": 103,
+      "method": "rag",
+      "clause_type": "governing_law",
+      "ground_truth_risk_level": "low",
+      "predicted_risk_level": "low",
+      "json_parse_success": true,
+      "scores": {
+        "accuracy": 10,
+        "completeness": 9,
+        "legal_reasoning": 8,
+        "clarity": 9,
+        "actionability": 8
+      },
+      "overall": 8.85,
+      "justification": "The model exactly matches the expert's risk level and score, identifies all key concerns with similar reasoning, and provides actionable recommendations. The analysis shows solid legal understanding with slightly different but equally valid framing of the issues.",
+      "eval_failed": false,
+      "latency_ms": 6067.626714706421
+    }
+  ]
+}

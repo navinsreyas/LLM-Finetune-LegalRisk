@@ -1,0 +1,2450 @@
+{
+  "metadata": {
+    "phase": "3D",
+    "description": "Error analysis and failure mode investigation",
+    "methods": [
+      "qlora",
+      "dora",
+      "ia3",
+      "rag"
+    ],
+    "fail_threshold": 5.0,
+    "n_examples_per_method": {
+      "qlora": 107,
+      "dora": 107,
+      "ia3": 107,
+      "rag": 107
+    }
+  },
+  "confusion_matrices": {
+    "qlora": {
+      "matrix": {
+        "medium": {
+          "medium": 22,
+          "high": 11,
+          "low": 26
+        },
+        "low": {
+          "low": 16
+        },
+        "high": {
+          "high": 10,
+          "medium": 9,
+          "critical": 1,
+          "low": 5
+        },
+        "critical": {
+          "high": 3,
+          "low": 3,
+          "critical": 1
+        }
+      },
+      "per_class_metrics": {
+        "low": {
+          "true_positives": 16,
+          "false_positives": 34,
+          "false_negatives": 0,
+          "precision": 0.32,
+          "recall": 1.0,
+          "f1": 0.4848
+        },
+        "medium": {
+          "true_positives": 22,
+          "false_positives": 9,
+          "false_negatives": 37,
+          "precision": 0.7097,
+          "recall": 0.3729,
+          "f1": 0.4889
+        },
+        "high": {
+          "true_positives": 10,
+          "false_positives": 14,
+          "false_negatives": 15,
+          "precision": 0.4167,
+          "recall": 0.4,
+          "f1": 0.4082
+        },
+        "critical": {
+          "true_positives": 1,
+          "false_positives": 1,
+          "false_negatives": 6,
+          "precision": 0.5,
+          "recall": 0.1429,
+          "f1": 0.2222
+        }
+      },
+      "macro_f1": 0.401,
+      "accuracy": 0.4579,
+      "n_evaluated": 107
+    },
+    "dora": {
+      "matrix": {
+        "medium": {
+          "medium": 20,
+          "high": 13,
+          "low": 26
+        },
+        "low": {
+          "low": 16
+        },
+        "high": {
+          "high": 10,
+          "medium": 9,
+          "critical": 1,
+          "low": 5
+        },
+        "critical": {
+          "high": 3,
+          "low": 2,
+          "critical": 2
+        }
+      },
+      "per_class_metrics": {
+        "low": {
+          "true_positives": 16,
+          "false_positives": 33,
+          "false_negatives": 0,
+          "precision": 0.3265,
+          "recall": 1.0,
+          "f1": 0.4923
+        },
+        "medium": {
+          "true_positives": 20,
+          "false_positives": 9,
+          "false_negatives": 39,
+          "precision": 0.6897,
+          "recall": 0.339,
+          "f1": 0.4545
+        },
+        "high": {
+          "true_positives": 10,
+          "false_positives": 16,
+          "false_negatives": 15,
+          "precision": 0.3846,
+          "recall": 0.4,
+          "f1": 0.3922
+        },
+        "critical": {
+          "true_positives": 2,
+          "false_positives": 1,
+          "false_negatives": 5,
+          "precision": 0.6667,
+          "recall": 0.2857,
+          "f1": 0.4
+        }
+      },
+      "macro_f1": 0.4347,
+      "accuracy": 0.4486,
+      "n_evaluated": 107
+    },
+    "ia3": {
+      "matrix": {
+        "medium": {
+          "medium": 31,
+          "high": 10,
+          "failed": 1,
+          "critical": 2,
+          "low": 15
+        },
+        "low": {
+          "medium": 2,
+          "low": 14
+        },
+        "high": {
+          "high": 5,
+          "medium": 18,
+          "critical": 1,
+          "low": 1
+        },
+        "critical": {
+          "high": 3,
+          "low": 2,
+          "critical": 1,
+          "medium": 1
+        }
+      },
+      "per_class_metrics": {
+        "low": {
+          "true_positives": 14,
+          "false_positives": 18,
+          "false_negatives": 2,
+          "precision": 0.4375,
+          "recall": 0.875,
+          "f1": 0.5833
+        },
+        "medium": {
+          "true_positives": 31,
+          "false_positives": 21,
+          "false_negatives": 27,
+          "precision": 0.5962,
+          "recall": 0.5345,
+          "f1": 0.5636
+        },
+        "high": {
+          "true_positives": 5,
+          "false_positives": 13,
+          "false_negatives": 20,
+          "precision": 0.2778,
+          "recall": 0.2,
+          "f1": 0.2326
+        },
+        "critical": {
+          "true_positives": 1,
+          "false_positives": 3,
+          "false_negatives": 6,
+          "precision": 0.25,
+          "recall": 0.1429,
+          "f1": 0.1818
+        }
+      },
+      "macro_f1": 0.3903,
+      "accuracy": 0.4766,
+      "n_evaluated": 107
+    },
+    "rag": {
+      "matrix": {
+        "medium": {
+          "medium": 29,
+          "high": 17,
+          "failed": 4,
+          "low": 9
+        },
+        "low": {
+          "low": 13,
+          "medium": 3
+        },
+        "high": {
+          "high": 13,
+          "medium": 7,
+          "low": 3,
+          "failed": 2
+        },
+        "critical": {
+          "high": 5,
+          "medium": 1,
+          "critical": 1
+        }
+      },
+      "per_class_metrics": {
+        "low": {
+          "true_positives": 13,
+          "false_positives": 12,
+          "false_negatives": 3,
+          "precision": 0.52,
+          "recall": 0.8125,
+          "f1": 0.6341
+        },
+        "medium": {
+          "true_positives": 29,
+          "false_positives": 11,
+          "false_negatives": 26,
+          "precision": 0.725,
+          "recall": 0.5273,
+          "f1": 0.6105
+        },
+        "high": {
+          "true_positives": 13,
+          "false_positives": 22,
+          "false_negatives": 10,
+          "precision": 0.3714,
+          "recall": 0.5652,
+          "f1": 0.4483
+        },
+        "critical": {
+          "true_positives": 1,
+          "false_positives": 0,
+          "false_negatives": 6,
+          "precision": 1.0,
+          "recall": 0.1429,
+          "f1": 0.25
+        }
+      },
+      "macro_f1": 0.4857,
+      "accuracy": 0.5234,
+      "n_evaluated": 107
+    }
+  },
+  "worst_examples": {
+    "qlora": [
+      {
+        "test_index": 65,
+        "clause_type": "governing_law",
+        "clause_text_snippet": "This Agreement shall be governed by and interpreted in accordance within the laws of the State of New York without reference to conflicts of laws provisions.",
+        "ground_truth_risk_level": "high",
+        "predicted_risk_level": "low",
+        "json_parse_success": true,
+        "overall": 3.65,
+        "dimension_scores": {
+          "accuracy": 2,
+          "completeness": 1,
+          "legal_reasoning": 4,
+          "clarity": 8,
+          "actionability": 5
+        },
+        "weakest_dimension": "completeness",
+        "justification_snippet": "The model completely missed the critical jurisdictional conflict and grammatical error that create high risk, instead identifying minor theoretical concerns and assigning low risk. While the reasoning..."
+      },
+      {
+        "test_index": 57,
+        "clause_type": "indemnification",
+        "clause_text_snippet": "Company hereby agrees to defend, indemnify, and hold harmless Client, its officers, directors, employees, agents, successors, and assigns from and against any and all claims, demands, losses, costs, e...",
+        "ground_truth_risk_level": "critical",
+        "predicted_risk_level": "low",
+        "json_parse_success": true,
+        "overall": 3.85,
+        "dimension_scores": {
+          "accuracy": 2,
+          "completeness": 4,
+          "legal_reasoning": 3,
+          "clarity": 7,
+          "actionability": 5
+        },
+        "weakest_dimension": "accuracy",
+        "justification_snippet": "The model severely underassessed the risk level (low vs critical) and risk score (0.25 vs 0.85), missing the extreme one-sided nature and workers' compensation waiver. While it identified some concern..."
+      },
+      {
+        "test_index": 83,
+        "clause_type": "non_compete",
+        "clause_text_snippet": "You shall not engage in catering and delivery services and activities outside of the Designated Area.",
+        "ground_truth_risk_level": "high",
+        "predicted_risk_level": "low",
+        "json_parse_success": true,
+        "overall": 3.85,
+        "dimension_scores": {
+          "accuracy": 2,
+          "completeness": 4,
+          "legal_reasoning": 3,
+          "clarity": 7,
+          "actionability": 5
+        },
+        "weakest_dimension": "accuracy",
+        "justification_snippet": "The model completely misses the core issue - this is a global restriction outside the designated area, not just vague boundaries. The risk level assessment is dramatically wrong (low vs high), and the..."
+      },
+      {
+        "test_index": 84,
+        "clause_type": "liability",
+        "clause_text_snippet": "Airspan shall not be liable to Distributor on account of termination or expiration of this Agreement for reimbursement or damages for loss of goodwill, prospective profits, or anticipated orders, or o...",
+        "ground_truth_risk_level": "high",
+        "predicted_risk_level": "low",
+        "json_parse_success": true,
+        "overall": 3.9,
+        "dimension_scores": {
+          "accuracy": 2,
+          "completeness": 3,
+          "legal_reasoning": 4,
+          "clarity": 7,
+          "actionability": 5
+        },
+        "weakest_dimension": "accuracy",
+        "justification_snippet": "The model completely misidentified the risk level (low vs high) and fundamentally misunderstood whose interests are at stake - focusing on Airspan's exposure when the clause actually protects Airspan ..."
+      },
+      {
+        "test_index": 63,
+        "clause_type": "governing_law",
+        "clause_text_snippet": "This Agreement shall be governed by and interpreted and enforced in accordance with the laws of the Province of Ontario and the Parties agree to abide by the jurisdiction of the Courts of Ontario.",
+        "ground_truth_risk_level": "medium",
+        "predicted_risk_level": "low",
+        "json_parse_success": true,
+        "overall": 3.95,
+        "dimension_scores": {
+          "accuracy": 3,
+          "completeness": 2,
+          "legal_reasoning": 4,
+          "clarity": 7,
+          "actionability": 5
+        },
+        "weakest_dimension": "completeness",
+        "justification_snippet": "The model significantly underestimated the risk level (low vs medium) and missed the key issue that jurisdiction language exists but lacks exclusivity. The model incorrectly stated there was no jurisd..."
+      },
+      {
+        "test_index": 64,
+        "clause_type": "liability",
+        "clause_text_snippet": "EXCEPT FOR THE ABOVE INDEMNIFICATION OBLIGATIONS AND FOR BREACHES OF SECTION 14, NEITHER PARTY SHALL BE LIABLE TO THE OTHER FOR ANY INCIDENTAL, CONSEQUENTIAL, SPECIAL OR PUNITIVE DAMAGES ARISING OUT O...",
+        "ground_truth_risk_level": "medium",
+        "predicted_risk_level": "low",
+        "json_parse_success": true,
+        "overall": 3.95,
+        "dimension_scores": {
+          "accuracy": 3,
+          "completeness": 2,
+          "legal_reasoning": 4,
+          "clarity": 7,
+          "actionability": 5
+        },
+        "weakest_dimension": "completeness",
+        "justification_snippet": "The model completely mischaracterized this as a low-risk clause when it's medium-risk, missing the critical unlimited direct damages exposure and unknown Section 14 carve-out. The model incorrectly fo..."
+      },
+      {
+        "test_index": 39,
+        "clause_type": "liability",
+        "clause_text_snippet": "Your obligations to maintain insurance coverage as herein described shall not be affected in any manner by reason of any separate insurance maintained by us nor shall the maintenance of such insurance...",
+        "ground_truth_risk_level": "high",
+        "predicted_risk_level": "medium",
+        "json_parse_success": true,
+        "overall": 4.6,
+        "dimension_scores": {
+          "accuracy": 3,
+          "completeness": 4,
+          "legal_reasoning": 5,
+          "clarity": 7,
+          "actionability": 5
+        },
+        "weakest_dimension": "accuracy",
+        "justification_snippet": "The model significantly underestimated the risk level (medium vs high) and score (0.35 vs 0.65), missing the key insight that this creates unlimited liability exposure with stacked insurance obligatio..."
+      },
+      {
+        "test_index": 85,
+        "clause_type": "liability",
+        "clause_text_snippet": "IN NO EVENT WILL CONTENT PROVIDER BE LIABLE TO COMPANY NOR WILL COMPANY BE LIABLE TO CONTENT PROVIDER FOR ANY SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES, WHETHER BASED ON BREACH OF CONTRACT, TORT (I...",
+        "ground_truth_risk_level": "medium",
+        "predicted_risk_level": "low",
+        "json_parse_success": true,
+        "overall": 4.75,
+        "dimension_scores": {
+          "accuracy": 3,
+          "completeness": 4,
+          "legal_reasoning": 5,
+          "clarity": 7,
+          "actionability": 6
+        },
+        "weakest_dimension": "accuracy",
+        "justification_snippet": "The model significantly underestimated the risk level (low vs medium) and missed the critical issue of incomplete clause language that creates legal uncertainty. While it provided some valid concerns ..."
+      },
+      {
+        "test_index": 9,
+        "clause_type": "termination",
+        "clause_text_snippet": "This Agreement will remain in effect for Thirty-six (36)",
+        "ground_truth_risk_level": "medium",
+        "predicted_risk_level": "high",
+        "json_parse_success": true,
+        "overall": 4.8,
+        "dimension_scores": {
+          "accuracy": 4,
+          "completeness": 3,
+          "legal_reasoning": 5,
+          "clarity": 7,
+          "actionability": 6
+        },
+        "weakest_dimension": "completeness",
+        "justification_snippet": "The model incorrectly assessed risk level as high vs medium and misunderstood the clause context, missing the key issue about 'Hosting Service Ready Date' uncertainty. However, it provided clear struc..."
+      },
+      {
+        "test_index": 62,
+        "clause_type": "liability",
+        "clause_text_snippet": "The Company agrees to provide and maintain, at its own expense, advertising and product liability insurance each with limits no less than $5,000,000 and within thirty (30) days from the date hereof, t...",
+        "ground_truth_risk_level": "medium",
+        "predicted_risk_level": "low",
+        "json_parse_success": true,
+        "overall": 4.95,
+        "dimension_scores": {
+          "accuracy": 4,
+          "completeness": 3,
+          "legal_reasoning": 5,
+          "clarity": 8,
+          "actionability": 6
+        },
+        "weakest_dimension": "completeness",
+        "justification_snippet": "The model significantly underestimated the risk level (low vs medium) and missed critical concerns like limited liability scope and insufficient notice periods. While the analysis is clear and somewha..."
+      }
+    ],
+    "dora": [
+      {
+        "test_index": 65,
+        "clause_type": "governing_law",
+        "clause_text_snippet": "This Agreement shall be governed by and interpreted in accordance within the laws of the State of New York without reference to conflicts of laws provisions.",
+        "ground_truth_risk_level": "high",
+        "predicted_risk_level": "low",
+        "json_parse_success": true,
+        "overall": 3.9,
+        "dimension_scores": {
+          "accuracy": 2,
+          "completeness": 3,
+          "legal_reasoning": 4,
+          "clarity": 7,
+          "actionability": 5
+        },
+        "weakest_dimension": "accuracy",
+        "justification_snippet": "The model completely missed the critical grammatical error and jurisdictional conflict identified by the expert, instead providing a low-risk assessment when the reference shows high risk. While the m..."
+      },
+      {
+        "test_index": 63,
+        "clause_type": "governing_law",
+        "clause_text_snippet": "This Agreement shall be governed by and interpreted and enforced in accordance with the laws of the Province of Ontario and the Parties agree to abide by the jurisdiction of the Courts of Ontario.",
+        "ground_truth_risk_level": "medium",
+        "predicted_risk_level": "low",
+        "json_parse_success": true,
+        "overall": 3.95,
+        "dimension_scores": {
+          "accuracy": 3,
+          "completeness": 2,
+          "legal_reasoning": 4,
+          "clarity": 7,
+          "actionability": 5
+        },
+        "weakest_dimension": "completeness",
+        "justification_snippet": "The model significantly underestimated the risk level (low vs medium) and missed the critical issue that the jurisdiction clause exists but lacks exclusivity language. While the model provided clear o..."
+      },
+      {
+        "test_index": 49,
+        "clause_type": "ip",
+        "clause_text_snippet": "TouchStar hereby grants to Reseller, with the additional right                 to grant to Other Resellers who or which enter into an Other                 Reseller Agreement, the nontransferable and ...",
+        "ground_truth_risk_level": "high",
+        "predicted_risk_level": "medium",
+        "json_parse_success": true,
+        "overall": 4.1,
+        "dimension_scores": {
+          "accuracy": 3,
+          "completeness": 2,
+          "legal_reasoning": 4,
+          "clarity": 7,
+          "actionability": 6
+        },
+        "weakest_dimension": "completeness",
+        "justification_snippet": "The model significantly underestimated the risk level and missed the critical sublicensing concern that makes this a high-risk clause. While the model's concerns are valid, they are relatively minor c..."
+      },
+      {
+        "test_index": 9,
+        "clause_type": "termination",
+        "clause_text_snippet": "This Agreement will remain in effect for Thirty-six (36)",
+        "ground_truth_risk_level": "medium",
+        "predicted_risk_level": "high",
+        "json_parse_success": true,
+        "overall": 4.25,
+        "dimension_scores": {
+          "accuracy": 3,
+          "completeness": 2,
+          "legal_reasoning": 4,
+          "clarity": 8,
+          "actionability": 6
+        },
+        "weakest_dimension": "completeness",
+        "justification_snippet": "The model completely misidentified the key issue - it focused on the clause being incomplete rather than recognizing the undefined 'Hosting Service Ready Date' problem that creates uncertainty about t..."
+      },
+      {
+        "test_index": 39,
+        "clause_type": "liability",
+        "clause_text_snippet": "Your obligations to maintain insurance coverage as herein described shall not be affected in any manner by reason of any separate insurance maintained by us nor shall the maintenance of such insurance...",
+        "ground_truth_risk_level": "high",
+        "predicted_risk_level": "medium",
+        "json_parse_success": true,
+        "overall": 4.4,
+        "dimension_scores": {
+          "accuracy": 4,
+          "completeness": 3,
+          "legal_reasoning": 4,
+          "clarity": 7,
+          "actionability": 5
+        },
+        "weakest_dimension": "completeness",
+        "justification_snippet": "The model significantly underestimated the risk level (medium vs high) and missed the core issue of unlimited indemnification liability remaining intact despite insurance coverage. While the analysis ..."
+      },
+      {
+        "test_index": 64,
+        "clause_type": "liability",
+        "clause_text_snippet": "EXCEPT FOR THE ABOVE INDEMNIFICATION OBLIGATIONS AND FOR BREACHES OF SECTION 14, NEITHER PARTY SHALL BE LIABLE TO THE OTHER FOR ANY INCIDENTAL, CONSEQUENTIAL, SPECIAL OR PUNITIVE DAMAGES ARISING OUT O...",
+        "ground_truth_risk_level": "medium",
+        "predicted_risk_level": "low",
+        "json_parse_success": true,
+        "overall": 4.5,
+        "dimension_scores": {
+          "accuracy": 4,
+          "completeness": 3,
+          "legal_reasoning": 5,
+          "clarity": 7,
+          "actionability": 4
+        },
+        "weakest_dimension": "completeness",
+        "justification_snippet": "The model significantly underassessed the risk level (low vs medium) and missed critical concerns about uncapped direct damages and the unknown Section 14 carve-out. While the analysis shows basic leg..."
+      },
+      {
+        "test_index": 99,
+        "clause_type": "non_compete",
+        "clause_text_snippet": "Endorser's duty not to compete with the business of MusclePharm shall continue for a period of one year following the expiration or termination of this Agreement. Endorser's non-competition obligation...",
+        "ground_truth_risk_level": "medium",
+        "predicted_risk_level": "low",
+        "json_parse_success": true,
+        "overall": 4.6,
+        "dimension_scores": {
+          "accuracy": 3,
+          "completeness": 6,
+          "legal_reasoning": 4,
+          "clarity": 7,
+          "actionability": 4
+        },
+        "weakest_dimension": "accuracy",
+        "justification_snippet": "The model significantly underestimated the risk level (low vs medium) and missed the most critical issue - the overly broad undefined scope of 'business of MusclePharm.' While it identified some valid..."
+      },
+      {
+        "test_index": 21,
+        "clause_type": "non_compete",
+        "clause_text_snippet": "Company agrees that no other Distributor will be appointed in any other state as a Distributor unless it is either the Company or Distributor, save and except for the state of Florida.",
+        "ground_truth_risk_level": "high",
+        "predicted_risk_level": "medium",
+        "json_parse_success": true,
+        "overall": 4.75,
+        "dimension_scores": {
+          "accuracy": 3,
+          "completeness": 4,
+          "legal_reasoning": 5,
+          "clarity": 7,
+          "actionability": 6
+        },
+        "weakest_dimension": "accuracy",
+        "justification_snippet": "The model significantly underestimated the risk level (medium vs high) and score (0.35 vs 0.65), missing the nationwide scope of restrictions. While it identified some valid concerns, it failed to rec..."
+      },
+      {
+        "test_index": 62,
+        "clause_type": "liability",
+        "clause_text_snippet": "The Company agrees to provide and maintain, at its own expense, advertising and product liability insurance each with limits no less than $5,000,000 and within thirty (30) days from the date hereof, t...",
+        "ground_truth_risk_level": "medium",
+        "predicted_risk_level": "low",
+        "json_parse_success": true,
+        "overall": 4.75,
+        "dimension_scores": {
+          "accuracy": 3,
+          "completeness": 4,
+          "legal_reasoning": 5,
+          "clarity": 7,
+          "actionability": 6
+        },
+        "weakest_dimension": "accuracy",
+        "justification_snippet": "The model significantly underassessed the risk level (low vs medium) and score (0.15 vs 0.42), missing critical issues like inadequate notice periods and lack of non-compliance remedies. While it iden..."
+      },
+      {
+        "test_index": 85,
+        "clause_type": "liability",
+        "clause_text_snippet": "IN NO EVENT WILL CONTENT PROVIDER BE LIABLE TO COMPANY NOR WILL COMPANY BE LIABLE TO CONTENT PROVIDER FOR ANY SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES, WHETHER BASED ON BREACH OF CONTRACT, TORT (I...",
+        "ground_truth_risk_level": "medium",
+        "predicted_risk_level": "low",
+        "json_parse_success": true,
+        "overall": 4.75,
+        "dimension_scores": {
+          "accuracy": 3,
+          "completeness": 4,
+          "legal_reasoning": 5,
+          "clarity": 7,
+          "actionability": 6
+        },
+        "weakest_dimension": "accuracy",
+        "justification_snippet": "The model significantly underestimated the risk level (low vs medium) and missed the critical issue of incomplete clause language that creates legal uncertainty. While it provided some valid concerns ..."
+      }
+    ],
+    "ia3": [
+      {
+        "test_index": 8,
+        "clause_type": "liability",
+        "clause_text_snippet": "Supplier shall at its own expense secure and continuously maintain, and shall require its Subcontractors to secure and continuously maintain, throughout the Term, the following insurance with companie...",
+        "ground_truth_risk_level": "medium",
+        "predicted_risk_level": "FAILED",
+        "json_parse_success": false,
+        "overall": 1.0,
+        "dimension_scores": {
+          "accuracy": 1,
+          "completeness": 1,
+          "legal_reasoning": 1,
+          "clarity": 1,
+          "actionability": 1
+        },
+        "weakest_dimension": "accuracy",
+        "justification_snippet": "The model completely failed to produce any valid JSON output or legal analysis, making it impossible to assess any dimension of legal risk evaluation performance."
+      },
+      {
+        "test_index": 21,
+        "clause_type": "non_compete",
+        "clause_text_snippet": "Company agrees that no other Distributor will be appointed in any other state as a Distributor unless it is either the Company or Distributor, save and except for the state of Florida.",
+        "ground_truth_risk_level": "high",
+        "predicted_risk_level": "medium",
+        "json_parse_success": true,
+        "overall": 3.55,
+        "dimension_scores": {
+          "accuracy": 3,
+          "completeness": 2,
+          "legal_reasoning": 3,
+          "clarity": 7,
+          "actionability": 4
+        },
+        "weakest_dimension": "completeness",
+        "justification_snippet": "The model completely misunderstood the clause, thinking it only restricts Florida when it actually creates a nationwide restriction except for Florida. It missed the critical antitrust and overly broa..."
+      },
+      {
+        "test_index": 58,
+        "clause_type": "termination",
+        "clause_text_snippet": "Either party may terminate this Agreement without cause upon sixty (60) days prior written notice to the other party.",
+        "ground_truth_risk_level": "medium",
+        "predicted_risk_level": "low",
+        "json_parse_success": true,
+        "overall": 3.55,
+        "dimension_scores": {
+          "accuracy": 3,
+          "completeness": 2,
+          "legal_reasoning": 3,
+          "clarity": 7,
+          "actionability": 4
+        },
+        "weakest_dimension": "completeness",
+        "justification_snippet": "The model significantly misassessed the risk level (low vs medium) and failed to identify the key concerns about opportunistic termination and inadequate notice periods. The model's concerns about cur..."
+      },
+      {
+        "test_index": 9,
+        "clause_type": "termination",
+        "clause_text_snippet": "This Agreement will remain in effect for Thirty-six (36)",
+        "ground_truth_risk_level": "medium",
+        "predicted_risk_level": "critical",
+        "json_parse_success": true,
+        "overall": 4.05,
+        "dimension_scores": {
+          "accuracy": 2,
+          "completeness": 3,
+          "legal_reasoning": 4,
+          "clarity": 7,
+          "actionability": 6
+        },
+        "weakest_dimension": "accuracy",
+        "justification_snippet": "The model significantly overestimated the risk level (critical vs medium) and score (0.9 vs 0.35), missing the key issue about the undefined 'Hosting Service Ready Date' that creates the actual uncert..."
+      },
+      {
+        "test_index": 1,
+        "clause_type": "governing_law",
+        "clause_text_snippet": "This Agreement shall be governed, interpreted and construed in accordance with the substantive laws of the Delaware, in the country of the United State of America, without regard to its conflict of la...",
+        "ground_truth_risk_level": "low",
+        "predicted_risk_level": "medium",
+        "json_parse_success": true,
+        "overall": 4.1,
+        "dimension_scores": {
+          "accuracy": 3,
+          "completeness": 2,
+          "legal_reasoning": 4,
+          "clarity": 7,
+          "actionability": 6
+        },
+        "weakest_dimension": "completeness",
+        "justification_snippet": "The model significantly overestimated the risk level (medium vs low) and missed the actual drafting errors in the clause, instead focusing on generic concerns about Delaware law choice. While the reas..."
+      },
+      {
+        "test_index": 65,
+        "clause_type": "governing_law",
+        "clause_text_snippet": "This Agreement shall be governed by and interpreted in accordance within the laws of the State of New York without reference to conflicts of laws provisions.",
+        "ground_truth_risk_level": "high",
+        "predicted_risk_level": "medium",
+        "json_parse_success": true,
+        "overall": 4.1,
+        "dimension_scores": {
+          "accuracy": 3,
+          "completeness": 2,
+          "legal_reasoning": 4,
+          "clarity": 7,
+          "actionability": 6
+        },
+        "weakest_dimension": "completeness",
+        "justification_snippet": "The model completely missed the critical grammatical error and jurisdictional conflict identified by the expert, instead focusing on generic governing law concerns. While the reasoning shows basic leg..."
+      },
+      {
+        "test_index": 39,
+        "clause_type": "liability",
+        "clause_text_snippet": "Your obligations to maintain insurance coverage as herein described shall not be affected in any manner by reason of any separate insurance maintained by us nor shall the maintenance of such insurance...",
+        "ground_truth_risk_level": "high",
+        "predicted_risk_level": "medium",
+        "json_parse_success": true,
+        "overall": 4.4,
+        "dimension_scores": {
+          "accuracy": 4,
+          "completeness": 3,
+          "legal_reasoning": 4,
+          "clarity": 7,
+          "actionability": 5
+        },
+        "weakest_dimension": "completeness",
+        "justification_snippet": "The model significantly underestimated the risk level (medium vs high) and missed the critical issue of unlimited indemnification liability that remains regardless of insurance coverage. While the ana..."
+      },
+      {
+        "test_index": 88,
+        "clause_type": "ip",
+        "clause_text_snippet": "Producer further grants to ConvergTV the right and license to create (re-edit), at its sole cost and expense, new and different versions of the Program, create foreign language, subtitled or translate...",
+        "ground_truth_risk_level": "high",
+        "predicted_risk_level": "medium",
+        "json_parse_success": true,
+        "overall": 4.4,
+        "dimension_scores": {
+          "accuracy": 4,
+          "completeness": 3,
+          "legal_reasoning": 4,
+          "clarity": 7,
+          "actionability": 5
+        },
+        "weakest_dimension": "completeness",
+        "justification_snippet": "The model significantly underassessed the risk level (medium vs high) and missed the most critical concern about unlimited re-editing rights that could fundamentally alter content. While the analysis ..."
+      },
+      {
+        "test_index": 62,
+        "clause_type": "liability",
+        "clause_text_snippet": "The Company agrees to provide and maintain, at its own expense, advertising and product liability insurance each with limits no less than $5,000,000 and within thirty (30) days from the date hereof, t...",
+        "ground_truth_risk_level": "medium",
+        "predicted_risk_level": "low",
+        "json_parse_success": true,
+        "overall": 4.55,
+        "dimension_scores": {
+          "accuracy": 4,
+          "completeness": 3,
+          "legal_reasoning": 4,
+          "clarity": 7,
+          "actionability": 6
+        },
+        "weakest_dimension": "completeness",
+        "justification_snippet": "The model significantly underestimated the risk level (low vs medium) and missed critical structural issues like limited insurance scope and inadequate notice periods. While the output is clear, it fo..."
+      },
+      {
+        "test_index": 83,
+        "clause_type": "non_compete",
+        "clause_text_snippet": "You shall not engage in catering and delivery services and activities outside of the Designated Area.",
+        "ground_truth_risk_level": "high",
+        "predicted_risk_level": "medium",
+        "json_parse_success": true,
+        "overall": 4.55,
+        "dimension_scores": {
+          "accuracy": 4,
+          "completeness": 3,
+          "legal_reasoning": 4,
+          "clarity": 7,
+          "actionability": 6
+        },
+        "weakest_dimension": "completeness",
+        "justification_snippet": "The model significantly underestimated the risk level (medium vs high) and missed the most critical legal issue - that this is a perpetual, asymmetrical global restriction outside the designated area...."
+      }
+    ],
+    "rag": [
+      {
+        "test_index": 18,
+        "clause_type": "ip",
+        "clause_text_snippet": "If the arbitrator determines that any Outstanding Patent should be or should have been, as applicable, an Assigned Patent, Seller shall (and shall cause the other Seller Parties to) assign such Patent...",
+        "ground_truth_risk_level": "medium",
+        "predicted_risk_level": "FAILED",
+        "json_parse_success": false,
+        "overall": 1.0,
+        "dimension_scores": {
+          "accuracy": 1,
+          "completeness": 1,
+          "legal_reasoning": 1,
+          "clarity": 1,
+          "actionability": 1
+        },
+        "weakest_dimension": "accuracy",
+        "justification_snippet": "The model completely failed to produce any valid JSON output or legal analysis, making it impossible to assess any dimension of legal risk evaluation competency."
+      },
+      {
+        "test_index": 30,
+        "clause_type": "non_compete",
+        "clause_text_snippet": "During the Term, Snap will not grant any third party any right to sponsor any products or services in the Exclusive Category on or through the Snap Web Site.",
+        "ground_truth_risk_level": "medium",
+        "predicted_risk_level": "FAILED",
+        "json_parse_success": false,
+        "overall": 1.0,
+        "dimension_scores": {
+          "accuracy": 1,
+          "completeness": 1,
+          "legal_reasoning": 1,
+          "clarity": 1,
+          "actionability": 1
+        },
+        "weakest_dimension": "accuracy",
+        "justification_snippet": "The model completely failed to produce any valid JSON output, making it impossible to assess any aspect of legal analysis. This represents a total system failure."
+      },
+      {
+        "test_index": 49,
+        "clause_type": "ip",
+        "clause_text_snippet": "TouchStar hereby grants to Reseller, with the additional right                 to grant to Other Resellers who or which enter into an Other                 Reseller Agreement, the nontransferable and ...",
+        "ground_truth_risk_level": "high",
+        "predicted_risk_level": "FAILED",
+        "json_parse_success": false,
+        "overall": 1.0,
+        "dimension_scores": {
+          "accuracy": 1,
+          "completeness": 1,
+          "legal_reasoning": 1,
+          "clarity": 1,
+          "actionability": 1
+        },
+        "weakest_dimension": "accuracy",
+        "justification_snippet": "The model completely failed to produce any valid JSON output or legal analysis. This represents a complete system failure that provides no value to users seeking legal risk assessment."
+      },
+      {
+        "test_index": 53,
+        "clause_type": "ip",
+        "clause_text_snippet": "In addition, the following provisions shall survive termination of this Agreement for any reason: Astellas shall assign or cause to be assigned to FG (or if not so assignable, Astellas shall take all ...",
+        "ground_truth_risk_level": "high",
+        "predicted_risk_level": "FAILED",
+        "json_parse_success": false,
+        "overall": 1.0,
+        "dimension_scores": {
+          "accuracy": 1,
+          "completeness": 1,
+          "legal_reasoning": 1,
+          "clarity": 1,
+          "actionability": 1
+        },
+        "weakest_dimension": "accuracy",
+        "justification_snippet": "The model completely failed to produce any valid JSON output, making it impossible to evaluate any aspect of legal risk assessment. This represents a total system failure."
+      },
+      {
+        "test_index": 66,
+        "clause_type": "liability",
+        "clause_text_snippet": "OTHER PARTY IN AN AMOUNT GREATER THAN THE AMOUNT BOXLOT ACTUALLY PAYS TO THEGLOBE HEREUNDER.",
+        "ground_truth_risk_level": "medium",
+        "predicted_risk_level": "FAILED",
+        "json_parse_success": false,
+        "overall": 1.0,
+        "dimension_scores": {
+          "accuracy": 1,
+          "completeness": 1,
+          "legal_reasoning": 1,
+          "clarity": 1,
+          "actionability": 1
+        },
+        "weakest_dimension": "accuracy",
+        "justification_snippet": "The model completely failed to produce any valid JSON output or legal analysis whatsoever. Since no assessment was provided, all scoring dimensions receive the minimum score of 1."
+      },
+      {
+        "test_index": 97,
+        "clause_type": "ip",
+        "clause_text_snippet": "ExxonMobil grants FCE a worldwide, non-exclusive, royalty-free, non-sub- licensable (except as set forth herein), perpetual, irrevocable (except as stated in Paragraphs 12.03 (Failure to Perform), 12....",
+        "ground_truth_risk_level": "medium",
+        "predicted_risk_level": "FAILED",
+        "json_parse_success": false,
+        "overall": 1.0,
+        "dimension_scores": {
+          "accuracy": 1,
+          "completeness": 1,
+          "legal_reasoning": 1,
+          "clarity": 1,
+          "actionability": 1
+        },
+        "weakest_dimension": "accuracy",
+        "justification_snippet": "The model completely failed to produce any valid JSON output, providing no legal risk assessment whatsoever. This represents a total failure across all evaluation dimensions."
+      },
+      {
+        "test_index": 21,
+        "clause_type": "non_compete",
+        "clause_text_snippet": "Company agrees that no other Distributor will be appointed in any other state as a Distributor unless it is either the Company or Distributor, save and except for the state of Florida.",
+        "ground_truth_risk_level": "high",
+        "predicted_risk_level": "low",
+        "json_parse_success": true,
+        "overall": 3.5,
+        "dimension_scores": {
+          "accuracy": 2,
+          "completeness": 3,
+          "legal_reasoning": 3,
+          "clarity": 7,
+          "actionability": 4
+        },
+        "weakest_dimension": "accuracy",
+        "justification_snippet": "The model completely misassessed the risk level (low vs high) and failed to identify the most critical legal issues including antitrust concerns and overly broad nationwide restrictions. While the out..."
+      },
+      {
+        "test_index": 65,
+        "clause_type": "governing_law",
+        "clause_text_snippet": "This Agreement shall be governed by and interpreted in accordance within the laws of the State of New York without reference to conflicts of laws provisions.",
+        "ground_truth_risk_level": "high",
+        "predicted_risk_level": "low",
+        "json_parse_success": true,
+        "overall": 3.65,
+        "dimension_scores": {
+          "accuracy": 2,
+          "completeness": 1,
+          "legal_reasoning": 4,
+          "clarity": 8,
+          "actionability": 5
+        },
+        "weakest_dimension": "completeness",
+        "justification_snippet": "The model completely missed the critical grammatical error and jurisdictional conflict that make this high-risk, instead providing generic concerns about New York law choice. While the output is clear..."
+      },
+      {
+        "test_index": 80,
+        "clause_type": "termination",
+        "clause_text_snippet": "Licensee shall be permitted, at Bioeq's choice (if this Agreement is terminated by Bioeq pursuant to Sections 15.2.1, 15.2.2, 15.2.3, 15.2.4, 15.2.8 or 15.2.9, or by Licensee pursuant to Section 15.2....",
+        "ground_truth_risk_level": "medium",
+        "predicted_risk_level": "high",
+        "json_parse_success": true,
+        "overall": 3.75,
+        "dimension_scores": {
+          "accuracy": 3,
+          "completeness": 4,
+          "legal_reasoning": 4,
+          "clarity": 3,
+          "actionability": 5
+        },
+        "weakest_dimension": "accuracy",
+        "justification_snippet": "The model significantly overestimated the risk level (high vs medium) and score (0.72 vs 0.42), missing the core issue of asymmetric control rights favoring Bioeq. While it identified some relevant co..."
+      },
+      {
+        "test_index": 83,
+        "clause_type": "non_compete",
+        "clause_text_snippet": "You shall not engage in catering and delivery services and activities outside of the Designated Area.",
+        "ground_truth_risk_level": "high",
+        "predicted_risk_level": "low",
+        "json_parse_success": true,
+        "overall": 4.0,
+        "dimension_scores": {
+          "accuracy": 2,
+          "completeness": 4,
+          "legal_reasoning": 3,
+          "clarity": 7,
+          "actionability": 6
+        },
+        "weakest_dimension": "accuracy",
+        "justification_snippet": "The model significantly underestimated the risk level (low vs high) and missed critical issues like asymmetrical restrictions and perpetual duration. While the output is clear and offers some actionab..."
+      }
+    ]
+  },
+  "dimension_failures": {
+    "qlora": {
+      "per_dimension": {
+        "accuracy": {
+          "mean": 6.2991,
+          "std": 2.703,
+          "min": 2.0,
+          "median": 6.0,
+          "max": 10.0,
+          "n_below_threshold": 45,
+          "pct_below_threshold": 0.4206
+        },
+        "completeness": {
+          "mean": 6.0,
+          "std": 1.6368,
+          "min": 1.0,
+          "median": 6.0,
+          "max": 10.0,
+          "n_below_threshold": 21,
+          "pct_below_threshold": 0.1963
+        },
+        "legal_reasoning": {
+          "mean": 6.6822,
+          "std": 1.2559,
+          "min": 3.0,
+          "median": 7.0,
+          "max": 9.0,
+          "n_below_threshold": 8,
+          "pct_below_threshold": 0.0748
+        },
+        "clarity": {
+          "mean": 8.0374,
+          "std": 0.5482,
+          "min": 7.0,
+          "median": 8.0,
+          "max": 9.0,
+          "n_below_threshold": 0,
+          "pct_below_threshold": 0.0
+        },
+        "actionability": {
+          "mean": 6.8224,
+          "std": 0.9887,
+          "min": 4.0,
+          "median": 7.0,
+          "max": 9.0,
+          "n_below_threshold": 1,
+          "pct_below_threshold": 0.0093
+        }
+      },
+      "weakest_dimension": "completeness",
+      "strongest_dimension": "clarity",
+      "dimension_gap": 2.0374,
+      "dimension_ranking": [
+        "completeness",
+        "accuracy",
+        "legal_reasoning",
+        "actionability",
+        "clarity"
+      ]
+    },
+    "dora": {
+      "per_dimension": {
+        "accuracy": {
+          "mean": 6.2617,
+          "std": 2.7415,
+          "min": 2.0,
+          "median": 6.0,
+          "max": 10.0,
+          "n_below_threshold": 48,
+          "pct_below_threshold": 0.4486
+        },
+        "completeness": {
+          "mean": 6.0467,
+          "std": 1.6505,
+          "min": 2.0,
+          "median": 6.0,
+          "max": 10.0,
+          "n_below_threshold": 22,
+          "pct_below_threshold": 0.2056
+        },
+        "legal_reasoning": {
+          "mean": 6.7009,
+          "std": 1.3119,
+          "min": 3.0,
+          "median": 7.0,
+          "max": 9.0,
+          "n_below_threshold": 8,
+          "pct_below_threshold": 0.0748
+        },
+        "clarity": {
+          "mean": 8.0935,
+          "std": 0.6071,
+          "min": 7.0,
+          "median": 8.0,
+          "max": 9.0,
+          "n_below_threshold": 0,
+          "pct_below_threshold": 0.0
+        },
+        "actionability": {
+          "mean": 6.8318,
+          "std": 1.0046,
+          "min": 4.0,
+          "median": 7.0,
+          "max": 9.0,
+          "n_below_threshold": 2,
+          "pct_below_threshold": 0.0187
+        }
+      },
+      "weakest_dimension": "completeness",
+      "strongest_dimension": "clarity",
+      "dimension_gap": 2.0468,
+      "dimension_ranking": [
+        "completeness",
+        "accuracy",
+        "legal_reasoning",
+        "actionability",
+        "clarity"
+      ]
+    },
+    "ia3": {
+      "per_dimension": {
+        "accuracy": {
+          "mean": 6.3832,
+          "std": 2.7563,
+          "min": 1.0,
+          "median": 6.0,
+          "max": 10.0,
+          "n_below_threshold": 45,
+          "pct_below_threshold": 0.4206
+        },
+        "completeness": {
+          "mean": 5.6542,
+          "std": 1.7162,
+          "min": 1.0,
+          "median": 6.0,
+          "max": 10.0,
+          "n_below_threshold": 30,
+          "pct_below_threshold": 0.2804
+        },
+        "legal_reasoning": {
+          "mean": 6.2336,
+          "std": 1.5332,
+          "min": 1.0,
+          "median": 7.0,
+          "max": 9.0,
+          "n_below_threshold": 16,
+          "pct_below_threshold": 0.1495
+        },
+        "clarity": {
+          "mean": 7.8411,
+          "std": 0.9432,
+          "min": 1.0,
+          "median": 8.0,
+          "max": 9.0,
+          "n_below_threshold": 1,
+          "pct_below_threshold": 0.0093
+        },
+        "actionability": {
+          "mean": 6.5701,
+          "std": 1.1583,
+          "min": 1.0,
+          "median": 7.0,
+          "max": 9.0,
+          "n_below_threshold": 5,
+          "pct_below_threshold": 0.0467
+        }
+      },
+      "weakest_dimension": "completeness",
+      "strongest_dimension": "clarity",
+      "dimension_gap": 2.1869,
+      "dimension_ranking": [
+        "completeness",
+        "legal_reasoning",
+        "accuracy",
+        "actionability",
+        "clarity"
+      ]
+    },
+    "rag": {
+      "per_dimension": {
+        "accuracy": {
+          "mean": 6.5047,
+          "std": 2.7313,
+          "min": 1.0,
+          "median": 7.0,
+          "max": 10.0,
+          "n_below_threshold": 35,
+          "pct_below_threshold": 0.3271
+        },
+        "completeness": {
+          "mean": 5.9159,
+          "std": 2.0287,
+          "min": 1.0,
+          "median": 6.0,
+          "max": 9.0,
+          "n_below_threshold": 29,
+          "pct_below_threshold": 0.271
+        },
+        "legal_reasoning": {
+          "mean": 6.3458,
+          "std": 1.8889,
+          "min": 1.0,
+          "median": 7.0,
+          "max": 9.0,
+          "n_below_threshold": 12,
+          "pct_below_threshold": 0.1121
+        },
+        "clarity": {
+          "mean": 7.4486,
+          "std": 1.8235,
+          "min": 1.0,
+          "median": 8.0,
+          "max": 9.0,
+          "n_below_threshold": 7,
+          "pct_below_threshold": 0.0654
+        },
+        "actionability": {
+          "mean": 6.5047,
+          "std": 1.819,
+          "min": 1.0,
+          "median": 7.0,
+          "max": 9.0,
+          "n_below_threshold": 12,
+          "pct_below_threshold": 0.1121
+        }
+      },
+      "weakest_dimension": "completeness",
+      "strongest_dimension": "clarity",
+      "dimension_gap": 1.5327,
+      "dimension_ranking": [
+        "completeness",
+        "legal_reasoning",
+        "accuracy",
+        "actionability",
+        "clarity"
+      ]
+    }
+  },
+  "category_failures": {
+    "qlora": {
+      "per_category": {
+        "confidentiality": {
+          "n": 6,
+          "mean": 7.3417,
+          "std": 1.3036,
+          "failure_count": 0,
+          "failure_rate": 0.0
+        },
+        "governing_law": {
+          "n": 20,
+          "mean": 6.6875,
+          "std": 1.4092,
+          "failure_count": 2,
+          "failure_rate": 0.1
+        },
+        "indemnification": {
+          "n": 4,
+          "mean": 7.0,
+          "std": 2.1381,
+          "failure_count": 1,
+          "failure_rate": 0.25
+        },
+        "ip": {
+          "n": 19,
+          "mean": 6.6395,
+          "std": 0.8964,
+          "failure_count": 0,
+          "failure_rate": 0.0
+        },
+        "liability": {
+          "n": 20,
+          "mean": 6.0125,
+          "std": 1.2661,
+          "failure_count": 5,
+          "failure_rate": 0.25
+        },
+        "non_compete": {
+          "n": 20,
+          "mean": 7.0325,
+          "std": 1.268,
+          "failure_count": 1,
+          "failure_rate": 0.05
+        },
+        "termination": {
+          "n": 18,
+          "mean": 6.7389,
+          "std": 1.0202,
+          "failure_count": 1,
+          "failure_rate": 0.0556
+        }
+      },
+      "hardest_category": "indemnification",
+      "easiest_category": "ip"
+    },
+    "dora": {
+      "per_category": {
+        "confidentiality": {
+          "n": 6,
+          "mean": 7.175,
+          "std": 1.202,
+          "failure_count": 0,
+          "failure_rate": 0.0
+        },
+        "governing_law": {
+          "n": 20,
+          "mean": 6.78,
+          "std": 1.5276,
+          "failure_count": 2,
+          "failure_rate": 0.1
+        },
+        "indemnification": {
+          "n": 4,
+          "mean": 8.25,
+          "std": 0.1871,
+          "failure_count": 0,
+          "failure_rate": 0.0
+        },
+        "ip": {
+          "n": 19,
+          "mean": 6.8263,
+          "std": 1.1764,
+          "failure_count": 2,
+          "failure_rate": 0.1053
+        },
+        "liability": {
+          "n": 20,
+          "mean": 6.115,
+          "std": 1.2867,
+          "failure_count": 5,
+          "failure_rate": 0.25
+        },
+        "non_compete": {
+          "n": 20,
+          "mean": 6.67,
+          "std": 1.3206,
+          "failure_count": 4,
+          "failure_rate": 0.2
+        },
+        "termination": {
+          "n": 18,
+          "mean": 6.5917,
+          "std": 1.0801,
+          "failure_count": 1,
+          "failure_rate": 0.0556
+        }
+      },
+      "hardest_category": "liability",
+      "easiest_category": "indemnification"
+    },
+    "ia3": {
+      "per_category": {
+        "confidentiality": {
+          "n": 6,
+          "mean": 7.2833,
+          "std": 1.7716,
+          "failure_count": 1,
+          "failure_rate": 0.1667
+        },
+        "governing_law": {
+          "n": 20,
+          "mean": 6.85,
+          "std": 1.562,
+          "failure_count": 4,
+          "failure_rate": 0.2
+        },
+        "indemnification": {
+          "n": 4,
+          "mean": 7.7375,
+          "std": 0.7653,
+          "failure_count": 0,
+          "failure_rate": 0.0
+        },
+        "ip": {
+          "n": 19,
+          "mean": 6.4684,
+          "std": 1.1452,
+          "failure_count": 2,
+          "failure_rate": 0.1053
+        },
+        "liability": {
+          "n": 20,
+          "mean": 5.6075,
+          "std": 1.4888,
+          "failure_count": 6,
+          "failure_rate": 0.3
+        },
+        "non_compete": {
+          "n": 20,
+          "mean": 6.7,
+          "std": 1.3187,
+          "failure_count": 3,
+          "failure_rate": 0.15
+        },
+        "termination": {
+          "n": 18,
+          "mean": 6.0611,
+          "std": 1.3891,
+          "failure_count": 5,
+          "failure_rate": 0.2778
+        }
+      },
+      "hardest_category": "liability",
+      "easiest_category": "indemnification"
+    },
+    "rag": {
+      "per_category": {
+        "confidentiality": {
+          "n": 6,
+          "mean": 7.4167,
+          "std": 1.9382,
+          "failure_count": 1,
+          "failure_rate": 0.1667
+        },
+        "governing_law": {
+          "n": 20,
+          "mean": 6.63,
+          "std": 1.3881,
+          "failure_count": 2,
+          "failure_rate": 0.1
+        },
+        "indemnification": {
+          "n": 4,
+          "mean": 8.45,
+          "std": 0.3291,
+          "failure_count": 0,
+          "failure_rate": 0.0
+        },
+        "ip": {
+          "n": 19,
+          "mean": 5.3947,
+          "std": 2.5873,
+          "failure_count": 6,
+          "failure_rate": 0.3158
+        },
+        "liability": {
+          "n": 20,
+          "mean": 6.6425,
+          "std": 1.6257,
+          "failure_count": 2,
+          "failure_rate": 0.1
+        },
+        "non_compete": {
+          "n": 20,
+          "mean": 6.5175,
+          "std": 1.8723,
+          "failure_count": 3,
+          "failure_rate": 0.15
+        },
+        "termination": {
+          "n": 18,
+          "mean": 6.5389,
+          "std": 1.4165,
+          "failure_count": 2,
+          "failure_rate": 0.1111
+        }
+      },
+      "hardest_category": "ip",
+      "easiest_category": "indemnification"
+    }
+  },
+  "json_parse_failures": {
+    "qlora": {
+      "n_total": 107,
+      "n_failed": 0,
+      "n_succeeded": 107,
+      "failure_rate": 0.0,
+      "by_clause_type": {
+        "confidentiality": {
+          "n_total": 6,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        },
+        "governing_law": {
+          "n_total": 20,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        },
+        "indemnification": {
+          "n_total": 4,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        },
+        "ip": {
+          "n_total": 19,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        },
+        "liability": {
+          "n_total": 20,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        },
+        "non_compete": {
+          "n_total": 20,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        },
+        "termination": {
+          "n_total": 18,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        }
+      },
+      "avg_latency_ms_on_failure": null,
+      "avg_latency_ms_on_success": 15891.1,
+      "failed_test_indices": []
+    },
+    "dora": {
+      "n_total": 107,
+      "n_failed": 0,
+      "n_succeeded": 107,
+      "failure_rate": 0.0,
+      "by_clause_type": {
+        "confidentiality": {
+          "n_total": 6,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        },
+        "governing_law": {
+          "n_total": 20,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        },
+        "indemnification": {
+          "n_total": 4,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        },
+        "ip": {
+          "n_total": 19,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        },
+        "liability": {
+          "n_total": 20,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        },
+        "non_compete": {
+          "n_total": 20,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        },
+        "termination": {
+          "n_total": 18,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        }
+      },
+      "avg_latency_ms_on_failure": null,
+      "avg_latency_ms_on_success": 83831.2,
+      "failed_test_indices": []
+    },
+    "ia3": {
+      "n_total": 107,
+      "n_failed": 1,
+      "n_succeeded": 106,
+      "failure_rate": 0.0093,
+      "by_clause_type": {
+        "confidentiality": {
+          "n_total": 6,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        },
+        "governing_law": {
+          "n_total": 20,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        },
+        "indemnification": {
+          "n_total": 4,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        },
+        "ip": {
+          "n_total": 19,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        },
+        "liability": {
+          "n_total": 20,
+          "n_failed": 1,
+          "failure_rate": 0.05
+        },
+        "non_compete": {
+          "n_total": 20,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        },
+        "termination": {
+          "n_total": 18,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        }
+      },
+      "avg_latency_ms_on_failure": 27534.7,
+      "avg_latency_ms_on_success": 21753.6,
+      "failed_test_indices": [
+        8
+      ]
+    },
+    "rag": {
+      "n_total": 107,
+      "n_failed": 6,
+      "n_succeeded": 101,
+      "failure_rate": 0.0561,
+      "by_clause_type": {
+        "confidentiality": {
+          "n_total": 6,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        },
+        "governing_law": {
+          "n_total": 20,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        },
+        "indemnification": {
+          "n_total": 4,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        },
+        "ip": {
+          "n_total": 19,
+          "n_failed": 4,
+          "failure_rate": 0.2105
+        },
+        "liability": {
+          "n_total": 20,
+          "n_failed": 1,
+          "failure_rate": 0.05
+        },
+        "non_compete": {
+          "n_total": 20,
+          "n_failed": 1,
+          "failure_rate": 0.05
+        },
+        "termination": {
+          "n_total": 18,
+          "n_failed": 0,
+          "failure_rate": 0.0
+        }
+      },
+      "avg_latency_ms_on_failure": 10994.9,
+      "avg_latency_ms_on_success": 11138.7,
+      "failed_test_indices": [
+        18,
+        30,
+        49,
+        53,
+        66,
+        97
+      ]
+    }
+  },
+  "cross_method_overlap": {
+    "n_examples_all_methods": 107,
+    "universal_failures": {
+      "count": 3,
+      "threshold": 5.0,
+      "examples": [
+        {
+          "test_index": 65,
+          "scores": {
+            "qlora": 3.65,
+            "dora": 3.9,
+            "ia3": 4.1,
+            "rag": 3.65
+          },
+          "mean_score": 3.825
+        },
+        {
+          "test_index": 83,
+          "scores": {
+            "qlora": 3.85,
+            "dora": 4.8,
+            "ia3": 4.55,
+            "rag": 4.0
+          },
+          "mean_score": 4.3
+        },
+        {
+          "test_index": 9,
+          "scores": {
+            "qlora": 4.8,
+            "dora": 4.25,
+            "ia3": 4.05,
+            "rag": 4.55
+          },
+          "mean_score": 4.413
+        }
+      ]
+    },
+    "method_specific_failures": {
+      "ia3": {
+        "count": 12,
+        "examples": [
+          {
+            "test_index": 1,
+            "scores": {
+              "qlora": 6.55,
+              "dora": 6.35,
+              "ia3": 4.1,
+              "rag": 6.25
+            }
+          },
+          {
+            "test_index": 8,
+            "scores": {
+              "qlora": 6.05,
+              "dora": 6.2,
+              "ia3": 1.0,
+              "rag": 7.2
+            }
+          },
+          {
+            "test_index": 15,
+            "scores": {
+              "qlora": 6.15,
+              "dora": 6.2,
+              "ia3": 4.75,
+              "rag": 6.7
+            }
+          },
+          {
+            "test_index": 25,
+            "scores": {
+              "qlora": 6.4,
+              "dora": 5.55,
+              "ia3": 4.75,
+              "rag": 7.8
+            }
+          },
+          {
+            "test_index": 29,
+            "scores": {
+              "qlora": 5.9,
+              "dora": 5.9,
+              "ia3": 4.95,
+              "rag": 6.3
+            }
+          }
+        ]
+      },
+      "rag": {
+        "count": 10,
+        "examples": [
+          {
+            "test_index": 18,
+            "scores": {
+              "qlora": 7.05,
+              "dora": 7.05,
+              "ia3": 7.45,
+              "rag": 1.0
+            }
+          },
+          {
+            "test_index": 30,
+            "scores": {
+              "qlora": 5.8,
+              "dora": 6.2,
+              "ia3": 8.35,
+              "rag": 1.0
+            }
+          },
+          {
+            "test_index": 42,
+            "scores": {
+              "qlora": 7.9,
+              "dora": 7.2,
+              "ia3": 8.3,
+              "rag": 4.45
+            }
+          },
+          {
+            "test_index": 53,
+            "scores": {
+              "qlora": 6.35,
+              "dora": 6.35,
+              "ia3": 6.2,
+              "rag": 1.0
+            }
+          },
+          {
+            "test_index": 66,
+            "scores": {
+              "qlora": 6.8,
+              "dora": 5.65,
+              "ia3": 5.45,
+              "rag": 1.0
+            }
+          }
+        ]
+      },
+      "qlora": {
+        "count": 1,
+        "examples": [
+          {
+            "test_index": 57,
+            "scores": {
+              "qlora": 3.85,
+              "dora": 8.05,
+              "ia3": 6.8,
+              "rag": 8.65
+            }
+          }
+        ]
+      },
+      "dora": {
+        "count": 2,
+        "examples": [
+          {
+            "test_index": 99,
+            "scores": {
+              "qlora": 7.95,
+              "dora": 4.6,
+              "ia3": 8.45,
+              "rag": 8.65
+            }
+          },
+          {
+            "test_index": 106,
+            "scores": {
+              "qlora": 6.45,
+              "dora": 4.8,
+              "ia3": 7.2,
+              "rag": 7.2
+            }
+          }
+        ]
+      }
+    },
+    "universal_wins": {
+      "count": 5,
+      "threshold": 8.0,
+      "examples": [
+        {
+          "test_index": 35,
+          "scores": {
+            "qlora": 8.9,
+            "dora": 8.75,
+            "ia3": 9.3,
+            "rag": 9.25
+          },
+          "mean_score": 9.05
+        },
+        {
+          "test_index": 72,
+          "scores": {
+            "qlora": 8.65,
+            "dora": 8.5,
+            "ia3": 8.85,
+            "rag": 8.9
+          },
+          "mean_score": 8.725
+        },
+        {
+          "test_index": 105,
+          "scores": {
+            "qlora": 8.9,
+            "dora": 8.85,
+            "ia3": 8.5,
+            "rag": 8.6
+          },
+          "mean_score": 8.713
+        },
+        {
+          "test_index": 103,
+          "scores": {
+            "qlora": 8.5,
+            "dora": 8.9,
+            "ia3": 8.1,
+            "rag": 8.85
+          },
+          "mean_score": 8.588
+        },
+        {
+          "test_index": 26,
+          "scores": {
+            "qlora": 8.45,
+            "dora": 8.5,
+            "ia3": 8.5,
+            "rag": 8.1
+          },
+          "mean_score": 8.387
+        }
+      ]
+    },
+    "score_correlations": {
+      "qlora_vs_dora": {
+        "spearman_rho": 0.7467,
+        "p_value": 0.0,
+        "n": 107,
+        "interpretation": "Strong agreement"
+      },
+      "qlora_vs_ia3": {
+        "spearman_rho": 0.5738,
+        "p_value": 0.0,
+        "n": 107,
+        "interpretation": "Moderate agreement"
+      },
+      "qlora_vs_rag": {
+        "spearman_rho": 0.2673,
+        "p_value": 0.005382,
+        "n": 107,
+        "interpretation": "Weak agreement"
+      },
+      "dora_vs_ia3": {
+        "spearman_rho": 0.5567,
+        "p_value": 0.0,
+        "n": 107,
+        "interpretation": "Moderate agreement"
+      },
+      "dora_vs_rag": {
+        "spearman_rho": 0.3034,
+        "p_value": 0.001488,
+        "n": 107,
+        "interpretation": "Weak agreement"
+      },
+      "ia3_vs_rag": {
+        "spearman_rho": 0.3418,
+        "p_value": 0.000314,
+        "n": 107,
+        "interpretation": "Weak agreement"
+      }
+    },
+    "high_disagreement_examples": {
+      "count": 15,
+      "variance_threshold": 2.0,
+      "top_10": [
+        {
+          "test_index": 30,
+          "scores": {
+            "qlora": 5.8,
+            "dora": 6.2,
+            "ia3": 8.35,
+            "rag": 1.0
+          },
+          "variance": 7.212,
+          "range": 7.35
+        },
+        {
+          "test_index": 18,
+          "scores": {
+            "qlora": 7.05,
+            "dora": 7.05,
+            "ia3": 7.45,
+            "rag": 1.0
+          },
+          "variance": 7.195,
+          "range": 6.45
+        },
+        {
+          "test_index": 97,
+          "scores": {
+            "qlora": 7.15,
+            "dora": 7.4,
+            "ia3": 6.65,
+            "rag": 1.0
+          },
+          "variance": 6.974,
+          "range": 6.4
+        },
+        {
+          "test_index": 8,
+          "scores": {
+            "qlora": 6.05,
+            "dora": 6.2,
+            "ia3": 1.0,
+            "rag": 7.2
+          },
+          "variance": 5.833,
+          "range": 6.2
+        },
+        {
+          "test_index": 53,
+          "scores": {
+            "qlora": 6.35,
+            "dora": 6.35,
+            "ia3": 6.2,
+            "rag": 1.0
+          },
+          "variance": 5.271,
+          "range": 5.35
+        },
+        {
+          "test_index": 66,
+          "scores": {
+            "qlora": 6.8,
+            "dora": 5.65,
+            "ia3": 5.45,
+            "rag": 1.0
+          },
+          "variance": 4.891,
+          "range": 5.8
+        },
+        {
+          "test_index": 57,
+          "scores": {
+            "qlora": 3.85,
+            "dora": 8.05,
+            "ia3": 6.8,
+            "rag": 8.65
+          },
+          "variance": 3.42,
+          "range": 4.8
+        },
+        {
+          "test_index": 49,
+          "scores": {
+            "qlora": 5.95,
+            "dora": 4.1,
+            "ia3": 4.7,
+            "rag": 1.0
+          },
+          "variance": 3.322,
+          "range": 4.95
+        },
+        {
+          "test_index": 96,
+          "scores": {
+            "qlora": 7.7,
+            "dora": 9.1,
+            "ia3": 4.9,
+            "rag": 5.5
+          },
+          "variance": 2.85,
+          "range": 4.2
+        },
+        {
+          "test_index": 78,
+          "scores": {
+            "qlora": 8.45,
+            "dora": 8.3,
+            "ia3": 4.9,
+            "rag": 5.3
+          },
+          "variance": 2.704,
+          "range": 3.55
+        }
+      ]
+    }
+  },
+  "risk_bias": {
+    "qlora": {
+      "n_evaluated": 107,
+      "n_valid_comparisons": 107,
+      "direction_counts": {
+        "over_predicted": 12,
+        "under_predicted": 46,
+        "correct": 49,
+        "unknown": 0
+      },
+      "over_prediction_rate": 0.1121,
+      "under_prediction_rate": 0.4299,
+      "exact_match_rate": 0.4579,
+      "mean_bias": -0.4206,
+      "bias_interpretation": "Tends to under-predict risk (optimistic)",
+      "ground_truth_distribution": {
+        "critical": 7,
+        "high": 25,
+        "low": 16,
+        "medium": 59
+      },
+      "predicted_distribution": {
+        "critical": 2,
+        "high": 24,
+        "low": 50,
+        "medium": 31
+      }
+    },
+    "dora": {
+      "n_evaluated": 107,
+      "n_valid_comparisons": 107,
+      "direction_counts": {
+        "over_predicted": 14,
+        "under_predicted": 45,
+        "correct": 48,
+        "unknown": 0
+      },
+      "over_prediction_rate": 0.1308,
+      "under_prediction_rate": 0.4206,
+      "exact_match_rate": 0.4486,
+      "mean_bias": -0.3738,
+      "bias_interpretation": "Tends to under-predict risk (optimistic)",
+      "ground_truth_distribution": {
+        "critical": 7,
+        "high": 25,
+        "low": 16,
+        "medium": 59
+      },
+      "predicted_distribution": {
+        "critical": 3,
+        "high": 26,
+        "low": 49,
+        "medium": 29
+      }
+    },
+    "ia3": {
+      "n_evaluated": 107,
+      "n_valid_comparisons": 106,
+      "direction_counts": {
+        "over_predicted": 15,
+        "under_predicted": 40,
+        "correct": 51,
+        "unknown": 1
+      },
+      "over_prediction_rate": 0.1415,
+      "under_prediction_rate": 0.3774,
+      "exact_match_rate": 0.4811,
+      "mean_bias": -0.2736,
+      "bias_interpretation": "Tends to under-predict risk (optimistic)",
+      "ground_truth_distribution": {
+        "critical": 7,
+        "high": 25,
+        "low": 16,
+        "medium": 59
+      },
+      "predicted_distribution": {
+        "critical": 4,
+        "failed": 1,
+        "high": 18,
+        "low": 32,
+        "medium": 52
+      }
+    },
+    "rag": {
+      "n_evaluated": 107,
+      "n_valid_comparisons": 101,
+      "direction_counts": {
+        "over_predicted": 20,
+        "under_predicted": 25,
+        "correct": 56,
+        "unknown": 6
+      },
+      "over_prediction_rate": 0.198,
+      "under_prediction_rate": 0.2475,
+      "exact_match_rate": 0.5545,
+      "mean_bias": -0.0891,
+      "bias_interpretation": "Well-calibrated (minimal systematic bias)",
+      "ground_truth_distribution": {
+        "critical": 7,
+        "high": 25,
+        "low": 16,
+        "medium": 59
+      },
+      "predicted_distribution": {
+        "critical": 1,
+        "failed": 6,
+        "high": 35,
+        "low": 25,
+        "medium": 40
+      }
+    }
+  },
+  "critical_failures": {
+    "qlora": {
+      "missed_critical": {
+        "count": 3,
+        "examples": [
+          {
+            "test_index": 29,
+            "clause_type": "confidentiality",
+            "ground_truth_risk_level": "critical",
+            "predicted_risk_level": "low",
+            "overall": 5.9,
+            "clause_text_snippet": "Each Party acknowledges that it may have access to certain confidential information of the other Party. Each Party agrees to hold in confidence all confidential information received from the other Par..."
+          },
+          {
+            "test_index": 40,
+            "clause_type": "confidentiality",
+            "ground_truth_risk_level": "critical",
+            "predicted_risk_level": "low",
+            "overall": 6.35,
+            "clause_text_snippet": "Each party agrees to keep confidential all information received from the other party during the term of this Agreement and shall not disclose such information to any third party without prior written ..."
+          },
+          {
+            "test_index": 57,
+            "clause_type": "indemnification",
+            "ground_truth_risk_level": "critical",
+            "predicted_risk_level": "low",
+            "overall": 3.85,
+            "clause_text_snippet": "Company hereby agrees to defend, indemnify, and hold harmless Client, its officers, directors, employees, agents, successors, and assigns from and against any and all claims, demands, losses, costs, e..."
+          }
+        ]
+      },
+      "false_critical_alarms": {
+        "count": 0,
+        "examples": []
+      },
+      "double_failures": {
+        "count": 10,
+        "examples": [
+          {
+            "test_index": 65,
+            "clause_type": "governing_law",
+            "ground_truth_risk_level": "high",
+            "predicted_risk_level": "low",
+            "overall": 3.65,
+            "clause_text_snippet": "This Agreement shall be governed by and interpreted in accordance within the laws of the State of New York without reference to conflicts of laws provisions."
+          },
+          {
+            "test_index": 57,
+            "clause_type": "indemnification",
+            "ground_truth_risk_level": "critical",
+            "predicted_risk_level": "low",
+            "overall": 3.85,
+            "clause_text_snippet": "Company hereby agrees to defend, indemnify, and hold harmless Client, its officers, directors, employees, agents, successors, and assigns from and against any and all claims, demands, losses, costs, e..."
+          },
+          {
+            "test_index": 83,
+            "clause_type": "non_compete",
+            "ground_truth_risk_level": "high",
+            "predicted_risk_level": "low",
+            "overall": 3.85,
+            "clause_text_snippet": "You shall not engage in catering and delivery services and activities outside of the Designated Area."
+          },
+          {
+            "test_index": 84,
+            "clause_type": "liability",
+            "ground_truth_risk_level": "high",
+            "predicted_risk_level": "low",
+            "overall": 3.9,
+            "clause_text_snippet": "Airspan shall not be liable to Distributor on account of termination or expiration of this Agreement for reimbursement or damages for loss of goodwill, prospective profits, or anticipated orders, or o..."
+          },
+          {
+            "test_index": 63,
+            "clause_type": "governing_law",
+            "ground_truth_risk_level": "medium",
+            "predicted_risk_level": "low",
+            "overall": 3.95,
+            "clause_text_snippet": "This Agreement shall be governed by and interpreted and enforced in accordance with the laws of the Province of Ontario and the Parties agree to abide by the jurisdiction of the Courts of Ontario."
+          }
+        ]
+      }
+    },
+    "dora": {
+      "missed_critical": {
+        "count": 2,
+        "examples": [
+          {
+            "test_index": 29,
+            "clause_type": "confidentiality",
+            "ground_truth_risk_level": "critical",
+            "predicted_risk_level": "low",
+            "overall": 5.9,
+            "clause_text_snippet": "Each Party acknowledges that it may have access to certain confidential information of the other Party. Each Party agrees to hold in confidence all confidential information received from the other Par..."
+          },
+          {
+            "test_index": 40,
+            "clause_type": "confidentiality",
+            "ground_truth_risk_level": "critical",
+            "predicted_risk_level": "low",
+            "overall": 6.35,
+            "clause_text_snippet": "Each party agrees to keep confidential all information received from the other party during the term of this Agreement and shall not disclose such information to any third party without prior written ..."
+          }
+        ]
+      },
+      "false_critical_alarms": {
+        "count": 0,
+        "examples": []
+      },
+      "double_failures": {
+        "count": 14,
+        "examples": [
+          {
+            "test_index": 65,
+            "clause_type": "governing_law",
+            "ground_truth_risk_level": "high",
+            "predicted_risk_level": "low",
+            "overall": 3.9,
+            "clause_text_snippet": "This Agreement shall be governed by and interpreted in accordance within the laws of the State of New York without reference to conflicts of laws provisions."
+          },
+          {
+            "test_index": 63,
+            "clause_type": "governing_law",
+            "ground_truth_risk_level": "medium",
+            "predicted_risk_level": "low",
+            "overall": 3.95,
+            "clause_text_snippet": "This Agreement shall be governed by and interpreted and enforced in accordance with the laws of the Province of Ontario and the Parties agree to abide by the jurisdiction of the Courts of Ontario."
+          },
+          {
+            "test_index": 49,
+            "clause_type": "ip",
+            "ground_truth_risk_level": "high",
+            "predicted_risk_level": "medium",
+            "overall": 4.1,
+            "clause_text_snippet": "TouchStar hereby grants to Reseller, with the additional right                 to grant to Other Resellers who or which enter into an Other                 Reseller Agreement, the nontransferable and ..."
+          },
+          {
+            "test_index": 9,
+            "clause_type": "termination",
+            "ground_truth_risk_level": "medium",
+            "predicted_risk_level": "high",
+            "overall": 4.25,
+            "clause_text_snippet": "This Agreement will remain in effect for Thirty-six (36)"
+          },
+          {
+            "test_index": 39,
+            "clause_type": "liability",
+            "ground_truth_risk_level": "high",
+            "predicted_risk_level": "medium",
+            "overall": 4.4,
+            "clause_text_snippet": "Your obligations to maintain insurance coverage as herein described shall not be affected in any manner by reason of any separate insurance maintained by us nor shall the maintenance of such insurance..."
+          }
+        ]
+      }
+    },
+    "ia3": {
+      "missed_critical": {
+        "count": 3,
+        "examples": [
+          {
+            "test_index": 29,
+            "clause_type": "confidentiality",
+            "ground_truth_risk_level": "critical",
+            "predicted_risk_level": "low",
+            "overall": 4.95,
+            "clause_text_snippet": "Each Party acknowledges that it may have access to certain confidential information of the other Party. Each Party agrees to hold in confidence all confidential information received from the other Par..."
+          },
+          {
+            "test_index": 40,
+            "clause_type": "confidentiality",
+            "ground_truth_risk_level": "critical",
+            "predicted_risk_level": "low",
+            "overall": 6.4,
+            "clause_text_snippet": "Each party agrees to keep confidential all information received from the other party during the term of this Agreement and shall not disclose such information to any third party without prior written ..."
+          },
+          {
+            "test_index": 101,
+            "clause_type": "non_compete",
+            "ground_truth_risk_level": "critical",
+            "predicted_risk_level": "medium",
+            "overall": 4.75,
+            "clause_text_snippet": "AJR shall not take any action or suffer any action to occur, whether taken by the Team or others,  which could result in an adverse impact on XC, its Licensed Materials and the goodwill associated  th..."
+          }
+        ]
+      },
+      "false_critical_alarms": {
+        "count": 0,
+        "examples": []
+      },
+      "double_failures": {
+        "count": 20,
+        "examples": [
+          {
+            "test_index": 8,
+            "clause_type": "liability",
+            "ground_truth_risk_level": "medium",
+            "predicted_risk_level": "FAILED",
+            "overall": 1.0,
+            "clause_text_snippet": "Supplier shall at its own expense secure and continuously maintain, and shall require its Subcontractors to secure and continuously maintain, throughout the Term, the following insurance with companie..."
+          },
+          {
+            "test_index": 21,
+            "clause_type": "non_compete",
+            "ground_truth_risk_level": "high",
+            "predicted_risk_level": "medium",
+            "overall": 3.55,
+            "clause_text_snippet": "Company agrees that no other Distributor will be appointed in any other state as a Distributor unless it is either the Company or Distributor, save and except for the state of Florida."
+          },
+          {
+            "test_index": 58,
+            "clause_type": "termination",
+            "ground_truth_risk_level": "medium",
+            "predicted_risk_level": "low",
+            "overall": 3.55,
+            "clause_text_snippet": "Either party may terminate this Agreement without cause upon sixty (60) days prior written notice to the other party."
+          },
+          {
+            "test_index": 9,
+            "clause_type": "termination",
+            "ground_truth_risk_level": "medium",
+            "predicted_risk_level": "critical",
+            "overall": 4.05,
+            "clause_text_snippet": "This Agreement will remain in effect for Thirty-six (36)"
+          },
+          {
+            "test_index": 1,
+            "clause_type": "governing_law",
+            "ground_truth_risk_level": "low",
+            "predicted_risk_level": "medium",
+            "overall": 4.1,
+            "clause_text_snippet": "This Agreement shall be governed, interpreted and construed in accordance with the substantive laws of the Delaware, in the country of the United State of America, without regard to its conflict of la..."
+          }
+        ]
+      }
+    },
+    "rag": {
+      "missed_critical": {
+        "count": 1,
+        "examples": [
+          {
+            "test_index": 40,
+            "clause_type": "confidentiality",
+            "ground_truth_risk_level": "critical",
+            "predicted_risk_level": "medium",
+            "overall": 6.6,
+            "clause_text_snippet": "Each party agrees to keep confidential all information received from the other party during the term of this Agreement and shall not disclose such information to any third party without prior written ..."
+          }
+        ]
+      },
+      "false_critical_alarms": {
+        "count": 0,
+        "examples": []
+      },
+      "double_failures": {
+        "count": 16,
+        "examples": [
+          {
+            "test_index": 18,
+            "clause_type": "ip",
+            "ground_truth_risk_level": "medium",
+            "predicted_risk_level": "FAILED",
+            "overall": 1.0,
+            "clause_text_snippet": "If the arbitrator determines that any Outstanding Patent should be or should have been, as applicable, an Assigned Patent, Seller shall (and shall cause the other Seller Parties to) assign such Patent..."
+          },
+          {
+            "test_index": 30,
+            "clause_type": "non_compete",
+            "ground_truth_risk_level": "medium",
+            "predicted_risk_level": "FAILED",
+            "overall": 1.0,
+            "clause_text_snippet": "During the Term, Snap will not grant any third party any right to sponsor any products or services in the Exclusive Category on or through the Snap Web Site."
+          },
+          {
+            "test_index": 49,
+            "clause_type": "ip",
+            "ground_truth_risk_level": "high",
+            "predicted_risk_level": "FAILED",
+            "overall": 1.0,
+            "clause_text_snippet": "TouchStar hereby grants to Reseller, with the additional right                 to grant to Other Resellers who or which enter into an Other                 Reseller Agreement, the nontransferable and ..."
+          },
+          {
+            "test_index": 53,
+            "clause_type": "ip",
+            "ground_truth_risk_level": "high",
+            "predicted_risk_level": "FAILED",
+            "overall": 1.0,
+            "clause_text_snippet": "In addition, the following provisions shall survive termination of this Agreement for any reason: Astellas shall assign or cause to be assigned to FG (or if not so assignable, Astellas shall take all ..."
+          },
+          {
+            "test_index": 66,
+            "clause_type": "liability",
+            "ground_truth_risk_level": "medium",
+            "predicted_risk_level": "FAILED",
+            "overall": 1.0,
+            "clause_text_snippet": "OTHER PARTY IN AN AMOUNT GREATER THAN THE AMOUNT BOXLOT ACTUALLY PAYS TO THEGLOBE HEREUNDER."
+          }
+        ]
+      }
+    }
+  }
+}
