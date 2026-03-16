@@ -1,8 +1,4 @@
-# LegalRisk-LLM: Benchmarking PEFT Fine-Tuning vs RAG for Legal Contract Risk Analysis
-
-A research system that compares three parameter-efficient fine-tuning methods (QLoRA, DoRA, IA3) against a RAG baseline on Llama-3.2-3B-Instruct for structured legal risk assessment. Built on real CUAD contract data augmented with Claude Sonnet synthetic examples, evaluated with an LLM judge, and subjected to full statistical significance testing.
-
-Total compute: ~8 hours on an RTX 4060. Total API cost: $7.62.
+Benchmarking QLoRA, DoRA, IA³ vs RAG on Llama-3.2-3B for legal risk analysis. 4-layer evaluation framework
 
 ---
 
