@@ -8,7 +8,7 @@
 # 2. Fewer target modules (only k/v_proj, down_proj vs 7 for LoRA)
 # 3. Higher learning rate (3e-3 vs 2e-4) - scaling factors need aggressive updates
 # 4. Lower gradient accumulation (4 vs 8) - full precision uses more VRAM
-# 5. ~100× fewer trainable parameters (~3M vs ~24M)
+# 5. ~85× fewer trainable parameters (0.29M vs 24.3M; see results/trainable_params.json)
 
 method: "ia3"
 
@@ -93,6 +93,6 @@ output:
 # IA³ trade-offs:
 # - PRO: Fastest training (~1.8 hrs vs 2.5 hrs for QLoRA)
 # - PRO: Smallest adapter (~12MB vs 80MB)
-# - PRO: 100× fewer parameters (~3M vs ~24M)
+# - PRO: ~85× fewer parameters (0.29M vs 24.3M; see results/trainable_params.json)
 # - CON: Potentially higher eval loss (less expressive)
 # - CON: Uses more VRAM than QLoRA (no quantization)

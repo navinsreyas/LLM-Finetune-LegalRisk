@@ -1,0 +1,56 @@
+# =============================================================================
+# environment.yml  —  PORTABLE conda env spec for `finetune`
+# Generated from: conda env export -n finetune --from-history
+# (prefix: line removed for portability across machines)
+#
+# WARNING: `--from-history` only records packages you explicitly `conda install`-ed.
+# In this env EVERYTHING except python was installed via pip, so `--from-history`
+# captures NONE of the pip dependencies. Use this file for a clean base, then
+# install the pip stack below. For an EXACT byte-for-byte reproduction of the
+# working env instead, use environment.lock.yml.
+#
+# Recommended workflow on a fresh machine:
+#   conda env create -f environment.yml
+#   conda activate finetune
+#   # then run the pip install commands in the CUDA block below,
+#   # then: pip install -r requirements.txt   (for the non-CUDA pip deps)
+# =============================================================================
+
+name: finetune
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+
+# =============================================================================
+# CUDA / GPU pip packages — MUST be installed manually (order matters)
+# -----------------------------------------------------------------------------
+# These will NOT re-solve cleanly from default PyPI and are therefore listed
+# here explicitly. Run inside the activated `finetune` env.
+#
+# 1) PyTorch stack — pinned to CUDA 12.1 builds (the `+cu121` local version tag
+#    does NOT exist on default PyPI; the PyTorch index URL is REQUIRED, or
+#    `pip install torch==2.5.1+cu121` fails with "No matching distribution").
+#    Install torch FIRST — bitsandbytes links against the installed torch CUDA.
+#
+#      pip install torch==2.5.1+cu121 torchvision==0.20.1+cu121 torchaudio==2.5.1+cu121 \
+#          --index-url https://download.pytorch.org/whl/cu121
+#
+# 2) bitsandbytes — 0.49.1 resolves from PyPI, but it is CUDA-runtime-coupled and
+#    must match the CUDA 12.1 torch installed above. Install it AFTER torch.
+#    (Confirm GPU works afterward: python -c "import bitsandbytes")
+#
+#      pip install bitsandbytes==0.49.1
+#
+# -----------------------------------------------------------------------------
+# NOT INSTALLED in this env (present in requirements.txt / prompt, but absent
+# from the actual `conda env export`, so there is NO version to pin):
+#   - unsloth    : not installed. If needed, install last (it pins torch/xformers
+#                  and can downgrade the stack above):
+#                    pip install "unsloth[cu121-torch251]"
+#                  then re-verify torch is still 2.5.1+cu121.
+#   - flash-attn : not installed. The training configs use attn_implementation:
+#                  "sdpa", so flash-attn is not required. If you want it, it needs
+#                  a CUDA toolkit + build step and must match torch 2.5.1/cu121:
+#                    pip install flash-attn --no-build-isolation
+# =============================================================================

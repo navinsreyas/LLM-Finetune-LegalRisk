@@ -1,0 +1,30 @@
+{
+  "description": "Real trainable-parameter counts per PEFT method, counted directly from the saved adapter weights (adapter_model.safetensors contains exactly the trainable parameters). Base model not required: parameter count = sum of numel across all tensors in the adapter safetensors header.",
+  "base_model": "unsloth/Llama-3.2-3B-Instruct",
+  "counting_method": "sum of shape products across all tensors in models/<method>/adapter_model.safetensors",
+  "methods": {
+    "qlora": {
+      "trainable_params": 24313856,
+      "trainable_params_millions": 24.31,
+      "n_tensors": 392,
+      "source_file": "models/qlora/adapter_model.safetensors",
+      "adapter_config": "models/qlora/adapter_config.json (LoRA r=16, 7 target modules)"
+    },
+    "dora": {
+      "trainable_params": 25088000,
+      "trainable_params_millions": 25.09,
+      "n_tensors": 588,
+      "source_file": "models/dora/adapter_model.safetensors",
+      "adapter_config": "models/dora/adapter_config.json (LoRA r=16 + DoRA magnitude vectors, 7 target modules)",
+      "note": "DoRA adds one magnitude vector per target module (196 extra tensors, ~774,144 params over QLoRA)"
+    },
+    "ia3": {
+      "trainable_params": 286720,
+      "trainable_params_millions": 0.29,
+      "n_tensors": 84,
+      "source_file": "models/ia3/adapter_model.safetensors",
+      "adapter_config": "models/ia3/adapter_config.json (IA3, target modules k_proj/v_proj/down_proj)"
+    }
+  },
+  "ratio_lora_to_ia3": "24313856 / 286720 = 84.8x fewer for IA3 vs QLoRA (25088000 / 286720 = 87.5x vs DoRA)"
+}

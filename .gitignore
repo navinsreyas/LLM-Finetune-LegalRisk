@@ -53,6 +53,18 @@ data/raw_clauses.jsonl
 data/synthetic/
 *.jsonl
 
+# Reproducibility exception: un-ignore ONLY the pre-generated evaluation inputs that
+# phases 3C/3D/4 read (evaluation/*_predictions.jsonl + judge_scores/*_judge_scores.jsonl),
+# so "reproduce without training" works from a fresh clone. All other *.jsonl stay ignored.
+!evaluation/qlora_predictions.jsonl
+!evaluation/dora_predictions.jsonl
+!evaluation/ia3_predictions.jsonl
+!evaluation/rag_predictions.jsonl
+!evaluation/judge_scores/qlora_judge_scores.jsonl
+!evaluation/judge_scores/dora_judge_scores.jsonl
+!evaluation/judge_scores/ia3_judge_scores.jsonl
+!evaluation/judge_scores/rag_judge_scores.jsonl
+
 # Experiment tracking
 wandb/
 mlruns/
@@ -77,6 +89,9 @@ tmp/
 
 # Study and personal documents (private, do not publish)
 study/
+
+# Worklog / audit notes (private, do not publish)
+notes/
 
 # API key files (sensitive -- never commit)
 *.txt
