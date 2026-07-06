@@ -2,7 +2,7 @@
 
 A research system that compares three parameter-efficient fine-tuning methods (QLoRA, DoRA, IA3) against a RAG baseline on Llama-3.2-3B-Instruct for structured legal risk assessment. Built on real CUAD contract data augmented with Claude Sonnet synthetic examples, evaluated with an LLM judge, and subjected to full statistical significance testing.
 
-Total compute: ~8 hours on an RTX 4060. Total API cost: $7.62.
+Total compute: ~8 hours on an RTX 4060. Total API cost: ~$7.62 (estimated).
 
 ---
 
@@ -203,11 +203,11 @@ Note: Adapter weights are gitignored due to size (QLoRA ~578MB, DoRA ~594MB, IA3
 ## Cost Breakdown
 
 ```
-Synthetic data generation  (Claude Sonnet, Phase 1C):   $5.44
-LLM-as-Judge evaluation    (Claude Sonnet, Phase 3B):   $2.18
+Synthetic data generation  (Claude Sonnet, Phase 1C):   $5.44  (code-estimated, not invoice)
+LLM-as-Judge evaluation    (Claude Sonnet, Phase 3B):   $2.18  (code-estimated, not invoice)
 Training and inference     (local RTX 4060 GPU):        $0.00
 -------------------------------------------------------------
-Total API spend:                                         $7.62
+Total API spend:  ~$7.62 (estimated from token usage via the project's estimate_cost() function; not reconciled against invoice — a single shared API key made per-project separation impossible)
 ```
 
 ---
