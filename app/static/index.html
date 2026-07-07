@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LegalRisk-LLM — Clause Risk Analyzer</title>
+  <style>
+    :root { --bg:#0f172a; --card:#1e293b; --line:#334155; --fg:#e2e8f0; --muted:#94a3b8; --accent:#3b82f6; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background:var(--bg); color:var(--fg); }
+    .wrap { max-width: 820px; margin: 0 auto; padding: 28px 20px 60px; }
+    h1 { font-size: 22px; margin: 0 0 4px; }
+    p.sub { color: var(--muted); margin: 0 0 24px; font-size: 14px; }
+    label { display:block; font-size: 13px; color: var(--muted); margin: 16px 0 6px; }
+    textarea, select { width:100%; background:var(--card); color:var(--fg); border:1px solid var(--line);
+      border-radius:8px; padding:10px 12px; font-size:14px; font-family:inherit; }
+    textarea { min-height: 120px; resize: vertical; }
+    .examples { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+    .examples button { background:transparent; border:1px solid var(--line); color:var(--muted);
+      border-radius:999px; padding:6px 12px; font-size:12px; cursor:pointer; }
+    .examples button:hover { border-color:var(--accent); color:var(--fg); }
+    .row { display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap; margin-top:16px; }
+    .row > div { flex:1; min-width:180px; }
+    #submit { background:var(--accent); color:#fff; border:none; border-radius:8px; padding:11px 22px;
+      font-size:14px; font-weight:600; cursor:pointer; }
+    #submit:disabled { opacity:.5; cursor:not-allowed; }
+    #result { margin-top:24px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:18px; }
+    .risk { display:inline-block; padding:3px 10px; border-radius:6px; font-weight:700; font-size:13px; }
+    .risk.Low{background:#14532d;color:#bbf7d0} .risk.Medium{background:#78350f;color:#fde68a}
+    .risk.High{background:#7c2d12;color:#fed7aa} .risk.Critical{background:#7f1d1d;color:#fecaca}
+    .kv { margin:10px 0; font-size:14px; } .kv b { color:var(--muted); font-weight:600; }
+    ul { margin:6px 0 0; padding-left:20px; } li { margin:2px 0; font-size:14px; }
+    pre { background:#0b1220; border:1px solid var(--line); border-radius:8px; padding:12px;
+      overflow:auto; font-size:12px; color:#cbd5e1; margin-top:14px; }
+    .err { color:#fca5a5; }
+    .muted { color:var(--muted); font-size:12px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>LegalRisk-LLM — Clause Risk Analyzer</h1>
+    <p class="sub">Paste a contract clause, pick its type, and get a structured risk assessment from the RAG pipeline.</p>
+
+    <label for="clause">Clause text</label>
+    <textarea id="clause" placeholder="Paste a contract clause here..."></textarea>
+
+    <div class="examples" id="examples"></div>
+
+    <div class="row">
+      <div>
+        <label for="type">Clause type</label>
+        <select id="type"></select>
+      </div>
+      <div style="flex:0">
+        <button id="submit">Analyze</button>
+      </div>
+    </div>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const TYPES = ["termination","liability","non_compete","ip","governing_law","confidentiality","indemnification"];
+
+    // A few ready-to-try examples so a visitor doesn't have to type.
+    const EXAMPLES = [
+      { type: "termination",
+        text: "Either party may terminate this Agreement for convenience upon thirty (30) days' prior written notice to the other party, without cause and without penalty." },
+      { type: "liability",
+        text: "In no event shall either party's aggregate liability arising out of or related to this Agreement exceed the total fees paid by Customer in the twelve (12) months preceding the claim." },
+      { type: "indemnification",
+        text: "Supplier shall indemnify, defend, and hold harmless Customer from and against any and all claims, losses, and damages, including reasonable attorneys' fees, arising from Supplier's breach, without any cap on liability." },
+      { type: "governing_law",
+        text: "This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware, without regard to its conflict-of-laws principles." },
+    ];
+
+    const typeSel = document.getElementById("type");
+    TYPES.forEach(t => { const o = document.createElement("option"); o.value = t; o.textContent = t; typeSel.appendChild(o); });
+
+    const exBox = document.getElementById("examples");
+    EXAMPLES.forEach((ex, i) => {
+      const b = document.createElement("button");
+      b.textContent = "Example " + (i + 1) + " · " + ex.type;
+      b.onclick = () => { document.getElementById("clause").value = ex.text; typeSel.value = ex.type; };
+      exBox.appendChild(b);
+    });
+
+    const resultEl = document.getElementById("result");
+    const submitBtn = document.getElementById("submit");
+
+    submitBtn.onclick = async () => {
+      const clause_text = document.getElementById("clause").value.trim();
+      const clause_type = typeSel.value;
+      if (!clause_text) { resultEl.innerHTML = '<p class="err">Please enter a clause first.</p>'; return; }
+
+      submitBtn.disabled = true;
+      resultEl.innerHTML = '<p class="muted">Analyzing…</p>';
+
+      try {
+        const res = await fetch("/classify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ clause_text, clause_type })
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          resultEl.innerHTML = '<div class="card"><p class="err">Error ' + res.status + ': '
+            + (data.detail || "request failed") + '</p></div>';
+          return;
+        }
+        render(data);
+      } catch (e) {
+        resultEl.innerHTML = '<div class="card"><p class="err">Network error: ' + e.message + '</p></div>';
+      } finally {
+        submitBtn.disabled = false;
+      }
+    };
+
+    function render(data) {
+      const o = data.output;  // parsed risk assessment (or null if parsing failed)
+      let html = '<div class="card">';
+
+      if (o && typeof o === "object") {
+        const lvl = o.risk_level || "—";
+        html += '<div class="kv"><b>Risk level:</b> <span class="risk ' + esc(lvl) + '">' + esc(lvl) + '</span>';
+        if (o.risk_score != null) html += ' &nbsp; <b>Score:</b> ' + esc(String(o.risk_score));
+        if (o.confidence != null) html += ' &nbsp; <b>Confidence:</b> ' + esc(String(o.confidence));
+        html += '</div>';
+        if (Array.isArray(o.key_concerns)) {
+          html += '<div class="kv"><b>Key concerns:</b><ul>'
+            + o.key_concerns.map(c => '<li>' + esc(String(c)) + '</li>').join('') + '</ul></div>';
+        }
+        if (o.recommendation) html += '<div class="kv"><b>Recommendation:</b> ' + esc(String(o.recommendation)) + '</div>';
+      } else {
+        html += '<p class="err">Model did not return valid JSON (json_parse_success=false). Raw output below.</p>';
+      }
+
+      html += '<div class="muted" style="margin-top:10px">latency: '
+        + (data.latency_ms != null ? Math.round(data.latency_ms) + ' ms' : '—')
+        + ' · retrieved: ' + (data.n_retrieved ?? '—')
+        + ' · json_parse_success: ' + data.json_parse_success + '</div>';
+
+      html += '<pre>' + esc(JSON.stringify(data, null, 2)) + '</pre>';
+      html += '</div>';
+      resultEl.innerHTML = html;
+    }
+
+    function esc(s) {
+      return String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+    }
+  </script>
+</body>
+</html>

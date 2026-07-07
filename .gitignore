@@ -96,6 +96,7 @@ notes/
 # API key files (sensitive -- never commit)
 *.txt
 !requirements.txt
+!requirements-deploy.txt
 !dashboard/requirements.txt
 * api key*.txt
 llama api key.txt

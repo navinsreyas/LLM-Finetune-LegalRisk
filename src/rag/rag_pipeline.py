@@ -9,12 +9,15 @@ Uses retrieval-augmented generation:
 """
 
 import json
-import torch
+import os
 import time
 from pathlib import Path
-from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from src.rag.retriever import ClauseRetriever
+
+# NOTE: torch / transformers are imported lazily inside the "local" provider path
+# (RAGPipeline.__init__ and _generate_local) so a groq-only deployment never imports
+# them or loads any local weights.
 
 
 # MUST match the system prompt from fine-tuning (data_formatter.py)
@@ -155,24 +158,48 @@ class RAGPipeline:
         self.filter_by_type = filter_by_type
         self.device = device
 
-        # Load retriever (embedding model + vector store)
+        # Provider switch for the GENERATION step ONLY. Retrieval, embedding, and
+        # prompt-building are identical regardless of provider.
+        #   "local" (default): load the base model and generate on-device (existing behavior).
+        #   "groq": call Groq's API; do NOT load any local model/tokenizer.
+        self.provider = os.environ.get("LLM_PROVIDER", "local").lower()
+
+        self.model = None
+        self.tokenizer = None
+        self.groq_client = None
+        self.groq_model = None
+
+        # Load retriever (embedding model + vector store) -- shared by both providers
         print("[RAG] Loading retriever...")
         self.retriever = ClauseRetriever(persist_dir=persist_dir)
         print(f"[RAG] Index contains {self.retriever.index_size} clauses")
 
-        # Load BASE model (no adapter!)
-        print(f"[RAG] Loading base model: {model_name}")
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-        if self.tokenizer.pad_token is None:
-            self.tokenizer.pad_token = self.tokenizer.eos_token
-            self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
+        if self.provider == "groq":
+            # Remote generation: skip the heavy local model/tokenizer load entirely
+            # (saves GPU/RAM on a cheap server).
+            from groq import Groq
 
-        self.model = AutoModelForCausalLM.from_pretrained(
-            model_name,
-            torch_dtype=torch.float16,
-            device_map="auto",
-        )
-        self.model.eval()
+            self.groq_model = os.environ.get("GROQ_MODEL", "llama-3.1-8b-instant")
+            self.groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+            print(f"[RAG] Provider=groq, model={self.groq_model} (local model NOT loaded)")
+        else:
+            # Local generation (default): existing behavior, unchanged.
+            import torch
+            from transformers import AutoModelForCausalLM, AutoTokenizer
+
+            print(f"[RAG] Loading base model: {model_name}")
+            self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+            if self.tokenizer.pad_token is None:
+                self.tokenizer.pad_token = self.tokenizer.eos_token
+                self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
+
+            self.model = AutoModelForCausalLM.from_pretrained(
+                model_name,
+                torch_dtype=torch.float16,
+                device_map="auto",
+            )
+            self.model.eval()
+
         print("[RAG] Pipeline ready")
 
     def generate(self, clause_text: str, clause_type: str, max_new_tokens: int = 1024) -> dict:
@@ -211,23 +238,12 @@ class RAGPipeline:
             {"role": "user", "content": user_message},
         ]
 
-        input_text = self.tokenizer.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True
-        )
-        inputs = self.tokenizer(input_text, return_tensors="pt").to(self.device)
-        input_length = inputs["input_ids"].shape[1]
-
-        with torch.no_grad():
-            outputs = self.model.generate(
-                **inputs,
-                max_new_tokens=max_new_tokens,
-                do_sample=False,       # Greedy decoding for reproducibility
-                temperature=1.0,
-                pad_token_id=self.tokenizer.pad_token_id,
-            )
-
-        generated_tokens = outputs[0][input_length:]
-        raw_text = self.tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
+        # Generation step -- the ONLY provider-dependent part. Both helpers return
+        # (raw_text, prompt_token_count) so everything below is identical.
+        if self.provider == "groq":
+            raw_text, input_length = self._generate_groq(messages, max_new_tokens)
+        else:
+            raw_text, input_length = self._generate_local(messages, max_new_tokens)
 
         parsed_output = None
 
@@ -270,3 +286,51 @@ class RAGPipeline:
             "latency_ms": latency_ms,
             "json_parse_success": parsed_output is not None,
         }
+
+    def _generate_local(self, messages: list[dict], max_new_tokens: int) -> tuple[str, int]:
+        """
+        Local generation path (default). Unchanged from the original behavior:
+        greedy decode with the on-device base model.
+
+        Returns (raw_text, prompt_token_count).
+        """
+        import torch
+
+        input_text = self.tokenizer.apply_chat_template(
+            messages, tokenize=False, add_generation_prompt=True
+        )
+        inputs = self.tokenizer(input_text, return_tensors="pt").to(self.device)
+        input_length = inputs["input_ids"].shape[1]
+
+        with torch.no_grad():
+            outputs = self.model.generate(
+                **inputs,
+                max_new_tokens=max_new_tokens,
+                do_sample=False,       # Greedy decoding for reproducibility
+                temperature=1.0,
+                pad_token_id=self.tokenizer.pad_token_id,
+            )
+
+        generated_tokens = outputs[0][input_length:]
+        raw_text = self.tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
+        return raw_text, input_length
+
+    def _generate_groq(self, messages: list[dict], max_new_tokens: int) -> tuple[str, int]:
+        """
+        Remote generation via Groq's API, using the SAME (system + user) prompt the
+        local path builds. No local model or tokenizer is touched.
+
+        temperature=0.0 mirrors the local greedy setting (do_sample=False) for
+        reproducibility. Returns (raw_text, prompt_token_count) so the caller's
+        output shape and downstream JSON parsing are identical.
+        """
+        response = self.groq_client.chat.completions.create(
+            model=self.groq_model,
+            messages=messages,
+            max_tokens=max_new_tokens,
+            temperature=0.0,
+        )
+        raw_text = (response.choices[0].message.content or "").strip()
+        usage = getattr(response, "usage", None)
+        input_length = getattr(usage, "prompt_tokens", 0) or 0
+        return raw_text, input_length

@@ -1,0 +1,37 @@
+# Keep the Docker build context small and fast.
+# NOTE: data/rag/chroma_db is intentionally NOT excluded -- the app needs it and the
+# Dockerfile COPYs it into the image.
+
+.git/
+.gitignore
+
+# Trained adapters (~1.2GB) -- not needed in Groq mode
+models/
+
+# Experiment tracking / logs
+wandb/
+*.log
+
+# Big data that the image does NOT need (only data/rag/chroma_db is copied in)
+data/CUAD_v1.json
+data/raw_clauses.jsonl
+data/synthetic/
+data/human_anchor_30.jsonl
+
+# Analysis outputs / charts -- not part of the service
+results/
+outputs/
+
+# Dev-only
+tests/
+notes/
+study/
+.pytest_cache/
+**/__pycache__/
+*.pyc
+.env
+.venv/
+venv/
+
+# The full (heavy) requirements are not used for deploy -- requirements-deploy.txt is.
+requirements.txt
