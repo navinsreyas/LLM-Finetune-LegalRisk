@@ -1,3 +1,15 @@
+---
+title: Legalrisk Analyzer
+emoji: 📈
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 7860
+pinned: false
+license: mit
+short_description: RAG-based legal contract clause risk analyzer
+---
+
 # LegalRisk-LLM: Benchmarking PEFT Fine-Tuning vs RAG for Legal Contract Risk Analysis
 
 A research system that compares three parameter-efficient fine-tuning methods (QLoRA, DoRA, IA3) against a RAG baseline on Llama-3.2-3B-Instruct for structured legal risk assessment. Built on real CUAD contract data augmented with Claude Sonnet synthetic examples, evaluated with an LLM judge, and subjected to full statistical significance testing.
@@ -246,4 +258,3 @@ Total API spend:  ~$7.62 (estimated from token usage via the project's estimate_
 ---
 
 *Portfolio project comparing PEFT fine-tuning and RAG on a realistic legal NLP task. All evaluation scripts are reproducible from the included code. Adapter weights available on request.*
-
