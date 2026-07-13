@@ -12,12 +12,21 @@
 # torch-free image, swap the embedder for an API/ONNX embedding backend.
 
 # Web API
-fastapi>=0.110.0
+# fastapi and starlette are pinned EXACTLY, not just floored, because newer fastapi
+# releases (>=0.130) drop the starlette<1.0.0 ceiling and can resolve to starlette
+# 1.x -- which conflicts with prometheus-fastapi-instrumentator 7.x below (that package
+# requires starlette<1.0.0). Pinning here removes that resolver ambiguity entirely.
+fastapi==0.129.0
+starlette==0.52.1
 uvicorn[standard]>=0.29.0
 pydantic>=2.4.0
 
-# Observability (Prometheus /metrics; pulls in prometheus-client)
-prometheus-fastapi-instrumentator>=7.0.0
+# Observability (Prometheus /metrics; pulls in prometheus-client).
+# Pinned to the 7.x line (not >=7.0.0) because 8.x requires starlette>=1.0.0, which
+# would conflict with the fastapi/starlette pins above. 7.1.0 requires
+# starlette>=0.30.0,<1.0.0 -- compatible with fastapi 0.129.0's own
+# starlette>=0.40.0,<1.0.0 constraint.
+prometheus-fastapi-instrumentator==7.1.0
 
 # Remote generation (Groq)
 groq>=0.11.0

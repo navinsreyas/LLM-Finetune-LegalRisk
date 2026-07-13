@@ -12,6 +12,8 @@ short_description: RAG-based legal contract clause risk analyzer
 
 # LegalRisk-LLM: Benchmarking PEFT Fine-Tuning vs RAG for Legal Contract Risk Analysis
 
+[![CI](https://github.com/navinsreyas/LLM-Finetune-LegalRisk/actions/workflows/ci.yml/badge.svg)](https://github.com/navinsreyas/LLM-Finetune-LegalRisk/actions/workflows/ci.yml)
+
 A research system that compares three parameter-efficient fine-tuning methods (QLoRA, DoRA, IA3) against a RAG baseline on Llama-3.2-3B-Instruct for structured legal risk assessment. Built on real CUAD contract data augmented with Claude Sonnet synthetic examples, evaluated with an LLM judge, and subjected to full statistical significance testing.
 
 Total compute: ~8 hours on an RTX 4060. Total API cost: ~$7.62 (estimated).
