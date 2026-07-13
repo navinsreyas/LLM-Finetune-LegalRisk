@@ -24,6 +24,14 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
+# Observability:
+#   - Instrumentator auto-records per-request metrics (count, latency, status) and
+#     exposes them at GET /metrics in Prometheus text format.
+#   - Counter is a raw prometheus_client metric we drive ourselves for the one custom
+#     signal below (successful classifications per risk level).
+from prometheus_fastapi_instrumentator import Instrumentator
+from prometheus_client import Counter
+
 # Make the project root importable so `from src.rag...` works under `uvicorn app.main:app`.
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
@@ -64,6 +72,23 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="LegalRisk-LLM RAG API", lifespan=lifespan)
+
+# Attach the Prometheus instrumentator:
+#   .instrument(app) adds middleware that times every request and records the standard
+#     HTTP metrics (request count, latency histogram, in-progress gauge) labeled by
+#     method / path / status code.
+#   .expose(app) registers the GET /metrics endpoint that serves those metrics (plus any
+#     custom metrics, like the counter below) in Prometheus text format.
+Instrumentator().instrument(app).expose(app)
+
+# ONE custom metric: how many /classify calls succeeded, broken down by predicted
+# risk level. `risk_level` is a low-cardinality label (Low/Medium/High/Critical, plus
+# "unknown" when the model didn't return a parseable level), which is safe for Prometheus.
+CLASSIFY_RISK_LEVEL = Counter(
+    "classify_risk_level_total",
+    "Successful /classify responses, labeled by the predicted risk_level.",
+    ["risk_level"],
+)
 
 
 class ClassifyRequest(BaseModel):
@@ -110,6 +135,13 @@ def classify(req: ClassifyRequest):
     except Exception as e:
         # Any pipeline failure -> HTTP 500 with a clear message; server keeps running.
         raise HTTPException(status_code=500, detail=f"Pipeline error: {type(e).__name__}: {e}")
+
+    # Observability: count this successful classification by its predicted risk level.
+    # Safe extraction so metrics never affect the response: if output is None (parse
+    # failure) or has no risk_level, label it "unknown".
+    output = result.get("output") if isinstance(result, dict) else None
+    risk_level = (output or {}).get("risk_level") or "unknown"
+    CLASSIFY_RISK_LEVEL.labels(risk_level=str(risk_level)).inc()
 
     return result
 

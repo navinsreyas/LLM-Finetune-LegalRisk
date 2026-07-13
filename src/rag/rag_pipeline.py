@@ -13,11 +13,31 @@ import os
 import time
 from pathlib import Path
 
+from prometheus_client import Histogram
+
 from src.rag.retriever import ClauseRetriever
 
 # NOTE: torch / transformers are imported lazily inside the "local" provider path
 # (RAGPipeline.__init__ and _generate_local) so a groq-only deployment never imports
 # them or loads any local weights.
+
+# Prometheus metrics -- registered in the default registry, so they surface on the
+# app's /metrics endpoint (prometheus-fastapi-instrumentator exposes that registry).
+#
+# Time spent ONLY inside the Groq API call -- isolates "API wait" from retrieval,
+# embedding, prompt-building, and JSON parsing. Recorded only on the groq path.
+GROQ_CALL_DURATION = Histogram(
+    "groq_call_duration_seconds",
+    "Seconds spent inside the Groq chat.completions.create call only.",
+)
+
+# How many clauses were actually retrieved per query. Target is n_examples (usually 5),
+# but type-filtering can return fewer. Small integer buckets fit the expected range.
+RETRIEVAL_CHUNKS = Histogram(
+    "retrieval_chunks_count",
+    "Number of clauses retrieved per query (fewer than n_examples if filtering finds less).",
+    buckets=(0, 1, 2, 3, 4, 5, 10),
+)
 
 
 # MUST match the system prompt from fine-tuning (data_formatter.py)
@@ -230,6 +250,8 @@ class RAGPipeline:
             n_results=self.n_examples,
             filter_by_type=filter_type,
         )
+        # Metric: how many clauses this query actually got (may be < n_examples).
+        RETRIEVAL_CHUNKS.observe(len(retrieved))
 
         user_message = build_rag_prompt(clause_text, clause_type, retrieved)
 
@@ -324,12 +346,15 @@ class RAGPipeline:
         reproducibility. Returns (raw_text, prompt_token_count) so the caller's
         output shape and downstream JSON parsing are identical.
         """
-        response = self.groq_client.chat.completions.create(
-            model=self.groq_model,
-            messages=messages,
-            max_tokens=max_new_tokens,
-            temperature=0.0,
-        )
+        # Metric: time ONLY the Groq API call (this method runs only on the groq path,
+        # so the local generation path never records this).
+        with GROQ_CALL_DURATION.time():
+            response = self.groq_client.chat.completions.create(
+                model=self.groq_model,
+                messages=messages,
+                max_tokens=max_new_tokens,
+                temperature=0.0,
+            )
         raw_text = (response.choices[0].message.content or "").strip()
         usage = getattr(response, "usage", None)
         input_length = getattr(usage, "prompt_tokens", 0) or 0

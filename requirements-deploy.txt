@@ -16,6 +16,9 @@ fastapi>=0.110.0
 uvicorn[standard]>=0.29.0
 pydantic>=2.4.0
 
+# Observability (Prometheus /metrics; pulls in prometheus-client)
+prometheus-fastapi-instrumentator>=7.0.0
+
 # Remote generation (Groq)
 groq>=0.11.0
 python-dotenv>=1.0.0
