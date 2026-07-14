@@ -226,6 +226,22 @@ Total API spend:  ~$7.62 (estimated from token usage via the project's estimate_
 
 ---
 
+## Experiment Tracking
+
+**This is importing already-completed results into MLflow, not running new experiments.** `scripts/log_mlflow_runs.py` reads the existing result files (`results/phase3c_statistical_results.json`, `results/phase3d_error_analysis.json`, `results/trainable_params.json`) and logs one MLflow run per method (QLoRA, DoRA, IA3, RAG) so they can be browsed side by side. No training or inference happens when you run this script.
+
+Runs were imported from completed experiments (dates: `results/phase3c_statistical_results.json` and `results/phase3d_error_analysis.json` both dated 2026-03-08, per file timestamps; `results/trainable_params.json` was computed later, on 2026-07-04, by counting parameters directly from the saved adapter weights), not logged live. The MLflow run start/end time for each method is backdated to 2026-03-08 to match, rather than showing the date the import script happened to be run -- each run is also tagged `run_type=imported_from_completed_experiment` so this is unambiguous inside the MLflow UI itself.
+
+```bash
+pip install mlflow   # local/dev only -- not part of the deployed app (see requirements-deploy.txt)
+python scripts/log_mlflow_runs.py
+mlflow ui --backend-store-uri sqlite:///mlruns/mlflow.db
+```
+
+Then open http://127.0.0.1:5000 to compare `accuracy`, `judge_overall_score`, `clarity`, and `risk_bias_mean_bias` across the 4 methods, with `trainable_params` as a param and the three results JSON files attached as artifacts on every run.
+
+---
+
 ## Tech Stack
 
 | Category | Tools |
