@@ -12,6 +12,9 @@ short_description: RAG-based legal contract clause risk analyzer
 
 # LegalRisk-LLM: Benchmarking PEFT Fine-Tuning vs RAG for Legal Contract Risk Analysis
 
+🔗 **Live demo:** https://navinsreyas-legalrisk-analyzer.hf.space  
+📦 **API docs:** https://navinsreyas-legalrisk-analyzer.hf.space/docs
+
 [![CI](https://github.com/navinsreyas/LLM-Finetune-LegalRisk/actions/workflows/ci.yml/badge.svg)](https://github.com/navinsreyas/LLM-Finetune-LegalRisk/actions/workflows/ci.yml)
 
 A research system that compares three parameter-efficient fine-tuning methods (QLoRA, DoRA, IA3) against a RAG baseline on Llama-3.2-3B-Instruct for structured legal risk assessment. Built on real CUAD contract data augmented with Claude Sonnet synthetic examples, evaluated with an LLM judge, and subjected to full statistical significance testing.
@@ -245,7 +248,7 @@ Total API spend:  ~$7.62 (estimated from token usage via the project's estimate_
 
 **This is importing already-completed results into MLflow, not running new experiments.** `scripts/log_mlflow_runs.py` reads the existing result files (`results/phase3c_statistical_results.json`, `results/phase3d_error_analysis.json`, `results/trainable_params.json`) and logs one MLflow run per method (QLoRA, DoRA, IA3, RAG) so they can be browsed side by side. No training or inference happens when you run this script.
 
-Runs were imported from completed experiments (dates: `results/phase3c_statistical_results.json` and `results/phase3d_error_analysis.json` both dated 2026-03-08, per file timestamps; `results/trainable_params.json` was computed later, on 2026-07-04, by counting parameters directly from the saved adapter weights), not logged live. The MLflow run start/end time for each method is backdated to 2026-03-08 to match, rather than showing the date the import script happened to be run -- each run is also tagged `run_type=imported_from_completed_experiment` so this is unambiguous inside the MLflow UI itself.
+Runs were imported from completed experiments (dates: `results/phase3c_statistical_results.json` and `results/phase3d_error_analysis.json` both dated 2026-03-07 (UTC, per file timestamp); `results/trainable_params.json` was computed later, on 2026-07-04, by counting parameters directly from the saved adapter weights), not logged live. The MLflow run start/end time for each method is backdated to 2026-03-07 (UTC) to match, rather than showing the date the import script happened to be run -- each run is also tagged `run_type=imported_from_completed_experiment` so this is unambiguous inside the MLflow UI itself.
 
 The 4 runs below were imported from those completed offline results, not logged live -- values read exactly from `mlflow_comparison.csv` (the exported MLflow comparison view):
 
@@ -255,6 +258,8 @@ The 4 runs below were imported from those completed offline results, not logged 
 | DoRA   | 0.4486   | 6.6888      | 8.0935  | -0.3738   | 25088000          |
 | IA3    | 0.4766   | 6.4467      | 7.8411  | -0.2736   | 286720            |
 | RAG    | 0.5234   | 6.4888      | 7.4486  | -0.0891   | 0                 |
+
+![MLflow comparison](docs/mlflow_comparison.png)
 
 ```bash
 pip install mlflow   # local/dev only -- not part of the deployed app (see requirements-deploy.txt)
@@ -270,7 +275,7 @@ Then open http://127.0.0.1:5000 to compare `accuracy`, `judge_overall_score`, `c
 
 ![Grafana dashboard](docs/grafana_dashboard.png)
 
-The live HF Space is instrumented with Prometheus metrics, collected via Grafana Alloy and visualized in Grafana Cloud — request rate by endpoint, risk-level distribution, average classify latency (~0.9s), and average Groq API latency (~0.6s, isolated from retrieval/processing overhead).
+The live HF Space is instrumented with Prometheus metrics, collected via Grafana Alloy and visualized in Grafana Cloud — request rate by endpoint, risk-level distribution, and request latency (broken down by endpoint and by the isolated Groq API call time) are all tracked live in the deployed Grafana dashboard.
 
 ---
 
