@@ -45,10 +45,6 @@ def load_finetuned_model(method: str, device: str = "cuda"):
 
     Returns:
         (model, tokenizer) tuple
-
-    Why different loading for QLoRA/DoRA vs IA³:
-    - QLoRA/DoRA: Use 4-bit quantization (matching training setup)
-    - IA³: No quantization (matching training setup)
     """
     adapter_path = ADAPTER_PATHS[method]
     print(f"[MODEL] Loading base model: {BASE_MODEL}")

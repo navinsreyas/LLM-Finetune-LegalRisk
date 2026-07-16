@@ -1,30 +1,3 @@
-"""
-Phase 3C: Statistical Analysis of LegalRisk-LLM Evaluation Results
-
-Compares 4 methods (QLoRA, DoRA, IA³, RAG) on:
-- LLM judge scores (5 dimensions + overall)
-- JSON parse success rates
-- Risk level prediction accuracy
-- Latency profiles
-- Per-clause-type performance
-
-Statistical tests used:
-- Shapiro-Wilk: Test normality of each method's scores
-- Kruskal-Wallis H: Are any methods significantly different? (non-parametric ANOVA)
-- Mann-Whitney U: Pairwise comparisons between methods
-- Rank-biserial correlation: Effect size for pairwise comparisons
-- Chi-square: Are JSON parse rates significantly different?
-- Descriptive stats: Mean, std, median, quartiles
-
-Why Kruskal-Wallis instead of ANOVA?
-  - LLM judge scores (1-10 integers) are ordinal, not continuous
-  - With only 107 examples per method, normality is not guaranteed
-  - Non-parametric tests make no distribution assumptions
-  - More appropriate for small samples with ordinal data
-
-No API calls. Pure scipy/numpy/pandas computation.
-"""
-
 import json
 import math
 from pathlib import Path
@@ -130,14 +103,6 @@ def load_all_data() -> tuple[dict, dict]:
 def rank_biserial_correlation(x: list, y: list) -> float:
     """
     Effect size for Mann-Whitney U test.
-
-    Interpretation:
-      0.0 - 0.1: negligible
-      0.1 - 0.3: small
-      0.3 - 0.5: medium
-      0.5+:      large
-
-    Formula: r = 1 - (2U) / (n1 * n2)
     """
     u_stat, _ = mannwhitneyu(x, y, alternative="two-sided")
     n1, n2 = len(x), len(y)
@@ -181,10 +146,6 @@ def descriptive_stats(values: list) -> dict:
 def compute_descriptive_stats(all_scores: dict) -> dict:
     """
     Per-method, per-dimension descriptive statistics.
-
-    This is the foundation — before running any inferential tests,
-    understand the raw distributions. Are scores clustered around 6-8?
-    Is one method consistently higher?
     """
     print("\n[STATS] Computing descriptive statistics...")
     result = {}
@@ -216,10 +177,6 @@ def compute_descriptive_stats(all_scores: dict) -> dict:
 def test_normality(all_scores: dict) -> dict:
     """
     Shapiro-Wilk test for normality on overall scores per method.
-
-    Why this matters: If scores are normally distributed, we CAN use
-    ANOVA (parametric). If NOT, we must use Kruskal-Wallis (non-parametric).
-    In practice, integer scores 1-10 with N=107 are rarely normal.
     """
     print("[STATS] Testing normality (Shapiro-Wilk)...")
     result = {}
@@ -252,13 +209,6 @@ def test_normality(all_scores: dict) -> dict:
 def kruskal_wallis_test(all_scores: dict) -> dict:
     """
     Kruskal-Wallis H-test: Are any of the 4 methods significantly different?
-
-    This is the non-parametric equivalent of one-way ANOVA.
-    H0: All methods come from the same distribution (no difference).
-    Ha: At least one method has different score distribution.
-
-    If p < 0.05: At least one pair is different → run pairwise tests.
-    If p >= 0.05: No statistically significant difference detected.
     """
     print("[STATS] Running Kruskal-Wallis H-test...")
 
@@ -318,14 +268,6 @@ def kruskal_wallis_test(all_scores: dict) -> dict:
 def pairwise_mann_whitney(all_scores: dict) -> dict:
     """
     Pairwise Mann-Whitney U tests with Bonferroni correction.
-
-    After Kruskal-Wallis tells us "some methods differ," Mann-Whitney
-    tells us WHICH pairs are different.
-
-    Bonferroni correction: With 6 pairs (C(4,2)=6), multiply p-values by 6
-    to control family-wise error rate. Adjusted threshold: 0.05/6 ≈ 0.0083.
-
-    Also computes rank-biserial correlation as effect size.
     """
     print("[STATS] Running pairwise Mann-Whitney U tests...")
 
@@ -370,13 +312,6 @@ def pairwise_mann_whitney(all_scores: dict) -> dict:
 def json_parse_analysis(all_preds: dict) -> dict:
     """
     Chi-square test: Are JSON parse success rates significantly different?
-
-    Each method either succeeds or fails at producing valid JSON.
-    This is a 2×4 contingency table:
-      Methods: qlora, dora, ia3, rag
-      Outcomes: success, failure
-
-    H0: Parse success rate is the same across all methods.
     """
     print("[STATS] Analyzing JSON parse success rates...")
 
@@ -430,12 +365,6 @@ def json_parse_analysis(all_preds: dict) -> dict:
 def risk_level_accuracy(all_scores: dict) -> dict:
     """
     How often does each method predict the correct risk level?
-
-    Risk levels: Low, Medium, High, Critical
-    We treat this as a classification problem and compute:
-    - Exact match accuracy
-    - Off-by-one accuracy (one level away = partial credit)
-    - Confusion breakdown
     """
     print("[STATS] Computing risk level accuracy...")
 
@@ -498,9 +427,6 @@ def risk_level_accuracy(all_scores: dict) -> dict:
 def latency_analysis(all_preds: dict) -> dict:
     """
     Compare inference latency across methods.
-
-    RAG has retrieval overhead. Fine-tuned models run fast.
-    This quantifies the speed-quality tradeoff.
     """
     print("[STATS] Analyzing inference latency...")
 
@@ -540,10 +466,6 @@ def latency_analysis(all_preds: dict) -> dict:
 def per_category_stats(all_scores: dict) -> dict:
     """
     Performance breakdown by clause type (termination, liability, ip, etc.)
-
-    Legal risk assessment is NOT uniform. A model might excel at
-    termination clauses but struggle with IP clauses. This reveals
-    whether one method has domain-specific strengths.
     """
     print("[STATS] Computing per-category statistics...")
 
@@ -596,9 +518,6 @@ def build_rankings(all_scores: dict, desc_stats: dict) -> dict:
     """
     Rank all 4 methods across all dimensions.
     Rank 1 = best, 4 = worst.
-
-    This is the "scoreboard" — the single view that tells you
-    which method won Phase 3.
     """
     print("[STATS] Building rankings...")
 

@@ -63,8 +63,7 @@ def get_trainable_params(trainable_params_data: dict, method: str) -> int:
 def get_source_date(*paths: Path) -> datetime:
     """
     Real completion date of the imported experiment, taken from the source result
-    files' mtimes (NOT invented, NOT "now"). Used to backdate the MLflow run so the
-    UI shows when the comparison actually finished, not when this script was run.
+    files' mtimes (NOT invented, NOT "now").
     """
     latest = max(p.stat().st_mtime for p in paths)
     return datetime.fromtimestamp(latest, tz=timezone.utc)

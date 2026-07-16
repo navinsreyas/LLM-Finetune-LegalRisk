@@ -69,9 +69,6 @@ def setup_logging(log_file: Path) -> logging.Logger:
     """
     Configure logging to both console and file.
 
-    Why log to file? Generation takes 1-2 hours and produces 1,200+ API calls.
-    If something fails, we need the full log to debug.
-
     Args:
         log_file: Path to log file
 
@@ -102,9 +99,6 @@ def setup_logging(log_file: Path) -> logging.Logger:
 def load_progress(progress_file: Path) -> set:
     """
     Load progress from previous run to support resume.
-
-    Why resume support? Generating 1,200 examples takes ~1-2 hours.
-    If the script crashes at example 800, we don't want to regenerate 1-799.
 
     Args:
         progress_file: Path to progress tracking JSON
@@ -145,13 +139,6 @@ def generate_synthetic_data(
 ) -> dict:
     """
     Generate synthetic risk assessments for CUAD clauses + fully synthetic clauses.
-
-    This is the main generation loop. It:
-    1. Loads CUAD clauses
-    2. Samples according to CUAD_SAMPLES_PER_CATEGORY
-    3. Generates risk assessments via Claude API
-    4. Also generates fully synthetic clauses for confidentiality + indemnification
-    5. Saves progress every 50 examples
 
     Args:
         api_key: Anthropic API key
@@ -278,16 +265,6 @@ def select_human_anchors(
     """
     Select a diverse set of examples as human evaluation anchors.
 
-    Why human anchors? We need a small set of examples that a human expert
-    can manually evaluate to validate our automated metrics. These are held
-    out from training to ensure they're truly "unseen".
-
-    Selection criteria:
-    - Cover all 7 clause types (at least 4 per type if possible)
-    - Mix of risk levels (low, medium, high, critical)
-    - Mix of confidence levels
-    - Diverse sources (CUAD vs synthetic)
-
     Args:
         examples: All filtered examples
         num_anchors: Number to select (default 30)
@@ -348,10 +325,6 @@ def split_train_val_test(
 ) -> tuple[list[dict], list[dict], list[dict]]:
     """
     Split examples into train/validation/test sets with stratification.
-
-    Why stratified splitting? We want each split to have the same proportion
-    of clause types. If all "governing_law" examples end up in test, the model
-    won't learn them.
 
     Args:
         examples: Examples to split (after removing anchors)

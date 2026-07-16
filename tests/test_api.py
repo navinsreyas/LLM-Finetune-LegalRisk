@@ -22,10 +22,6 @@ from fastapi.testclient import TestClient
 # Make the project root importable so `import app.main` and `from src...` resolve.
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-# Test-only shim: importing app.main pulls in the RAG stack, whose top-level imports
-# touch sentence_transformers / chromadb. We fully mock RAGPipeline, so those heavy
-# libs are never actually used -- stub them ONLY if they aren't installed, so this
-# web-layer test runs without the full ML environment. (No-op when they ARE present.)
 _STUBS = {
     "sentence_transformers": {"SentenceTransformer": object},
     "chromadb": {},

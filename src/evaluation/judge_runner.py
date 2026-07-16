@@ -200,7 +200,6 @@ class JudgeRunner:
                 print(f"[WARNING] Skipping {method}: {e}")
                 continue
 
-        # Print cost
         cost = self.judge.get_cost_estimate()
         print(f"\n{'='*70}")
         print(f"  Evaluation Complete!")

@@ -63,13 +63,6 @@ def format_single_example(example: Dict) -> Dict:
             ]
         }
 
-    Why this format? SFTTrainer's apply_chat_template() expects exactly this structure.
-    It will automatically add Llama-3.2's special tokens:
-    - <|begin_of_text|>
-    - <|start_header_id|>system<|end_header_id|>
-    - <|eot_id|>
-    Never manually add these tokens - let the tokenizer handle it.
-
     Args:
         example: Dict from Phase 1C JSONL with input/output/metadata
 
@@ -91,10 +84,6 @@ CLAUSE:
     if context_window and context_window.strip():
         user_message += f"\n\nCONTEXT:\n{context_window}"
 
-    # Build assistant message (the JSON output the model should learn to produce)
-    # Use compact JSON (no indentation) to save tokens during training
-    # Why compact? With 860 examples × 3 epochs × ~250 output tokens/example,
-    # indentation would waste ~100,000 tokens = ~$0.30 in compute. Small but unnecessary.
     assistant_message = json.dumps(out, ensure_ascii=False)
 
     return {
@@ -149,9 +138,6 @@ def load_and_format_dataset(
 def get_system_prompt() -> str:
     """
     Return the system prompt used during training.
-
-    Why a getter function? During inference (Phase 4B), we need the EXACT same
-    system prompt. Importing from this module ensures consistency.
 
     Returns:
         System prompt string

@@ -18,9 +18,6 @@ except ImportError:
 def load_config() -> dict:
     """
     Load configuration from .env file.
-    
-    Looks for .env in the project root directory.
-    Returns a dict with all config values.
     """
     # Find .env file — walk up from this file's location to find project root
     current = Path(__file__).resolve()

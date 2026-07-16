@@ -92,6 +92,7 @@ study/
 
 # Worklog / audit notes (private, do not publish)
 notes/
+NOTES_FOR_FOR_ME.md
 
 # API key files (sensitive -- never commit)
 *.txt

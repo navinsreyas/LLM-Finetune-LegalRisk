@@ -157,9 +157,6 @@ def save_fig(fig: plt.Figure, name: str):
 def chart_overall_comparison(all_scores: dict):
     """
     Horizontal bar chart showing mean overall score per method with ±1 std bars.
-
-    Why horizontal? Method labels read cleanly left-to-right.
-    Error bars give a sense of score variance (are scores consistent or noisy?).
     """
     means = []
     stds  = []
@@ -205,10 +202,6 @@ def chart_overall_comparison(all_scores: dict):
 def chart_radar(all_scores: dict):
     """
     Spider/radar chart comparing all 4 methods across the 5 scoring dimensions.
-
-    Each axis = one scoring dimension (0–10).
-    Filled polygons make it easy to see which method is best on each dimension
-    and which has the most 'complete' coverage.
     """
     # Compute per-method dimension means
     dim_means = {}
@@ -265,10 +258,6 @@ def chart_radar(all_scores: dict):
 def chart_score_distributions(all_scores: dict):
     """
     Violin plots show the full distribution shape — not just the mean.
-
-    A violin wider at the bottom = model often scores around 5-6.
-    Bimodal violin (two wide spots) = model is inconsistent.
-    Tight violin = model is consistent but may be mediocre.
     """
     data    = []
     methods = []
@@ -325,9 +314,6 @@ def chart_dimension_heatmap(all_scores: dict):
     """
     Heatmap where rows = methods and columns = scoring dimensions.
     Darker green = higher mean score.
-
-    This is the single most information-dense chart — lets you see
-    at a glance which method excels at which specific aspect.
     """
     all_dims = DIMENSIONS + ["overall"]
 
@@ -386,9 +372,6 @@ def chart_confusion_matrices(joined: dict):
     2x2 grid of confusion matrices — one per method.
     Rows = ground truth risk level, Cols = predicted risk level.
     Darker = more cases.
-
-    Reveals: does QLoRA confuse High with Medium?
-    Does RAG over-predict Critical?
     """
     available = [m for m in METHODS if m in joined]
     n = len(available)
@@ -455,10 +438,6 @@ def chart_confusion_matrices(joined: dict):
 def chart_category_performance(joined: dict):
     """
     Grouped bar chart: for each clause type, show all 4 methods' mean scores.
-
-    Legal insight: models may generalize well on common clause types
-    (termination, liability) but fail on rarer ones (indemnification, ip).
-    This chart exposes domain-specific strengths and blind spots.
     """
     # Collect all clause types
     all_cats = set()
@@ -516,10 +495,6 @@ def chart_category_performance(joined: dict):
 def chart_score_kde(all_scores: dict):
     """
     Kernel Density Estimation curves overlaid for all 4 methods.
-
-    Unlike violin plots, KDE shows the smooth probability density.
-    If two methods have very similar KDE curves, they perform equivalently.
-    Vertical lines show the mean of each method.
     """
     fig, ax = plt.subplots(figsize=(10, 6))
 
@@ -559,10 +534,6 @@ def chart_risk_bias(joined: dict):
     """
     Stacked horizontal bar chart: for each method, show % of predictions
     that were over-predicted, correct, or under-predicted.
-
-    Risk order: Low(0) < Medium(1) < High(2) < Critical(3)
-    Under-prediction is most dangerous in legal contexts — means the model
-    missed a serious risk. Over-prediction creates false alarms.
     """
     risk_order = {level: i for i, level in enumerate(RISK_LEVELS)}
 
@@ -630,12 +601,6 @@ def chart_risk_bias(joined: dict):
 def chart_pairwise_correlation(joined: dict):
     """
     Heatmap of Spearman rank correlations between all method pairs.
-
-    High correlation (> 0.7) = methods make similar mistakes.
-    Low correlation = methods fail on different examples.
-
-    QLoRA vs DoRA should be highly correlated (same LoRA base).
-    RAG vs fine-tuned should be weakly correlated (different approach).
     """
     available = [m for m in METHODS if m in joined]
 
@@ -701,10 +666,6 @@ def chart_json_and_latency(all_preds: dict, joined: dict):
     Two-panel chart:
     LEFT:  JSON parse success rate per method (horizontal bars)
     RIGHT: Inference latency distribution per method (box plot)
-
-    Together these tell the full story of reliability + speed.
-    Fine-tuned models: near-100% parse success, fast inference.
-    RAG: ~94% parse success, slower (retrieval overhead).
     """
     available = [m for m in METHODS if m in all_preds]
 

@@ -24,12 +24,6 @@ def build_index(
         train_path: Path to training JSONL file
         persist_dir: Where to store ChromaDB
         rebuild: If True, delete existing index and rebuild from scratch
-
-    What this does:
-    1. Load all training examples (855 clauses)
-    2. Embed each clause text using sentence-transformers
-    3. Store embeddings + metadata in ChromaDB
-    4. Index persists to disk — never need to rebuild unless data changes
     """
     print("=" * 70)
     print("  Building RAG Vector Index")
@@ -43,7 +37,6 @@ def build_index(
 
     print(f"[INDEX] Loaded {len(examples)} training examples from {train_path}")
 
-    # Initialize components
     embedder = ClauseEmbedder()
     store = ClauseVectorStore(persist_dir=persist_dir)
 

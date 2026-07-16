@@ -24,11 +24,6 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
-# Observability:
-#   - Instrumentator auto-records per-request metrics (count, latency, status) and
-#     exposes them at GET /metrics in Prometheus text format.
-#   - Counter is a raw prometheus_client metric we drive ourselves for the one custom
-#     signal below (successful classifications per risk level).
 from prometheus_fastapi_instrumentator import Instrumentator
 from prometheus_client import Counter
 
@@ -73,12 +68,6 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="LegalRisk-LLM RAG API", lifespan=lifespan)
 
-# Attach the Prometheus instrumentator:
-#   .instrument(app) adds middleware that times every request and records the standard
-#     HTTP metrics (request count, latency histogram, in-progress gauge) labeled by
-#     method / path / status code.
-#   .expose(app) registers the GET /metrics endpoint that serves those metrics (plus any
-#     custom metrics, like the counter below) in Prometheus text format.
 Instrumentator().instrument(app).expose(app)
 
 # ONE custom metric: how many /classify calls succeeded, broken down by predicted

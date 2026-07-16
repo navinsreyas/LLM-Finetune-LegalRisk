@@ -1,16 +1,3 @@
-"""
-CUAD Dataset Processor for LegalRisk-LLM Pipeline.
-
-Extracts individual clause spans (not full contracts) from the Contract
-Understanding Atticus Dataset (CUAD) v1 with intelligent filtering.
-
-KEY ARCHITECTURAL DECISION:
-We extract at the ANSWER-SPAN level, not the context/paragraph level.
-Why? Each answer is a specific labeled clause (e.g., "Indemnification" clause).
-The full context is the entire contract, which would teach the model nothing
-about clause-specific risk patterns.
-"""
-
 import json
 from pathlib import Path
 from collections import Counter
@@ -18,14 +5,6 @@ import pandas as pd
 import re
 
 
-# LEGAL ENGINEERING MAPPING
-# Why these 5 categories? These represent the core risk dimensions in commercial contracts
-# that drive business decisions. We collapsed CUAD's 41 granular categories into
-# 5 high-level types because:
-# 1. Many CUAD categories are legally related (e.g., "Cap on Liability" + "Uncapped Liability")
-# 2. Fine-tuning needs ~500+ examples per category - 5 categories balances granularity with data needs
-# 3. These 5 align with how in-house counsel actually think about contract risk
-# 4. CUAD doesn't have "Confidentiality" or explicit "Indemnification" categories (limitation of dataset)
 CUAD_TO_TARGET_CATEGORY = {
     # Liability: Who pays if something goes wrong?
     # NOTE: CUAD doesn't have generic "Liability" or "Indemnification" categories
@@ -83,10 +62,6 @@ def extract_context_window(
     """
     Extract surrounding context for a clause span.
 
-    Why we need this: A clause like "termination requires 30 days notice" means
-    different things if the preceding text says "either party" vs "only Company X".
-    The context window teaches the model to attend to surrounding legal qualifiers.
-
     Args:
         full_text: The complete contract text
         start_pos: Character offset where clause begins
@@ -123,10 +98,6 @@ def process_cuad_dataset(
 ) -> None:
     """
     Extract and filter individual clause spans from CUAD v1 dataset.
-
-    CRITICAL CHANGE FROM V1: We now extract at the ANSWER level, not paragraph level.
-    Each QA answer is a labeled clause span. This is why we go from ~500 entries
-    (one per contract) to ~3000+ entries (many clauses per contract).
 
     Args:
         input_path: Path to CUAD_v1.json file
@@ -288,9 +259,6 @@ def verify_output(output_path: str | Path = "data/raw_clauses.jsonl") -> None:
     """
     Load and display the first 3 entries to visually confirm we extracted
     clause-level data (short paragraphs) not contract-level data (pages of text).
-
-    Why this matters: If you see thousands of words per entry, something broke.
-    Good clause extractions should be 50-500 words typically.
     """
     output_path = Path(output_path)
 

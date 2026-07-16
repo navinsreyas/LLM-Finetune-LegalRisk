@@ -109,10 +109,6 @@ def load_all_data() -> tuple[dict, dict]:
 def merge_by_index(preds: list[dict], scores: list[dict]) -> list[dict]:
     """
     Join predictions + judge scores by test_index.
-
-    Why: Judge scores have quality ratings but no clause text.
-    Predictions have clause text but no quality ratings.
-    We need both together to understand WHY a prediction scored low.
     """
     pred_map = {p["test_index"]: p for p in preds}
     score_map = {s["test_index"]: s for s in scores if not s.get("eval_failed")}
@@ -150,12 +146,6 @@ def merge_by_index(preds: list[dict], scores: list[dict]) -> list[dict]:
 def confusion_matrix_analysis(all_merged: dict) -> dict:
     """
     4x4 confusion matrix: ground_truth_risk_level vs predicted_risk_level.
-
-    Reveals systematic misclassification patterns:
-    - Does the model always predict "Medium" even for "Critical" clauses?
-    - Does RAG over-predict "High" because similar training cases were High?
-
-    Also computes per-class precision, recall, and F1.
     """
     print("\n[ERROR] Building risk level confusion matrices...")
     results = {}
@@ -223,13 +213,6 @@ def confusion_matrix_analysis(all_merged: dict) -> dict:
 def worst_examples_analysis(all_merged: dict, n: int = 10) -> dict:
     """
     The 10 lowest-scoring examples per method with full context.
-
-    Why: Looking at failures is more instructive than celebrating successes.
-    If QLoRA consistently scores low on liability clauses, that's a training
-    data gap — not a model capacity issue.
-
-    Includes clause text snippet so you can see WHAT the model saw.
-    Includes judge justification so you can see WHY it scored low.
     """
     print("[ERROR] Finding worst examples per method...")
     results = {}
@@ -268,13 +251,6 @@ def worst_examples_analysis(all_merged: dict, n: int = 10) -> dict:
 def dimension_failure_analysis(all_merged: dict) -> dict:
     """
     Which scoring dimensions have the most failures (score < FAIL_THRESHOLD)?
-
-    Interpretation:
-    - If "legal_reasoning" fails most often → model lacks domain knowledge
-    - If "actionability" fails most often → model gives vague recommendations
-    - If "accuracy" fails → model gets facts wrong (most serious for legal use)
-
-    Also: dimension score variance (are scores consistent or all over the place?)
     """
     print("[ERROR] Analyzing dimension failure patterns...")
     results = {}
@@ -332,11 +308,6 @@ def dimension_failure_analysis(all_merged: dict) -> dict:
 def category_failure_analysis(all_merged: dict) -> dict:
     """
     Which clause types have the highest failure rates?
-
-    Legal domain insight: Indemnification and IP clauses are more nuanced
-    than Termination or Governing Law clauses. If a method scores low on
-    Indemnification consistently, it may need more training data for that
-    clause type.
 
     Failure rate = % of examples scoring below FAIL_THRESHOLD overall.
     """
@@ -397,14 +368,6 @@ def category_failure_analysis(all_merged: dict) -> dict:
 def json_failure_analysis(all_preds: dict) -> dict:
     """
     Deep-dive into JSON parse failures.
-
-    RAG had ~5.6% failure rate; fine-tuned models were near-perfect.
-    This matters clinically: a failed parse = no usable output.
-
-    We look at:
-    - Which clause types fail most?
-    - What does the model produce when it fails? (raw output snippet)
-    - Are failures random or clustered?
     """
     print("[ERROR] Analyzing JSON parse failures...")
     results = {}
@@ -468,14 +431,6 @@ def json_failure_analysis(all_preds: dict) -> dict:
 def cross_method_overlap_analysis(all_merged: dict) -> dict:
     """
     Do all 4 methods fail on the same hard examples?
-
-    Three types of failures:
-    1. Universal failures (all methods score low) — intrinsically hard clauses
-    2. Method-specific failures (one method is uniquely bad) — method weakness
-    3. No overlap (random failures) — noise/judge variance
-
-    Also computes score correlation between method pairs (Spearman rho).
-    Higher correlation = methods make similar mistakes.
     """
     print("[ERROR] Computing cross-method failure overlap...")
 
@@ -604,14 +559,6 @@ def cross_method_overlap_analysis(all_merged: dict) -> dict:
 def risk_bias_analysis(all_merged: dict) -> dict:
     """
     Do methods systematically over- or under-predict risk severity?
-
-    Over-prediction: Model says "High" when truth is "Medium" — creates
-    unnecessary alarm, lawyer panic.
-
-    Under-prediction: Model says "Low" when truth is "Critical" — misses
-    serious risks, potential liability.
-
-    Under-prediction is more dangerous in legal contexts.
     """
     print("[ERROR] Computing risk level bias analysis...")
     results = {}
@@ -678,8 +625,6 @@ def critical_failure_analysis(all_merged: dict, all_preds: dict) -> dict:
     1. Missed Critical risks (GT=Critical, pred=Low/Medium) — most dangerous
     2. False Critical alarms (GT=Low, pred=Critical) — most alarming false positives
     3. Cases where BOTH risk level is wrong AND judge score is low — double failure
-
-    These are the cases that matter most for legal risk assessment deployment.
     """
     print("[ERROR] Identifying critical failures...")
     results = {}

@@ -19,11 +19,6 @@ class ClauseVectorStore:
         Args:
             persist_dir: Directory to store the vector database on disk.
                          Survives restarts — no need to re-embed every time.
-
-        Why persistent storage:
-        - Once index is built, it's saved to disk
-        - Subsequent runs load instantly (no re-embedding)
-        - 855 clauses embed in ~30 seconds, but only need to do it once
         """
         self.persist_dir = Path(persist_dir)
         self.persist_dir.mkdir(parents=True, exist_ok=True)
@@ -50,11 +45,6 @@ class ClauseVectorStore:
         Args:
             examples: List of training examples (each has 'input' and 'output')
             embeddings: Corresponding embedding vectors from ClauseEmbedder
-
-        What gets stored:
-        - Document: The clause text (what we search against)
-        - Metadata: Clause type + complete risk assessment JSON
-        - Embedding: 384-dim vector for similarity search
         """
         ids = []
         documents = []
@@ -104,11 +94,6 @@ class ClauseVectorStore:
 
         Returns:
             List of dicts with 'clause_text', 'clause_type', 'output', 'distance'
-
-        Why filter by clause_type:
-        - Termination clauses should see termination examples
-        - IP clauses should see IP examples
-        - Gives RAG its best shot at relevant few-shot examples
         """
         where_filter = None
         if clause_type:

@@ -75,12 +75,6 @@ class BasePEFTTrainer:
     def load_model_and_tokenizer(self):
         """
         Load base model with optional 4-bit quantization and fix tokenizer.
-
-        Memory optimization strategy:
-        - 4-bit NF4 quantization: 3B params × 0.5 bytes = 1.5GB (vs 6GB fp16)
-        - Double quantization: Reduces to ~1.3GB
-        - Gradient checkpointing: Saves 40% activation memory
-        - Total peak VRAM: ~4.5GB (safe for 8GB)
         """
         model_config = self.config["model"]
         model_name = model_config["name"]
@@ -137,12 +131,6 @@ class BasePEFTTrainer:
     def prepare_model_for_training(self):
         """
         Prepare model for k-bit training and apply PEFT adapter.
-
-        Critical steps:
-        1. prepare_model_for_kbit_training (if quantized)
-        2. Disable cache (required for gradient checkpointing)
-        3. Apply PEFT config
-        4. Print trainable parameter count
         """
         # Prepare for k-bit training if quantized
         if self.config["model"].get("load_in_4bit", False):
@@ -181,14 +169,6 @@ class BasePEFTTrainer:
     def train(self):
         """
         Execute the training loop using SFTTrainer.
-
-        SFTTrainer handles:
-        - Chat template application (apply_chat_template)
-        - Tokenization with proper special tokens
-        - Batch collation
-        - Training loop
-        - Evaluation
-        - Checkpointing
         """
         train_config = self.config["training"]
         output_dir = Path(self.config["output"]["dir"])

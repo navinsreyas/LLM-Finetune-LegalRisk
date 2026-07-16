@@ -1,19 +1,3 @@
-"""
-Synthetic Data Generator for LegalRisk-LLM Pipeline.
-
-Uses Claude Sonnet API to generate structured risk assessments for contract clauses.
-This creates the "answer key" that pairs with CUAD clauses (the "exam questions").
-
-ARCHITECTURAL DECISION: Why synthetic data generation?
-We have labeled clauses from CUAD, but no risk assessments. Instead of manually
-labeling 1,200+ examples (50+ hours of senior counsel time at $400/hr = $20,000+),
-we use Claude Sonnet to generate high-quality synthetic labels for ~$5.
-
-The key insight: Claude Sonnet is a strong legal reasoner. While we wouldn't deploy
-it directly (too expensive at inference), we can use it as a "teacher model" to
-create training data for a smaller, fine-tuned model.
-"""
-
 import anthropic
 import json
 import time
@@ -22,13 +6,6 @@ from pathlib import Path
 from datetime import datetime
 import logging
 
-
-# PROMPT TEMPLATES
-# Why these specific prompts? They're engineered to:
-# 1. Force JSON-only output (no markdown wrapper that breaks parsing)
-# 2. Align risk_score with risk_level (consistency check later)
-# 3. Require EXACTLY 3 key_concerns (prevents vague "see above" responses)
-# 4. Demand actionable recommendations (not "consult a lawyer" generic advice)
 
 SYSTEM_PROMPT = """You are a senior legal counsel with 20 years of experience in commercial contract review.
 You specialize in identifying and assessing legal risks in contract clauses.
@@ -145,10 +122,6 @@ class SyntheticGenerator:
         """
         Send one clause to Claude and get back a risk assessment JSON.
 
-        Why max_retries=2? API errors happen (rate limits, network issues).
-        Two retries = 3 total attempts balances reliability vs latency.
-        If it fails 3 times, the example is genuinely problematic.
-
         Args:
             system_prompt: System message for Claude
             user_prompt: User message with clause and instructions
@@ -226,10 +199,6 @@ class SyntheticGenerator:
         """
         Generate risk assessment for a CUAD clause.
 
-        Why rate_limit_delay=0.5s? Claude Sonnet has generous rate limits,
-        but we're making 1,000+ calls. 0.5s = safe, won't hit limits.
-        If you do hit limits, the retry logic will back off automatically.
-
         Args:
             clause: Dict from raw_clauses.jsonl with clause_text, clause_type, etc.
             rate_limit_delay: Seconds to wait between API calls
@@ -276,13 +245,6 @@ class SyntheticGenerator:
     ) -> dict | None:
         """
         Generate a fully synthetic clause + risk assessment.
-
-        This is used for the 2 missing categories: confidentiality, indemnification.
-        Claude both creates the clause AND analyzes it in one API call.
-
-        Why in one call? Ensures the analysis matches the clause. If we generated
-        the clause first, then analyzed it separately, we'd need 2 API calls and
-        risk inconsistency if the model "forgets" what it wrote.
 
         Args:
             clause_type: "confidentiality" or "indemnification"
@@ -334,13 +296,6 @@ class SyntheticGenerator:
         """
         Estimate API cost based on token usage.
 
-        Why track cost? Claude Sonnet is affordable but not free. At $3/1M input
-        and $15/1M output tokens, 1,200 examples ≈ $3-5. Good to track.
-
-        Claude Sonnet 4 pricing (as of Feb 2025):
-        - Input: $3 per 1M tokens
-        - Output: $15 per 1M tokens
-
         Returns:
             Dict with token counts and estimated cost
         """
@@ -364,14 +319,6 @@ def sample_clauses(
 ) -> list[dict]:
     """
     Sample clauses from CUAD data using stratified random sampling.
-
-    Why stratified sampling? We want balanced representation across categories.
-    If we just did random sampling, we might get 400 termination clauses and
-    only 50 governing_law clauses, which would bias the model.
-
-    Legal/Business Intent: A risk assessment model needs to perform well on
-    ALL clause types, not just the most common ones. Stratified sampling ensures
-    we train equally on rare but critical categories like governing_law.
 
     Args:
         clauses: List of clause dicts from raw_clauses.jsonl

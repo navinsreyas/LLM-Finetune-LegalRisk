@@ -1,21 +1,3 @@
-"""
-Multi-Stage Quality Filter for Synthetic Risk Assessments.
-
-Why filter synthetic data? LLMs are non-deterministic. Even with careful prompting,
-Claude might occasionally:
-- Return malformed JSON
-- Give inconsistent risk scores
-- Provide vague recommendations
-- Generate duplicate assessments
-
-This filter removes low-quality examples BEFORE fine-tuning. Teaching a model
-on bad examples is worse than having fewer examples - it learns the wrong patterns.
-
-LEGAL ENGINEERING PRINCIPLE: "Garbage in, garbage out"
-A model trained on vague recommendations like "consult a lawyer" will produce
-vague outputs. We need high-quality, specific, actionable training data.
-"""
-
 import json
 import logging
 from pathlib import Path
@@ -96,9 +78,6 @@ class QualityFilter:
         """
         Stage 1: Check if the example has valid structure and required fields.
 
-        Why this first? No point checking value ranges if fields don't exist.
-        This catches API failures that returned partial JSON.
-
         Args:
             example: The generated example dict
 
@@ -136,9 +115,6 @@ class QualityFilter:
     def stage_2_value_range_check(self, example: dict) -> tuple[bool, str]:
         """
         Stage 2: Check if values are within expected ranges.
-
-        Why separate from format? Format checks structure, range checks semantics.
-        A field can be a float (format ✓) but be -0.5 (range ✗).
 
         Args:
             example: The generated example dict
@@ -188,13 +164,6 @@ class QualityFilter:
         """
         Stage 3: Check if risk_score aligns with risk_level.
 
-        Why this matters: If the model says risk_level="low" but risk_score=0.95,
-        it's confused. This inconsistency will confuse the fine-tuned model.
-
-        Legal/Business Intent: Risk scores and levels must align for the model
-        to learn reliable patterns. If we train on inconsistent data, the model
-        won't know whether to trust the score or the level.
-
         Args:
             example: The generated example dict
 
@@ -221,14 +190,6 @@ class QualityFilter:
     def stage_4_content_quality_check(self, example: dict) -> tuple[bool, str]:
         """
         Stage 4: Check if the content is high-quality and specific.
-
-        Why this stage? Passing all prior checks doesn't mean the recommendation
-        is useful. "Consult a lawyer" is technically valid but useless as training data.
-
-        This is the most legally-informed filter. We check:
-        - Are recommendations specific enough? (length check)
-        - Are concerns meaningful? (length check)
-        - Are we avoiding generic lawyerspeak? (phrase check)
 
         Args:
             example: The generated example dict
@@ -273,14 +234,6 @@ class QualityFilter:
         """
         Stage 5: Remove exact and near-duplicate examples.
 
-        Why deduplicate? Sometimes the API returns identical or nearly identical
-        assessments for different clauses. This doesn't help training - it just
-        teaches the model to memorize specific outputs.
-
-        Deduplication strategy:
-        1. Exact duplicates: Same output JSON (different input is OK)
-        2. Near-duplicates: Same clause_type, risk_level, AND all 3 key_concerns
-
         Args:
             examples: List of examples that passed stages 1-4
 
@@ -324,9 +277,6 @@ class QualityFilter:
     def filter_examples(self, examples: list[dict]) -> list[dict]:
         """
         Run all 5 filter stages on a list of examples.
-
-        This is the main entry point. It processes examples through each stage
-        sequentially, removing failures at each step.
 
         Args:
             examples: List of generated examples
@@ -379,9 +329,6 @@ class QualityFilter:
         """
         Generate a detailed filter report.
 
-        Why track this? We need to know what's failing and why. If 50% of examples
-        fail stage 4 (content quality), our prompts need improvement.
-
         Args:
             filtered_examples: The examples that passed filtering
 
@@ -431,9 +378,6 @@ def filter_and_save(
 ) -> dict:
     """
     Load examples, filter them, and save results.
-
-    This is a convenience function that wraps the QualityFilter class
-    for use in scripts.
 
     Args:
         input_path: Path to raw generated JSONL

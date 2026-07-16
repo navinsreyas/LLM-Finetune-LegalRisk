@@ -226,22 +226,6 @@ Total API spend:  ~$7.62 (estimated from token usage via the project's estimate_
 
 ---
 
-## Experiment Tracking
-
-**This is importing already-completed results into MLflow, not running new experiments.** `scripts/log_mlflow_runs.py` reads the existing result files (`results/phase3c_statistical_results.json`, `results/phase3d_error_analysis.json`, `results/trainable_params.json`) and logs one MLflow run per method (QLoRA, DoRA, IA3, RAG) so they can be browsed side by side. No training or inference happens when you run this script.
-
-Runs were imported from completed experiments (dates: `results/phase3c_statistical_results.json` and `results/phase3d_error_analysis.json` both dated 2026-03-08, per file timestamps; `results/trainable_params.json` was computed later, on 2026-07-04, by counting parameters directly from the saved adapter weights), not logged live. The MLflow run start/end time for each method is backdated to 2026-03-08 to match, rather than showing the date the import script happened to be run -- each run is also tagged `run_type=imported_from_completed_experiment` so this is unambiguous inside the MLflow UI itself.
-
-```bash
-pip install mlflow   # local/dev only -- not part of the deployed app (see requirements-deploy.txt)
-python scripts/log_mlflow_runs.py
-mlflow ui --backend-store-uri sqlite:///mlruns/mlflow.db
-```
-
-Then open http://127.0.0.1:5000 to compare `accuracy`, `judge_overall_score`, `clarity`, and `risk_bias_mean_bias` across the 4 methods, with `trainable_params` as a param and the three results JSON files attached as artifacts on every run.
-
----
-
 ## Tech Stack
 
 | Category | Tools |
@@ -254,6 +238,39 @@ Then open http://127.0.0.1:5000 to compare `accuracy`, `judge_overall_score`, `c
 | Statistics | scipy, numpy, pandas, scikit-learn |
 | Visualization | matplotlib, seaborn |
 | Experiment Tracking | Weights and Biases |
+
+---
+
+## Experiment Tracking
+
+**This is importing already-completed results into MLflow, not running new experiments.** `scripts/log_mlflow_runs.py` reads the existing result files (`results/phase3c_statistical_results.json`, `results/phase3d_error_analysis.json`, `results/trainable_params.json`) and logs one MLflow run per method (QLoRA, DoRA, IA3, RAG) so they can be browsed side by side. No training or inference happens when you run this script.
+
+Runs were imported from completed experiments (dates: `results/phase3c_statistical_results.json` and `results/phase3d_error_analysis.json` both dated 2026-03-08, per file timestamps; `results/trainable_params.json` was computed later, on 2026-07-04, by counting parameters directly from the saved adapter weights), not logged live. The MLflow run start/end time for each method is backdated to 2026-03-08 to match, rather than showing the date the import script happened to be run -- each run is also tagged `run_type=imported_from_completed_experiment` so this is unambiguous inside the MLflow UI itself.
+
+The 4 runs below were imported from those completed offline results, not logged live -- values read exactly from `mlflow_comparison.csv` (the exported MLflow comparison view):
+
+| Method | Accuracy | Judge Score | Clarity | Risk Bias | Trainable Params |
+|--------|----------|-------------|---------|-----------|-------------------|
+| QLoRA  | 0.4579   | 6.6743      | 8.0374  | -0.4206   | 24313856          |
+| DoRA   | 0.4486   | 6.6888      | 8.0935  | -0.3738   | 25088000          |
+| IA3    | 0.4766   | 6.4467      | 7.8411  | -0.2736   | 286720            |
+| RAG    | 0.5234   | 6.4888      | 7.4486  | -0.0891   | 0                 |
+
+```bash
+pip install mlflow   # local/dev only -- not part of the deployed app (see requirements-deploy.txt)
+python scripts/log_mlflow_runs.py
+mlflow ui --backend-store-uri sqlite:///mlruns/mlflow.db
+```
+
+Then open http://127.0.0.1:5000 to compare `accuracy`, `judge_overall_score`, `clarity`, and `risk_bias_mean_bias` across the 4 methods, with `trainable_params` as a param and the three results JSON files attached as artifacts on every run.
+
+---
+
+## Monitoring
+
+![Grafana dashboard](docs/grafana_dashboard.png)
+
+The live HF Space is instrumented with Prometheus metrics, collected via Grafana Alloy and visualized in Grafana Cloud — request rate by endpoint, risk-level distribution, average classify latency (~0.9s), and average Groq API latency (~0.6s, isolated from retrieval/processing overhead).
 
 ---
 

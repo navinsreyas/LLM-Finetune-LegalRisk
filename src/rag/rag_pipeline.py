@@ -21,11 +21,6 @@ from src.rag.retriever import ClauseRetriever
 # (RAGPipeline.__init__ and _generate_local) so a groq-only deployment never imports
 # them or loads any local weights.
 
-# Prometheus metrics -- registered in the default registry, so they surface on the
-# app's /metrics endpoint (prometheus-fastapi-instrumentator exposes that registry).
-#
-# Time spent ONLY inside the Groq API call -- isolates "API wait" from retrieval,
-# embedding, prompt-building, and JSON parsing. Recorded only on the groq path.
 GROQ_CALL_DURATION = Histogram(
     "groq_call_duration_seconds",
     "Seconds spent inside the Groq chat.completions.create call only.",
@@ -58,14 +53,6 @@ Output format:
 def try_repair_json(text: str) -> dict | None:
     """
     Attempt to repair incomplete JSON by adding missing closing braces.
-
-    Common issue: Model generation hits max_new_tokens and stops mid-JSON.
-    Example: '{"risk_level": "High", "risk_score": 0.8'
-
-    This tries to salvage it by:
-    1. Finding the outermost {
-    2. Counting unclosed { and [
-    3. Adding the right number of } and ]
 
     Args:
         text: Raw model output (possibly incomplete JSON)
@@ -116,9 +103,6 @@ def build_rag_prompt(query_clause: str, query_type: str, retrieved_examples: lis
     """
     Build the few-shot prompt with retrieved examples.
 
-    This is where RAG's magic happens — instead of the model recalling
-    training knowledge, we SHOW it similar examples in the prompt.
-
     Args:
         query_clause: The clause to analyze
         query_type: Clause type (termination, liability, etc.)
@@ -167,21 +151,11 @@ class RAGPipeline:
             n_examples: Number of examples to retrieve per query
             filter_by_type: If True, only retrieve same clause type examples
             device: "cuda" or "cpu"
-
-        Why NO quantization for RAG:
-        - Fine-tuned models used 4-bit quantization
-        - Give RAG full float16 precision for fairest comparison
-        - If RAG still loses to quantized fine-tuned models, that's compelling!
-        - (If you get OOM, add load_in_4bit=True to match fine-tuned setup)
         """
         self.n_examples = n_examples
         self.filter_by_type = filter_by_type
         self.device = device
 
-        # Provider switch for the GENERATION step ONLY. Retrieval, embedding, and
-        # prompt-building are identical regardless of provider.
-        #   "local" (default): load the base model and generate on-device (existing behavior).
-        #   "groq": call Groq's API; do NOT load any local model/tokenizer.
         self.provider = os.environ.get("LLM_PROVIDER", "local").lower()
 
         self.model = None
@@ -235,12 +209,6 @@ class RAGPipeline:
         Returns:
             dict with 'output' (parsed JSON), 'raw_text' (model output),
             'retrieved_examples' (what was retrieved), 'latency_ms'
-
-        The RAG process:
-        1. Retrieve similar examples from vector store
-        2. Build few-shot prompt with those examples
-        3. Generate risk assessment using BASE model
-        4. Parse JSON output (with fallback extraction and repair)
         """
         start_time = time.time()
 
@@ -341,10 +309,6 @@ class RAGPipeline:
         """
         Remote generation via Groq's API, using the SAME (system + user) prompt the
         local path builds. No local model or tokenizer is touched.
-
-        temperature=0.0 mirrors the local greedy setting (do_sample=False) for
-        reproducibility. Returns (raw_text, prompt_token_count) so the caller's
-        output shape and downstream JSON parsing are identical.
         """
         # Metric: time ONLY the Groq API call (this method runs only on the groq path,
         # so the local generation path never records this).

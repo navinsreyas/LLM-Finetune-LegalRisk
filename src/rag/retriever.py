@@ -18,10 +18,6 @@ class ClauseRetriever:
         Args:
             persist_dir: ChromaDB storage location
             embedding_model: Sentence-transformers model to use
-
-        This combines:
-        - ClauseEmbedder: Converts text → vectors
-        - ClauseVectorStore: Stores and searches vectors
         """
         self.embedder = ClauseEmbedder(model_name=embedding_model)
         self.store = ClauseVectorStore(persist_dir=persist_dir)
@@ -42,12 +38,6 @@ class ClauseRetriever:
 
         Returns:
             List of similar examples with clause_text, clause_type, output, distance
-
-        The magic of RAG:
-        1. Embed the query clause (converts to 384-dim vector)
-        2. Search ChromaDB for nearest neighbors (cosine similarity)
-        3. Return the training examples that are most similar
-        4. These become few-shot examples in the prompt
         """
         # Step 1: Embed the query clause
         query_embedding = self.embedder.embed_single(clause_text)

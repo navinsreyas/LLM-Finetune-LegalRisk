@@ -16,12 +16,6 @@ class ClauseEmbedder:
 
         Args:
             model_name: HuggingFace model ID for sentence-transformers
-
-        Why this model:
-        - all-MiniLM-L6-v2 is small (80MB), fast, and accurate
-        - Produces 384-dim vectors
-        - Runs on CPU (leaves GPU for Llama-3.2)
-        - Well-tested for semantic similarity tasks
         """
         self.model = SentenceTransformer(model_name, device="cpu")
         self.dimension = 384  # Output dimension of all-MiniLM-L6-v2
@@ -49,11 +43,6 @@ class ClauseEmbedder:
 
         Returns:
             Array of shape (len(texts), 384) with normalized embeddings
-
-        Why normalize_embeddings=True:
-        - Normalizes vectors to unit length
-        - Makes cosine similarity a simple dot product
-        - Speeds up ChromaDB searches
         """
         return self.model.encode(
             texts,
