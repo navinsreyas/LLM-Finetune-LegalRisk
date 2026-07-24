@@ -136,9 +136,14 @@ LegalRisk-LLM/
 |-- requirements.txt
 |-- .env.example
 |-- .gitignore
+|-- .github/
+|   +-- workflows/                   # CI: installs requirements-deploy.txt, runs pytest
+|-- app/                             # FastAPI web layer (main.py, static/index.html)
+|-- configs/                         # Per-method training configs (qlora.yaml, dora.yaml, ia3.yaml)
 |-- data/
 |   |-- raw_clauses.jsonl            # 5,847 CUAD clause spans
 |   +-- synthetic/                   # 855/108/107 train/val/test splits
+|-- docs/                            # README images (Grafana dashboard, MLflow comparison)
 |-- src/
 |   |-- data/                        # CUAD processor, schema, quality filter
 |   |-- training/                    # QLoRA, DoRA, IA3 trainers
@@ -152,6 +157,8 @@ LegalRisk-LLM/
 |   |-- qlora/
 |   |-- dora/
 |   +-- ia3/
+|-- terraform/                       # AWS App Runner + ECR IaC (see terraform/README.md)
+|-- tests/                           # pytest suite for the FastAPI app
 +-- results/
     |-- phase3c_statistical_results.json
     |-- phase3d_error_analysis.json
@@ -240,7 +247,8 @@ Total API spend:  ~$7.62 (estimated from token usage via the project's estimate_
 | LLM Judge | Anthropic API (Claude Sonnet) |
 | Statistics | scipy, numpy, pandas, scikit-learn |
 | Visualization | matplotlib, seaborn |
-| Experiment Tracking | Weights and Biases |
+| Experiment Tracking | Weights and Biases (training runs), MLflow (results import) |
+| Deployment | Docker, Hugging Face Spaces, Terraform, AWS App Runner + ECR |
 
 ---
 
