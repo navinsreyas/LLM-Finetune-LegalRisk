@@ -244,6 +244,19 @@ Total API spend:  ~$7.62 (estimated from token usage via the project's estimate_
 
 ---
 
+## Deployment
+
+**Live:** Hugging Face Spaces (Docker) — https://navinsreyas-legalrisk-analyzer.hf.space
+
+**Infrastructure as Code:** `terraform/` defines an AWS App Runner service
+sourced from an ECR container image (ap-southeast-2), with a dedicated IAM
+access role, health check on `/health`, and Groq-mode runtime configuration.
+The ECR repository and IAM role are provisioned and the container image is
+built and pushed; App Runner service creation is pending AWS account-level
+activation for the service.
+
+---
+
 ## Experiment Tracking
 
 **This is importing already-completed results into MLflow, not running new experiments.** `scripts/log_mlflow_runs.py` reads the existing result files (`results/phase3c_statistical_results.json`, `results/phase3d_error_analysis.json`, `results/trainable_params.json`) and logs one MLflow run per method (QLoRA, DoRA, IA3, RAG) so they can be browsed side by side. No training or inference happens when you run this script.
